@@ -30,7 +30,7 @@
     background-image: url(pictures/shuai.jpg);
         background-position: 40% 40%;
     left:10px;
-    top:100px;"><a  href ='google.com'>点到我有奖</a></div>
+    top:100px;"><a  style="color: red" href ='http://p'>点到我有奖</a></div>
 
 
 <script>
