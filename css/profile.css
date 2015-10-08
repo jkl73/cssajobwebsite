@@ -1,0 +1,14 @@
+.profile .container {
+	width: 400px;
+}
+.profile .month {
+	padding-left: 0px;
+	padding-right: 10px;
+}
+.profile .year {
+	padding-left: 10px;
+	padding-right: 0px;
+}
+.profile .form-group {
+	overflow: auto;
+}
