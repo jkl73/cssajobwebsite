@@ -31,7 +31,7 @@
 				<h1 >Sign in</h1>
 			</div>
 			
-			<form role="form">
+			<form role="form" action = "index.php">
 			  <div class="form-group">
 			    <label for="email">Username or Email</label>
 			    <input type="email" class="form-control" id="email">

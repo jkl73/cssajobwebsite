@@ -24,7 +24,7 @@
 		<div class = "text-center">
 			<h1>Join us Today!</h1>
 		</div>
-			<form role="form">
+			<form role="form" action = "jumpage.php" method = "POST">
 			  <div class="form-group">
 			    <label for="username">Username</label>
 			    <input type="username" class="form-control" id="email">
@@ -38,9 +38,9 @@
 			    <input type="password" class="form-control" id="pwd">
 			  </div>
 			  <label for="Alumni">Are you an Alumni or Student?</label>
-			  <select class="form-control" id="sel1">
-				<option>Alumni</option>
-				<option>Student</option>
+			  <select class="form-control" id="sel1" name="alumni">
+				<option value = "alu">Alumni</option>
+				<option value = "stu">Student</option>
 			  </select>
 			  <br></br>
 			  <div class = "col-sm-offset-10 col-sm-2">
