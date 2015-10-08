@@ -47,7 +47,6 @@ $(document).ready(function() {
                 <p>Dear Cornellians,</p>
                 <p>Chinese Students and Scholars Association (CSSA) is a voluntary, non-profit organization whose members are students and scholars coming from China. It is the ONLY Chinese student organization officially supported by Embassy of People's Republic of China at Cornell University. Cornell CSSA’s primary mission is to enhance happiness, harmony and unity among members; foster acquaintance and good fellowship through information, activities and mutual assistance; introduce Chinese culture and facilitate international culture exchange; and we also strive for opportunities to spread awareness and appreciation of Chinese arts and culture in an environment that increasingly welcomes our presence.</p>
             </div>
-            
         </div>
     </div>
     <div class = "col-sm-4" >

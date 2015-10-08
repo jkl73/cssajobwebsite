@@ -46,15 +46,13 @@
 			  <div class = "text-right">
 				<button type="submit" class="btn btn-default" >Sign In</button>
 			  </div>
-			  
+
 			</form>
-		</div>
-		
+		</div>		
 	</div>
 
 <?php
   include("footer.php");
 ?>
-
 </body>
 </html>
