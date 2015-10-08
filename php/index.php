@@ -16,7 +16,7 @@
 
 <body>
 <?php
-  include("php/header.php");
+  include("./header.php");
 ?>
 
 
@@ -26,7 +26,7 @@
     color: red;
  
     background:red;
-    background-image: url(pictures/shuai.jpg);
+    background-image: url(../pictures/shuai.jpg);
         background-position: 40% 40%;
     left:10px;
     top:100px;"><a  style="color: red" href ='http://p'>点到我有奖</a></div>
@@ -67,6 +67,6 @@ $(document).ready(function() {
   </div>
 
 <?php
-  include("php/footer.php");
+  include("./footer.php");
 ?>
 </body>

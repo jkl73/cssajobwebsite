@@ -20,7 +20,7 @@
         <div>Welcome SB</div>
       </div>
       <div class="navbarpic nav navbar-nav navbar-right">
-        <img src="./pictures/shuai.jpg">
+        <img src="../pictures/shuai.jpg">
       </div>
     </div>
   </div>
