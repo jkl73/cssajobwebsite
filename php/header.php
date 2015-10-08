@@ -13,14 +13,14 @@
     </div>
 
       <div class="loginsignup nav navbar-nav navbar-right">
-        <button class="btn btn-warning">Login</button>
-        <button class="btn btn-info">Sign Up</button>
+        <a href="php/sign-in.php" class="btn btn-warning">Login</a>
+        <a href="php/sign-up.php" class="btn btn-info">Sign Up</a>
       </div>
       <div class="usrlogininfo nav navbar-nav navbar-right">
         <div>Welcome SB</div>
       </div>
       <div class="navbarpic nav navbar-nav navbar-right">
-        <img src="pictures/shuai.jpg">
+        <img src="../pictures/shuai.jpg">
       </div>
 
     </div>
