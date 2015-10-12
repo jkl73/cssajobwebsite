@@ -19,7 +19,7 @@
   include("./header.php");
 ?>
 
-
+<!--
   <div class="jiang" style="position:fixed;
     width:80px;
     height:80px;
@@ -39,6 +39,7 @@ $(document).ready(function() {
             )
 } )       
 </script>
+-->
 
   <div class="container">
     <div class = "col-sm-8">

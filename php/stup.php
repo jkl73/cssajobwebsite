@@ -1,5 +1,3 @@
-
-
 	<div class="profile">
 		<div class="container">
 			<form class="form" role="form">
@@ -46,7 +44,7 @@
 			  			<option value="">---Please select one---</option>
 	                    <option value="full">Full-time job</option>
 	                    <option value="part">Part-time job</option>
-	                    <option value="intern">Intership</option>
+	                    <option value="intern">Internship</option>
 	                </select>
 			  	</div>
 			  	<button type="submit" class="btn">Cancel</button>

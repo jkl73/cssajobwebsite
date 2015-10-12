@@ -1,5 +1,3 @@
-
-
 	<div class="profile">
 		<div class="container">
 			<form class="form" role="form">
