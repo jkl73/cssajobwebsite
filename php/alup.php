@@ -1,14 +1,9 @@
 	<div class="profile">
 		<div class="container">
 			<form class="form" role="form">
-				<label for="major">Your major:</label>
+				<label for="company">Your company:</label>
 		  		<div class="form-group">
-		    		<select name="major" id="major" class="form-control">
-	                    <option value="">---Please select your major---</option>
-	                    <option value="cs">Computer Science</option>
-	                    <option value="ece">Electrical and Computer Engineering</option>
-	                    <option value="is">Information Science</option>
-	                </select> 
+		    		<input type="company" class="form-control" id="company" placeholder = "Google">
 		  		</div>
 		  		<label for="graduation-year">Graduation Year:</label>
 			  	<div class="form-group">

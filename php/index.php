@@ -52,16 +52,20 @@ $(document).ready(function() {
     </div>
     <div class = "col-sm-4" >
         <h1 class="text-center">Join us today!</h1>
-        <form class = "form-horizontal" role="form">
-          <div class="form-group">
-            <input type="username" class="form-control input-lg" id="username" placeholder = "Pick a username"> 
+        <form action = "jumpage.php" method = "POST" class = "form-horizontal" role="form">
+          <div class="form-group" >
+            <input type="username" class="form-control input-lg" id="username" placeholder = "Pick a username" name="username"> 
           </div>
           <div class="form-group">
-            <input type="email" class="form-control input-lg" id="email" placeholder = "Your E-mail">
+            <input type="email" class="form-control input-lg" id="email" placeholder = "Your E-mail" name="email">
           </div>
           <div class="form-group">
-            <input type="password" class="form-control input-lg" id="pwd" placeholder="Create a password">
+            <input type="password" class="form-control input-lg" id="pwd" placeholder="Create a password" name="pwd">
           </div>
+          <select class="form-control" id="sel1" name="alumni">
+            <option value = "alu">Alumni</option>
+            <option value = "stu">Student</option>
+          </select>
           <button type="submit" class="btn btn-lg" >Sign Up for CSSA</button>
         </form>
     </div>

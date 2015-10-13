@@ -5,11 +5,18 @@
     </div>
     <div>
       <ul class="nav navbar-nav">
+<<<<<<< Updated upstream
  <!--       <li class="active"><a href="#">Home</a></li>
         <li><a href="#">oooo</a></li>
         <li><a href="#">9999</a></li> 
         <li><a href="#">About</a></li>
 -->
+=======
+        <li class="active"><a href="index.php">Home</a></li>
+        <li><a href="#">Help</a></li>
+        <li><a href="#">MoHa</a></li> 
+        <li><a href="#">About</a></li> 
+>>>>>>> Stashed changes
       </ul>
     </div>
 
