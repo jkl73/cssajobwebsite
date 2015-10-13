@@ -1,4 +1,3 @@
-<!DOCTYPE HTML>
 <head>
 	<title>Profile</title>
 	<meta charset="utf-8">
@@ -35,7 +34,6 @@ $username = $_POST["username"];
 $email = $_POST["email"];
 $pwd = $_POST["pwd"];
 
-echo $alumni. $username . $email. $pwd;
 
 $sql = "CREATE TABLE user_info (
 email VARCHAR(30) NOT NULL,
@@ -63,7 +61,7 @@ else
 {
 	include("stup.php");
 }
-
+/*
 $query = "select * from user_info";
 $result = mysql_query($query);
 print "<table border = 1><caption> <h2> All User Info </h2> </caption>"; 
@@ -79,7 +77,7 @@ while($row = mysql_fetch_array($result)){
 		print "<td>" . $row[$field_num] . "</td> "; 
 	print "</tr>"; 
 } 
-print "</table>";
+print "</table>";*/
 ?>
 
 

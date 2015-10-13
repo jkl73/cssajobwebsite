@@ -12,7 +12,6 @@
  <script src="js/main.js"></script>
   <style>
   </style>
-
 </head>
 
 <body>
@@ -31,14 +30,14 @@
 				<h1 >Sign in</h1>
 			</div>
 			
-			<form role="form" action = "index.php">
+			<form role="form" action = "sign-in-jump.php" onSubmit="return checkSubmit();" name = "signin" method = "POST">
 			  <div class="form-group">
-			    <label for="email">Username or Email</label>
-			    <input type="email" class="form-control" id="email">
+			    <label for="email">Email</label>
+			    <input name = "email" type="email" class="form-control" id="email">
 			  </div>
 			  <div class="form-group">
 			    <label for="pwd">Password</label>
-			    <input type="password" class="form-control" id="pwd">
+			    <input name = "pwd" type="password" class="form-control" id="pwd">
 			  </div>
 			  <div class="checkbox">
 			    <label><input type="checkbox"> Remember me</label>
@@ -48,8 +47,29 @@
 			  </div>
 
 			</form>
+			<p style = "color: red" id="text-alert"></p>
 		</div>		
 	</div>
+
+	<script language="javascript">
+	   function checkSubmit() {
+	   
+	   	   var t = document.getElementById("text-alert");
+	       var p = document.getElementById("email");
+	       if(p.value == "" || p.value == null) 
+	       {
+	        t.innerHTML = "Please input email!";
+	        return false;
+	       }
+	       p = document.getElementById("pwd");
+	       if(p.value == "" || p.value == null) 
+	       {
+	        t.innerHTML = "Please input password!";
+	        return false;
+	       }
+	       return true;
+	 	}
+   </script>
 
 <?php
   include("footer.php");

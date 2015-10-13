@@ -24,7 +24,7 @@
 		<div class = "text-center">
 			<h1>Join us Today!</h1>
 		</div>
-			<form role="form" action = "jumpage.php" method = "POST">
+			<form role="form" action = "jumpage.php" onSubmit = "return checkSubmit()" method = "POST">
 			  <div class="form-group">
 			    <label for="username">Username</label>
 			    <input type="username" class="form-control" id="email">
@@ -47,9 +47,34 @@
 				<button type="submit" class="btn btn-default">Create an Account</button>
 			  </div>
 			</form>
+			<p style = "color: red" id="text-alert"></p>
 		</div>
 		
 	</div>
+	<script language="javascript">
+     function checkSubmit() {
+       var t = document.getElementById("text-alert");
+       var p = document.getElementById("email");
+       if(p.value == "" || p.value == null) 
+       {
+        t.innerHTML = "Please input email!";
+        return false;
+       }
+       p = document.getElementById("pwd");
+       if(p.value == "" || p.value == null) 
+       {
+        t.innerHTML = "Please input password!";
+        return false;
+       }
+       p = document.getElementById("username");
+       if(p.value == "" || p.value == null) 
+       {
+        t.innerHTML = "Please input username!";
+        return false;
+       }
+       return true;
+    }
+   </script>
 <?php
   include("footer.php");
 ?>

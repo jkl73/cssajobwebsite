@@ -52,7 +52,7 @@ $(document).ready(function() {
     </div>
     <div class = "col-sm-4" >
         <h1 class="text-center">Join us today!</h1>
-        <form action = "jumpage.php" method = "POST" class = "form-horizontal" role="form">
+        <form action = "jumpage.php" onSubmit = "return checkSubmit()" method = "POST" class = "form-horizontal" role="form">
           <div class="form-group" >
             <input type="username" class="form-control input-lg" id="username" placeholder = "Pick a username" name="username"> 
           </div>
@@ -68,8 +68,33 @@ $(document).ready(function() {
           </select>
           <button type="submit" class="btn btn-lg" >Sign Up for CSSA</button>
         </form>
+        <p style = "color: red" id="text-alert"></p>
     </div>
   </div>
+  <script language="javascript">
+     function checkSubmit() {
+       var t = document.getElementById("text-alert");
+       var p = document.getElementById("email");
+       if(p.value == "" || p.value == null) 
+       {
+        t.innerHTML = "Please input email!";
+        return false;
+       }
+       p = document.getElementById("pwd");
+       if(p.value == "" || p.value == null) 
+       {
+        t.innerHTML = "Please input password!";
+        return false;
+       }
+       p = document.getElementById("username");
+       if(p.value == "" || p.value == null) 
+       {
+        t.innerHTML = "Please input username!";
+        return false;
+       }
+       return true;
+    }
+   </script>
 
 <?php
   include("./footer.php");
