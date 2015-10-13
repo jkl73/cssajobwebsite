@@ -8,31 +8,67 @@
  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
  <link rel="stylesheet" href="http://localhost/cssajobwebsite/css/main.css">
-
  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
-<style>
 
-.node {
-  stroke: #ccc;
+ <style>
+
+
+
+
+  .recmdp {
+    margin: 20px;
+    border-radius: 50%;
+    float: left;
+    width: 100px;
+    height: 150px;
+  }
+.center {
+     float: none;
+     margin-left: auto;
+     margin-right: auto;
+
 }
 
-.node text {
-  pointer-events: none;
-  font: 10px sans-serif;
+.recmdp img{
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+.text-right button{
+  margin-right: 10px;
 }
 
-.link {
-  stroke: #999;
-  stroke-opacity: .6;
+#recmd {
+  width: 600px;
 }
 
-.circle {
-  border: 6;
+.recmddescip {
+text-align:center;
+margin: auto;
+display: table;
 }
 
-</style>
+.text{
+  width:100px;
+  height:100px;
+  background:#FFF;
+  opacity: 0;
+}
 
+
+.pic:hover .text { opacity:0.6; text-align: justify;  vertical-align: middle;color:#000000  ; font-size:20px; font-weight:700; padding:10px; } 
+
+
+.pic {
+    background: url("../pictures/shuai.jpg");
+    background-size: 100px 100px;
+    background-repeat: no-repeat;
+    border-radius: 50%;
+}
+ </style>
 </head>
+
+
 
 <body>
 <?php
@@ -40,73 +76,137 @@
 ?>
 
 
-<script>
-var width = $(window).width(),
-    height = $(window).height()
+<form>
+  <div id="recmd" class="center">
+  <div>
+    Click to establish the connections...
+  </div>
 
-var svg = d3.select("body").append("svg")
-    .attr("width", width)
-    .attr("height", height);
+  <div class="recmdp">
+  <div class="pic">
+    <div class="text">
+      Get
+      Connect
+    </div>
+  </div>
+  <span class="recmddescip">
+    Ab Cd EE
+  </span>
+  <span class="recmddescip">
+    Company
+  </span>
+  </div>
 
-var force = d3.layout.force()
-    .gravity(.2)
-    .distance(140)
-    .charge(-2000)
-    .size([width, height]);
+  <div class="recmdp">
+  <div class="pic">
+    <div class="text">
+      Get
+      Connect!
+    </div>
+  </div>
+  <span class="recmddescip">
+    Ab Cd EE
+  </span>
+  <span class="recmddescip">
+    Company
+  </span>
+  </div>
+    <div class="recmdp">
+  <div class="pic">
+    <div class="text">
+      Get
+      Connect!
+    </div>
+  </div>
+  <span class="recmddescip">
+    Ab Cd EE
+  </span>
+  <span class="recmddescip">
+    Company
+  </span>
+  </div>
+    <div class="recmdp">
+  <div class="pic">
+    <div class="text">
+      Get
+      Connect!
+    </div>
+  </div>
+  <span class="recmddescip">
+    Ab Cd EE
+  </span>
+  <span class="recmddescip">
+    Company
+  </span>
+  </div>
+    <div class="recmdp">
+  <div class="pic">
+    <div class="text">
+      Get
+      Connect!
+    </div>
+  </div>
+  <span class="recmddescip">
+    Ab Cd EE
+  </span>
+  <span class="recmddescip">
+    Company
+  </span>
+  </div>
+    <div class="recmdp">
+  <div class="pic">
+    <div class="text">
+      Get
+      Connect!
+    </div>
+  </div>
+  <span class="recmddescip">
+    Ab Cd EE
+  </span>
+  <span class="recmddescip">
+    Company
+  </span>
+  </div>
+    <div class="recmdp">
+  <div class="pic">
+    <div class="text">
+      Get
+      Connect!
+    </div>
+  </div>
+  <span class="recmddescip">
+    Ab Cd EE
+  </span>
+  <span class="recmddescip">
+    Company
+  </span>
+  </div>
+    <div class="recmdp">
+  <div class="pic">
+    <div class="text">
+      Get
+      Connect!
+    </div>
+  </div>
+  <span class="recmddescip">
+    Ab Cd EE
+  </span>
+  <span class="recmddescip">
+    Company
+  </span>
+  </div>
+  
 
-d3.json("../data/miserables.json", function(error, json) {
-  if (error) throw error;
-
-  force
-      .nodes(json.nodes)
-      .links(json.links)
-      .start();
-
-  var link = svg.selectAll(".link")
-      .data(json.links)
-    .enter().append("line")
-      .attr("class", "link");
-
-  var node = svg.selectAll(".node")
-      .data(json.nodes)
-    .enter().append("g")
-      .attr("class", "node")
-      .call(force.drag);
-
-  node.append("rect")
-      .attr("x", -25)
-      .attr("y", -25)
-      .attr("rx", "50%")
-      .attr("width", 70)
-      .attr("fill", "url(.imgPattern)")
-      .attr("height", 70);
-
-  node.append("pattern")
-      .attr("class", "imgPattern")
-
-  var nodeimg = svg.selectAll(".imgPattern")
-
-  nodeimg.append("image")
-      .attr("xlink:href", "../pictures/shuai.jpg")
+  <div class = "text-right">
+  <button type="submit" class="btn btn-default" >Skip</button>
+  <button type="submit" class="btn btn-default" >Next -></button>
+  </div>
+  <div class = "text-right">
+  </div>
 
 
-
-  node.append("text")
-      .attr("dx", -12)
-      .attr("dy", 25)
-      .text(function(d) { return d.name });
-
-  force.on("tick", function() {
-    link.attr("x1", function(d) { return d.source.x; })
-        .attr("y1", function(d) { return d.source.y; })
-        .attr("x2", function(d) { return d.target.x; })
-        .attr("y2", function(d) { return d.target.y; });
-
-    node.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
-  });
-});
-
-</script>
+  </div>
+</form>
 
 
 <?php
