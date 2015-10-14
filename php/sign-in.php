@@ -61,6 +61,11 @@
 	        t.innerHTML = "Please input email!";
 	        return false;
 	       }
+	       var patt=/[a-z]+[0-9]+@cornell.edu$/;
+	       if (!patt.test(p.value)){
+	       	t.innerHTML = "Please input a Cornell Email (exp. netID@cornell.edu)";
+	       	return false;
+	       }
 	       p = document.getElementById("pwd");
 	       if(p.value == "" || p.value == null) 
 	       {

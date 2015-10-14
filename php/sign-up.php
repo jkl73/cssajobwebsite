@@ -27,15 +27,15 @@
 			<form role="form" action = "jumpage.php" onSubmit = "return checkSubmit()" method = "POST">
 			  <div class="form-group">
 			    <label for="username">Username</label>
-			    <input type="username" class="form-control" id="email">
+			    <input name = "username" type="username" class="form-control" id="username">
 			  </div>
 			  <div class="form-group">
 			    <label for="email">Email Address</label>
-			    <input type="email" class="form-control" id="email" placeholder = "netid@cornell.edu">
+			    <input name = "email" type="email" class="form-control" id="email" placeholder = "netid@cornell.edu">
 			  </div>
 			  <div class="form-group">
 			    <label for="pwd">Password</label>
-			    <input type="password" class="form-control" id="pwd">
+			    <input name = "pwd" type="password" class="form-control" id="pwd">
 			  </div>
 			  <label for="Alumni">Are you an Alumni or Student?</label>
 			  <select class="form-control" id="sel1" name="alumni">
@@ -60,6 +60,11 @@
         t.innerHTML = "Please input email!";
         return false;
        }
+       var patt=/[a-z]+[0-9]+@cornell.edu$/;
+	       if (!patt.test(p.value)){
+	       	t.innerHTML = "Please input a Cornell Email (exp. netID@cornell.edu)";
+	       	return false;
+	       }
        p = document.getElementById("pwd");
        if(p.value == "" || p.value == null) 
        {

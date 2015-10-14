@@ -1,3 +1,4 @@
+<!DOCTYPE HTML>
 <head>
 	<title>Profile</title>
 	<meta charset="utf-8">
@@ -15,70 +16,82 @@
 </head>
 
 <body>
-<?php
-  include("header.php");
-?>
-<?php
-$db = mysql_connect("localhost", "root", "1qaz-pl,"); 
-if (!$db) { 
-	print "Error - Could not connect to MySQL"; 
-	exit; 
-}
-$er = mysql_select_db("user_student"); 
-if (!$er) { 
-	print "Error - Could not select the guest database"; 
-	exit; 
-}
-$alumni = $_POST["alumni"];
-$username = $_POST["username"];
-$email = $_POST["email"];
-$pwd = $_POST["pwd"];
+	<?php
+	  include("header.php");
+	?>
+	<?php
+	$server = mysql_connect("localhost", "root", ""); 
+	if (!$server) { 
+		print "Error - Could not connect to MySQL"; 
+		exit; 
+	}
+	$db = mysql_select_db("user_student"); 
+	if (!$db) { 
+		print "Error - Could not select the guest database"; 
+		exit; 
+	}
+
+	$type = $_POST["alumni"];
+	$name = $_POST["username"];
+	$email = $_POST["email"];
+	$pwd = $_POST["pwd"];
+
+	$query = "select * from employer E,student S where S.email ='". $email. "' || E.email ='". $email. "';";
+	$result = mysql_query($query);
+	if(!$result){
+		print "Error- Judge failed";
+		$error = mysql_error();
+		print "<p>". $error . "</p>";
+		exit;		
+	}
+
+	$row = mysql_fetch_array($result);
+	if($row){
+		print "Email used";
+		exit;
+	}
 
 
-$sql = "CREATE TABLE user_info (
-email VARCHAR(30) NOT NULL,
-username VARCHAR(20),
-pwd VARCHAR(18)
-)";
-if (mysql_query($sql) == TRUE){
-	echo "Create Table Sucessfully! <br>";
-} else{
-	echo "Error creating table: <br>";
-}
+	if($type == 'alu'){
+			$query = "INSERT INTO employer(name, email, password) VALUES('".$name."','".$email. "','".$pwd."')";
+	}
+	else if($type == 'stu'){
+			$query = "INSERT INTO student(name, email, password) VALUES('".$name."','".$email. "','".$pwd."')";
+	}
+
+	$query = stripslashes($query);
+	$result = mysql_query($query);
+	if(!$result){
+		print "Error- Inserting into student/employer failed";
+		$error = mysql_error();
+		print "<p>". $error . "</p>";
+		exit;		
+	}
+
+	if ($type == 'alu'){
+		include("alup.php");
+	}
+	else{
+		include("stup.php");
+	}
+	/*
+	$query = "select * from user_info";
+	$result = mysql_query($query);
+	print "<table border = 1><caption> <h2> All User Info </h2> </caption>"; 
+	print "<tr align = 'center'>";
 
 
-$query = "INSERT INTO user_info(email, username, pwd)  VALUES('". $email."','".$username. "','". $pwd."')";
-$query = stripslashes($query);
-if ($result = mysql_query($query) == TRUE){
-	echo "INSERT Sucessfully!";
-	echo "<br>";
-}
-
-if ($alumni == 'alu'){
-	include("alup.php");
-}
-else
-{
-	include("stup.php");
-}
-/*
-$query = "select * from user_info";
-$result = mysql_query($query);
-print "<table border = 1><caption> <h2> All User Info </h2> </caption>"; 
-print "<tr align = 'center'>";
-
-
-print "<tr align = 'center'><th>email</th><th>username</th><th>password</th></tr>";
-while($row = mysql_fetch_array($result)){
-	$num_fields = sizeof($row);
-	reset($row); 
-	print "<tr align = 'center'>"; 
-	for ($field_num = 0; $field_num < $num_fields/2 ; $field_num++) 
-		print "<td>" . $row[$field_num] . "</td> "; 
-	print "</tr>"; 
-} 
-print "</table>";*/
-?>
+	print "<tr align = 'center'><th>email</th><th>username</th><th>password</th></tr>";
+	while($row = mysql_fetch_array($result)){
+		$num_fields = sizeof($row);
+		reset($row); 
+		print "<tr align = 'center'>"; 
+		for ($field_num = 0; $field_num < $num_fields/2 ; $field_num++) 
+			print "<td>" . $row[$field_num] . "</td> "; 
+		print "</tr>"; 
+	} 
+	print "</table>";*/
+	?>
 
 
 

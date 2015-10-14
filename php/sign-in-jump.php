@@ -15,37 +15,56 @@
 </head>
 
 <body>
-<?php
-include("header.php");
-$db = mysql_connect("localhost", "root", "1qaz-pl,"); 
-if (!$db) { 
-    print "Error - Could not connect to MySQL"; 
-    exit; 
-}
-$er = mysql_select_db("user_student"); 
-if (!$er) { 
-    print "Error - Could not select the guest database"; 
-    exit; 
-}
+    <?php
+    include("header.php");
+    $server = mysql_connect("localhost", "root", ""); 
+    if (!$server) { 
+        print "Error - Could not connect to MySQL"; 
+        exit; 
+    }
+    $db = mysql_select_db("user_student"); 
+    if (!$db) { 
+        print "Error - Could not select the guest database"; 
+        exit; 
+    }
 
-$email = $_POST['email'];
-$pwd = $_POST['pwd'];
+    $email = $_POST['email'];
+    $pwd = $_POST['pwd'];
+
+    $query1 = "select S.password from employer S where S.email ='". $email."';";
+    $alu_result = mysql_query($query1);
+
+    $query2 = "select S.password from student S where S.email ='". $email."';";
+    $stu_result = mysql_query($query2);
+    if(!$alu_result || !$stu_result){
+        print "Error - Failed to get result from stu or employer"; 
+        exit; 
+    }    
 
 
-$query = "select S.username, S.pwd from user_info S where S.email ='". $email."';";
-$result = mysql_query($query);
+    $stu_row = mysql_fetch_array($stu_result);
+    $alu_row = mysql_fetch_array($alu_result);
 
-$row = mysql_fetch_array($result);
-reset($row);
-echo "<div class=\"container\">";
-if($row[1] == $pwd){
-    echo "<p>Hello ".$row[0]."!</p><br>";
-}else{
-    echo "<p>Wrong password!</p><br>";
-}
-?>
-<p>Pages will redirect automatically after 10 seconds</p>
-</div>
+    if (!$stu_row && !$alu_row) {
+      echo "<p>Email Invalid!</p><br>";
+    } else {
+      if($stu_row){
+        if($stu_row[0] == $pwd){
+           echo "<p>Hello!</p><br>";
+        } else{
+           echo "<p>Wrong Password!</p><br>";
+        }
+      } else {
+        if($alu_row[0] == $pwd){
+           echo "<p>Hello!</p><br>";
+        } else{
+           echo "<p>Wrong Password!</p><br>";
+        }
+      }
+    }
+    ?>
+    <p>Pages will redirect automatically after 10 seconds</p>
+    </div>
 
 
 <?php
