@@ -20,14 +20,14 @@
 	  include("header.php");
 	?>
 	<?php
-	$server = mysql_connect("localhost", "root", ""); 
+	$server = mysql_connect("cssadbinstance.ccmgeu2ghiy1.us-east-1.rds.amazonaws.com", "cssaadmin", "cssaadmin123"); 
 	if (!$server) { 
 		print "Error - Could not connect to MySQL"; 
 		exit; 
 	}
 	$db = mysql_select_db("user_student"); 
 	if (!$db) { 
-		print "Error - Could not select the guest database"; 
+		print "Error - Could not select the user_student database"; 
 		exit; 
 	}
 
@@ -50,7 +50,6 @@
 		print "Email used";
 		exit;
 	}
-
 
 	if($type == 'alu'){
 			$query = "INSERT INTO employer(name, email, password) VALUES('".$name."','".$email. "','".$pwd."')";

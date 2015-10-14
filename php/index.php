@@ -40,7 +40,6 @@ $(document).ready(function() {
 } )       
 </script>
 -->
-
   <div class="container">
     <div class = "col-sm-8">
         <div class = "jumbotron">
@@ -62,11 +61,16 @@ $(document).ready(function() {
           <div class="form-group">
             <input type="password" class="form-control input-lg" id="pwd" placeholder="Create a password" name="pwd">
           </div>
+
+          <div class="form-group">
           <select class="form-control" id="sel1" name="alumni">
-            <option value = "alu">Alumni</option>
-            <option value = "stu">Student</option>
+            <option value = "alu">I am an Alumni</option>
+            <option value = "stu">I am an Student</option>
           </select>
+        </div>
+          <div class="form-group">
           <button type="submit" class="btn btn-lg" >Sign Up for CSSA</button>
+          </div>
         </form>
         <p style = "color: red" id="text-alert"></p>
     </div>
