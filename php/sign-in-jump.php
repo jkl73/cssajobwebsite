@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <title>CSSA sign in page</title>
-  <meta http-equiv="refresh" content="10; URL=index.php" charset="utf-8">
+  <meta http-equiv="refresh" content="5; URL=homepage.php" charset="utf-8">
  <meta name="viewport" content="width=device-width, initial-scale=1">
  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -50,12 +50,14 @@
     } else {
       if($stu_row){
         if($stu_row[0] == $pwd){
+           setcookie("logininfo", "test");
            echo "<p>Hello!</p><br>";
         } else{
            echo "<p>Wrong Password!</p><br>";
         }
       } else {
         if($alu_row[0] == $pwd){
+           setcookie("logininfo", "test");
            echo "<p>Hello!</p><br>";
         } else{
            echo "<p>Wrong Password!</p><br>";

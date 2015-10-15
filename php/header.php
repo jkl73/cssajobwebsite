@@ -17,12 +17,22 @@
   setcookie("last_visit", time());
 
   if (isset($_COOKIE['logininfo'])) {
+
+    echo '<div class="nav navbar-nav navbar-right">';
+    echo '<button class="dropdown-toggle" type="button" data-toggle="dropdown">';
+    echo '<span class="caret"></span></button>';
+    echo '<ul class="dropdown-menu">';
+    echo '<li><a href="settings.php">Settings</a></li>';
+    echo '<li><a href="logout.php">Logout</a></li>';
+    echo '</ul>';
+    echo "</div>";
+
     echo '<div class="usrlogininfo nav navbar-nav navbar-right">';
     echo "<div>Welcome Student</div>";
     echo "</div>";
     echo '<div class="navbarpic nav navbar-nav navbar-right">';
     echo '<img src="../pictures/shuai.jpg">';
-    echo "</div>";
+    echo '</div>';
   }
   else {
     echo '<div class="loginsignup nav navbar-nav navbar-right">';
