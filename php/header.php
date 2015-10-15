@@ -26,7 +26,7 @@
   }
   else {
     echo '<div class="loginsignup nav navbar-nav navbar-right">';
-    echo '<a href="sign-in.php" class="btn btn-warning">Login</a>';
+    echo '<a href="sign-in.php" id="loginbutton" class="btn btn-warning">Login</a>';
     echo '<a href="sign-up.php" class="btn btn-info">Sign Up</a>';
     echo '</div>';
   }

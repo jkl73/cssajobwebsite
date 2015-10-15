@@ -40,17 +40,21 @@ $(document).ready(function() {
 } )       
 </script>
 -->
+<div class="fullscreen-bg">
+    <video loop muted autoplay poster="img/videoframe.jpg" class="fullscreen-bg__video">
+              <source src="//cdnsecakmi.kaltura.com/p/537811/sp/53781100/download/entry_id/0_xlka3d02/flavor/0_oe57fo78" type="video/mp4" />
+    </video>
+</div>
+
+
   <div class="container">
-    <div class = "col-sm-8">
-        <div class = "jumbotron">
-            <div class = "row">
+
+    <div class = "overlay col-sm-6"》
                 <p>Dear Cornellians,</p>
                 <p>Chinese Students and Scholars Association (CSSA) is a voluntary, non-profit organization whose members are students and scholars coming from China. It is the ONLY Chinese student organization officially supported by Embassy of People's Republic of China at Cornell University. Cornell CSSA’s primary mission is to enhance happiness, harmony and unity among members; foster acquaintance and good fellowship through information, activities and mutual assistance; introduce Chinese culture and facilitate international culture exchange; and we also strive for opportunities to spread awareness and appreciation of Chinese arts and culture in an environment that increasingly welcomes our presence.</p>
-            </div>
-        </div>
     </div>
-    <div class = "col-sm-4" >
-        <h1 class="text-center">Join us today!</h1>
+    <div class = "qicksu col-sm-4" >
+        <h1 class="jutoday text-center">Join us today!</h1>
         <form action = "jumpage.php" onSubmit = "return checkSubmit()" method = "POST" class = "form-horizontal" role="form">
           <div class="form-group" >
             <input type="username" class="form-control input-lg" id="username" placeholder = "Pick a username" name="username"> 
