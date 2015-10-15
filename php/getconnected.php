@@ -73,6 +73,7 @@ display: table;
 <body>
 <?php
   include("./header.php");
+  setcookie("logininfo", "test");
   //$server = mysql_connect("localhost", "root", "1qaz-pl,"); 
   $server = mysql_connect("cssadbinstance.ccmgeu2ghiy1.us-east-1.rds.amazonaws.com", "cssaadmin", "cssaadmin123"); 
   if (!$server) { 
@@ -247,6 +248,7 @@ display: table;
 
 
   </div>
+  <input type = "hidden" name = "email" value = <?php echo '"'.$email.'"'; ?>>
 </form>
 
 

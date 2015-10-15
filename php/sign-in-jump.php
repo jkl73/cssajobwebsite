@@ -2,21 +2,23 @@
 <html lang="en">
 <head>
   <title>CSSA sign in page</title>
-  <meta http-equiv="refresh" content="5; URL=homepage.php" charset="utf-8">
+  <meta charset="utf-8">
  <meta name="viewport" content="width=device-width, initial-scale=1">
  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
  <link rel="stylesheet" href="http://localhost/cssajobwebsite/css/main.css">
+   <link rel="stylesheet" href="../css/profile.css">
  <script src="js/main.js"></script>
   <style>
   </style>
 </head>
 
 <body>
+  <?php include("header.php");?>
+  <div class = "container">
     <?php
-    include("header.php");
     //$server = mysql_connect("localhost", "root", "1qaz-pl,"); 
     $server = mysql_connect("cssadbinstance.ccmgeu2ghiy1.us-east-1.rds.amazonaws.com", "cssaadmin", "cssaadmin123"); 
     if (!$server) { 
@@ -52,21 +54,27 @@
       if($stu_row){
         if($stu_row[0] == $pwd){
            setcookie("logininfo", "test");
-           echo "<p>Hello!</p><br>";
+           echo "<h1 class = 'text-center'>Hello!</h1><br>";
         } else{
            echo "<p>Wrong Password!</p><br>";
+           exit;
         }
       } else {
         if($alu_row[0] == $pwd){
            setcookie("logininfo", "test");
-           echo "<p>Hello!</p><br>";
+           echo "<h1 class = 'text-center'>Hello!</h1><br>";
         } else{
            echo "<p>Wrong Password!</p><br>";
+           exit;
         }
       }
     }
     ?>
-    <p>Pages will redirect automatically after 10 seconds</p>
+    <form action = "homepage.php" method = "POST">
+      <input type = "hidden" name = "email" value = <?php echo '"'.$email.'"'; ?>>
+      <button type = "submit" class = "btn-lg">Click to continue</button>
+    </form>
+    
     </div>
 
 

@@ -37,7 +37,7 @@
 	                    </select>
 	            	</div>
 			  	</div>
-			  	<button type="submit" class="btn">Cancel</button>
+			  	<button type="reset" class="btn">Reset</button>
 			  	<button type="submit" class="btn">Update</button>
 			  	<input type = "hidden" name="type" value="alu">
 
