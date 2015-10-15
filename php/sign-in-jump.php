@@ -17,7 +17,7 @@
 <body>
     <?php
     include("header.php");
-    $server = mysql_connect("localhost", "root", ""); 
+    $server = mysql_connect("cssadbinstance.ccmgeu2ghiy1.us-east-1.rds.amazonaws.com", "cssaadmin", "cssaadmin123"); 
     if (!$server) { 
         print "Error - Could not connect to MySQL"; 
         exit; 

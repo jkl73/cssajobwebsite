@@ -27,26 +27,23 @@
 		print "Error - Could not connect to MySQL"; 
 		exit; 
 	}
-	$sql = "CREATE DATABASE user_student";
-	if (mysql_query($sql) == TRUE){
-		echo "Create database user_student successfully<br>"
-	} else{
-		die("Error with creating database user_student<br>");
-	}
-	$sql = "DROP TABLE IF EXISTS `admin`;
+	$db = mysql_select_db("user_student");
+
+	$sql = "
 			CREATE TABLE `admin` (
 			  `name` varchar(64) NOT NULL,
 			  `email` varchar(64) NOT NULL,
 			  `password` varchar(32) NOT NULL,
 			  PRIMARY KEY (`email`)
-			) ENGINE=InnoDB DEFAULT CHARSET=latin1;"
+			) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
+	
 	if (mysql_query($sql) == TRUE){
-		echo "Create table admin successfully<br>"
-	} else{
-		die("Error with creating table admin<br>");
+		echo "Create table admin successfully<br>";
+	} else {
+		echo "Error with creating table admin";
 	}
 
-	$sql = "DROP TABLE IF EXISTS `employer`;
+	$sql = "
 			CREATE TABLE `employer` (
 			  `name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
 			  `email` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
@@ -58,14 +55,14 @@
 			  `type` int(2) DEFAULT NULL,
 			  PRIMARY KEY (`email`),
 			  UNIQUE KEY `email` (`email`)
-			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;"
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;";
 	if (mysql_query($sql) == TRUE){
-		echo "Create table employer successfully<br>"
+		echo "Create table employer successfully<br>";
 	} else{
 		die("Error with creating table employer<br>");
 	}
 
-	$sql = "DROP TABLE IF EXISTS `student`;
+	$sql = "
 			CREATE TABLE `student` (
 			  `name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
 			  `email` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
@@ -77,40 +74,40 @@
 			  PRIMARY KEY (`email`),
 			  UNIQUE KEY `email` (`email`),
 			  KEY `student_name` (`name`)
-			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;"
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;";
 	if (mysql_query($sql) == TRUE){
-		echo "Create table student successfully<br>"
+		echo "Create table student successfully<br>";
 	} else{
 		die("Error with creating table student<br>");
 	}
 
-	$sql = "DROP TABLE IF EXISTS `post_content`;
+	$sql = "
 			CREATE TABLE `post_content` (
 			  `postid` int(11) NOT NULL,
 			  `content` varchar(4096) NOT NULL,
 			  PRIMARY KEY (`postid`)
-			) ENGINE=InnoDB DEFAULT CHARSET=latin1;"
+			) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
 	if (mysql_query($sql) == TRUE){
-		echo "Create table post_content successfully<br>"
+		echo "Create table post_content successfully<br>";
 	} else{
 		die("Error with creating table post_content<br>");
 	}
 
-	$sql = "DROP TABLE IF EXISTS `reply`;
+	$sql = "
 			CREATE TABLE `reply` (
 			  `postid` int(11) NOT NULL,
 			  `email` varchar(64) NOT NULL,
 			  `content` varchar(1024) NOT NULL,
 			  `time` datetime NOT NULL,
 			  PRIMARY KEY (`postid`,`email`)
-			) ENGINE=InnoDB DEFAULT CHARSET=latin1;"
+			) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
 	if (mysql_query($sql) == TRUE){
-		echo "Create table reply successfully<br>"
+		echo "Create table reply successfully<br>";
 	} else{
 		die("Error with creating table reply<br>");
 	}
 
-	$sql = "DROP TABLE IF EXISTS `post_info`;
+	$sql = "
 			CREATE TABLE `post_info` (
 			  `postid` int(11) NOT NULL,
 			  `email` varchar(64) NOT NULL,
@@ -122,9 +119,9 @@
 			  `like` int(10) unsigned DEFAULT NULL,
 			  PRIMARY KEY (`postid`),
 			  UNIQUE KEY `postid_UNIQUE` (`postid`)
-			) ENGINE=InnoDB DEFAULT CHARSET=latin1;"
+			) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
 	if (mysql_query($sql) == TRUE){
-		echo "Create table post_info successfully<br>"
+		echo "Create table post_info successfully<br>";
 	} else{
 		die("Error with creating table post_info<br>");
 	}
