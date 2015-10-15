@@ -1,6 +1,6 @@
 	<div class="profile">
 		<div class="container">
-			<form class="form" role="form">
+			<form class="form" role="form" action = "getconnected.php" method = "POST">
 				<label for="major">Your major:</label>
 		  		<div class="form-group">
 		    		<select name="major" id="major" class="form-control">
@@ -49,8 +49,6 @@
 			  	</div>
 			  	<button type="submit" class="btn">Cancel</button>
 			  	<button type="submit" class="btn">Update</button>
-	 		</form>
-	  	</div>
-  	</div>
+			  	<input type = "hidden" name="type" value="stu">
 
 

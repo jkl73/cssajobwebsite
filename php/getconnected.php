@@ -73,10 +73,51 @@ display: table;
 <body>
 <?php
   include("./header.php");
+  //$server = mysql_connect("localhost", "root", "1qaz-pl,"); 
+  $server = mysql_connect("cssadbinstance.ccmgeu2ghiy1.us-east-1.rds.amazonaws.com", "cssaadmin", "cssaadmin123"); 
+  if (!$server) { 
+    print "Error - Could not connect to MySQL"; 
+    exit; 
+  }
+  $db = mysql_select_db("user_student"); 
+  if (!$db) { 
+    print "Error - Could not select the user_student database"; 
+    exit; 
+  }
+
+  $type = $_POST["type"];
+  $email = $_POST["email"];
+  $month = $_POST["month"];
+  $year = $_POST["year"];
+
+  if($type == "stu"){
+    $major = $_POST["major"];
+    $job_type = $_POST["job-type"];
+    $sql = "UPDATE student SET grad_year=".$year.",major='".$major."',job_type = '".$job_type."' WHERE email='".$email."'";
+    $result = mysql_query($sql);
+    if(!$result){
+      print "Error- Update student table failed";
+      $error = mysql_error();
+      print "<p>". $error . "</p>";
+      exit;   
+    }
+  }
+  else{
+    $company = $_POST["company"];
+    $Linkedin = $_POST["Linkedin"];
+    $sql = "UPDATE employer SET grad_year=".$year.",company='".$company."',Linkedin = '".$Linkedin."' WHERE email='".$email."'";
+    $result = mysql_query($sql);
+    if(!$result){
+      print "Error- Update employer table failed";
+      $error = mysql_error();
+      print "<p>". $error . "</p>";
+      exit;
+    }
+  }
 ?>
 
 
-<form>
+<form action = "homepage.php" method = "POST">
   <div id="recmd" class="center">
   <div>
     Click to establish the connections...

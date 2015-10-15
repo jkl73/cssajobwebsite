@@ -20,6 +20,7 @@
 	  include("header.php");
 	?>
 	<?php
+	//$server = mysql_connect("localhost", "root", "1qaz-pl,"); 
 	$server = mysql_connect("cssadbinstance.ccmgeu2ghiy1.us-east-1.rds.amazonaws.com", "cssaadmin", "cssaadmin123"); 
 	if (!$server) { 
 		print "Error - Could not connect to MySQL"; 
@@ -73,6 +74,8 @@
 	else{
 		include("stup.php");
 	}
+	$hidden_form = "<input type=\"hidden\" name=\"email\" value=\"".$email."\">";
+	echo $hidden_form;
 	/*
 	$query = "select * from user_info";
 	$result = mysql_query($query);
@@ -92,7 +95,9 @@
 	print "</table>";*/
 	?>
 
-
+			</form>
+	  	</div>
+  	</div>
 
 
 <?php
