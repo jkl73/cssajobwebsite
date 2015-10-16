@@ -3,6 +3,17 @@ html {
   min-height: 100%;
 }
 
+.jobpostform {
+  width: 90%;
+}
+.jobpostform .row {
+  margin-bottom: 5px;
+}
+
+.jobpostform .toggle{
+    margin-bottom: 5px;
+}
+
 .nav .dropdown-toggle {
   color: white;
   border: 0px;
@@ -14,7 +25,7 @@ html {
 }
 
 #loginbutton {
-  margin-right: 5px;
+  margin-right: 10px;
 }
 
 .videocontainer {
@@ -34,7 +45,7 @@ html {
     font-size: 20px;
     font-weight: 120;
     margin-top: 00px;
-    margin-right: 100px;
+    margin-right: 90px;
     padding: 30px;
     background-color: black;
     color: white;
