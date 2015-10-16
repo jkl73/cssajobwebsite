@@ -89,7 +89,7 @@ display: table;
   $email = $_POST["email"];
   $month = $_POST["month"];
   $year = $_POST["year"];
-  setcookie("email", $email);
+  echo "TYPE = ".$type;
 
 
 
@@ -120,7 +120,7 @@ display: table;
 ?>
 
 
-<form action = "homepage.php" method = "POST">
+<form action = "update-connect-info.php" method = "POST">
   <div id="recmd" class="center">
   <div>
     Click to establish the connections...
@@ -251,6 +251,7 @@ display: table;
 
   </div>
   <input type = "hidden" name = "email" value = <?php echo '"'.$email.'"'; ?>>
+  <input type = "hidden" name = "type" value = <?php echo '"'.$type.'"'; ?>>
 </form>
 
 

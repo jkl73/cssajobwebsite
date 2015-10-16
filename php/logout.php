@@ -18,10 +18,15 @@
 You will be redirected in 1 second...
 
 <?php
-  if (isset($_COOKIE['logininfo'])) {
-  	unset($_COOKIE['logininfo']);
+  if (isset($_COOKIE['email'])) {
+  	unset($_COOKIE['email']);
     // empty value and expiration one hour before
-    $res = setcookie('logininfo', '', time() - 3600);
+    $res = setcookie('email', '', time() - 3600);
+  }
+  if (isset($_COOKIE['type'])) {
+  	unset($_COOKIE['type']);
+    // empty value and expiration one hour before
+    $res = setcookie('type', '', time() - 3600);
   }
 ?>
 

@@ -18,10 +18,6 @@
 <?php
   include("header.php");
 ?>
-<div class = "container">
-<div class="row">
-  <div class="col-xs-12 col-sm-6 col-md-8">
-  	 <ul class="list-group">
 <?php
 	//$server = mysql_connect("localhost","root","1qaz-pl,");
 	$server = mysql_connect("cssadbinstance.ccmgeu2ghiy1.us-east-1.rds.amazonaws.com", "cssaadmin", "cssaadmin123"); 
@@ -34,57 +30,20 @@
 		print "Error - Could not select the user_student database"; 
 		exit; 
 	}
-	if(!isset($_COOKIE['email']))
+	if(!isset($_COOKIE['email'])||!isset($_COOKIE['type']))
 	{
 		header('Location: index.php');
+		exit;
 	}
-	$myemail = $_COOKIE["email"];
-
-	$query = "select comapny,postid,email,position,visit from post_info;";
-	$result = mysql_query($query);
-	if(!$result){
-		print "Error- Get info from post_info failed";
-		$error = mysql_error();
-		print "<p>". $error . "</p>";
-		//exit;		
+	$type = $_COOKIE['type'];
+	if($type == 'stu'){
+		header('Location: homepage-std.php');
+		exit;
 	}
-
-	while($row = mysql_fetch_array($result)){
-		$num_fields = sizeof($row);
-		reset($row); 
-		echo "<li class=\"list-group-item\">";
-		echo "<span class=\"badge\">".$row["visit"]."</span>";
-		echo '<a href="#">'.$row["comapny"].' information by '.$row["email"].' for position: '.$row["position"].'</a>';
-		echo "</li> "; 
-	} 
-	print "</ul>";
-?>
-  </div>
-  <div class="col-xs-6 col-md-4">
-  	<ul class="list-group">
-<?php
-	$query = 'select name,grad_year,major,job_type from student where email = "'.$myemail.'";';
-	$result = mysql_query($query);
-	if(!$result){
-		print "Error- Get info from student failed";
-		$error = mysql_error();
-		print "<p>". $error . "</p>";
-		exit;		
+	else{
+		header('Location: homepage-alu.php');
+		exit;
 	}
-	$row = mysql_fetch_array($result);
-		$num_fields = sizeof($row);
-		echo '<li class="list-group-item">Username:'.$row["name"].'</li>';
-		echo '<li class="list-group-item">Expected Graduation Year:'.$row["grad_year"].'</li>';
-		echo '<li class="list-group-item">Major'.$row["major"].'</li>';
-		echo '<li class="list-group-item">Looking for job\'s type:'.$row["job_type"].'</li>';
-	echo "</ul>"
-?>
-  </div>
-</div>
-</div>
-
-
-<?php
   include("footer.php");
 ?>
 

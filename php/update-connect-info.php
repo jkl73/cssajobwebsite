@@ -32,43 +32,12 @@
     }
 
     $email = $_POST['email'];
-    $pwd = $_POST['pwd'];
+    $type = $_POST['type'];
 
-    $query1 = "select S.password from employer S where S.email ='". $email."';";
-    $alu_result = mysql_query($query1);
+    setcookie("email",$email);
+    setcookie("type",$type);
 
-    $query2 = "select S.password from student S where S.email ='". $email."';";
-    $stu_result = mysql_query($query2);
-    if(!$alu_result || !$stu_result){
-        print "Error - Failed to get result from stu or employer"; 
-        exit; 
-    }    
-
-
-    $stu_row = mysql_fetch_array($stu_result);
-    $alu_row = mysql_fetch_array($alu_result);
-
-    if (!$stu_row && !$alu_row) {
-      echo "<p>Email Invalid!</p><br>";
-    } else {
-      if($stu_row){
-        if($stu_row[0] == $pwd){
-           setcookie("email", $email);
-           setcookie("type", "stu");
-           echo "<h1 class = 'text-center'>Hello!</h1><br>";
-        } else{
-           echo "<p>Wrong Password!</p><br>";
-        }
-      } else {
-        if($alu_row[0] == $pwd){
-           setcookie("email", $email);
-           setcookie("type", "alu");
-           echo "<h1 class = 'text-center'>Hello!</h1><br>";
-        } else{
-           echo "<p>Wrong Password!</p><br>";
-        }
-      }
-    }
+    
     header('Location: homepage.php');
     ?>
     
