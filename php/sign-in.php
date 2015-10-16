@@ -20,12 +20,7 @@
 ?>
 
 	<div class = "container" >
-		<div class="col-sm-8">
-			<div class="row">
-				<img src="../image/haha.jpg">
-			</div>
-		</div>
-		<div class = "col-sm-4">
+	<div class = "container col-sm-offset-3 col-sm-6 col-sm-offset-3" >
 			<div class = "text-center">
 				<h1 >Sign in</h1>
 			</div>

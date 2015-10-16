@@ -1,3 +1,9 @@
+<?php
+  if (isset($_COOKIE['email'])) {
+    header('Location: homepage.php');
+  }
+?>
+
 <!DOCTYPE HTML>
 <head>
  <title>Cornell CSSA Jobs site</title>

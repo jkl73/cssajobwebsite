@@ -27,8 +27,14 @@
     echo '</ul>';
     echo "</div>";
 
+
+
+
     echo '<div class="usrlogininfo nav navbar-nav navbar-right">';
-    echo "<div>Welcome Student</div>";
+    echo "<div>";
+    echo $_COOKIE["email"];
+    echo "</div>";
+
     echo "</div>";
     echo '<div class="navbarpic nav navbar-nav navbar-right">';
     echo '<img src="../pictures/shuai.jpg">';
