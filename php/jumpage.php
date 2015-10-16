@@ -17,6 +17,7 @@
 
 <body>
 	<?php
+	  session_start();
 	  include("header.php");
 	?>
 	<?php
@@ -67,12 +68,15 @@
 		print "<p>". $error . "</p>";
 		exit;		
 	}
+    $_SESSION["email"] = $email;
 
 	if ($type == 'alu'){
 		include("alup.php");
+	    $_SESSION["type"] = "alu";
 	}
 	else{
 		include("stup.php");
+		$_SESSION["type"] = "stu";
 	}
 	$hidden_form = "<input type=\"hidden\" name=\"email\" value=\"".$email."\">";
 	echo $hidden_form;
@@ -96,8 +100,8 @@
 	?>
 
 			</form>
-	  	</div>
-  	</div>
+		</div>
+	</div>
 
 
 <?php

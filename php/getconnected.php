@@ -15,6 +15,7 @@
 
 <body>
 <?php
+  session_start();
   include("./header.php");
   //$server = mysql_connect("localhost", "root", "1qaz-pl,"); 
   $server = mysql_connect("cssadbinstance.ccmgeu2ghiy1.us-east-1.rds.amazonaws.com", "cssaadmin", "cssaadmin123"); 
@@ -37,7 +38,10 @@
   if($type == "stu"){
     $major = $_POST["major"];
     $job_type = $_POST["job-type"];
-    $sql = "UPDATE student SET grad_year=".$year.",major='".$major."',job_type = '".$job_type."' WHERE email='".$email."'";
+
+
+    $sql = "UPDATE student SET grad_year=\"".$year."-".$month."-"."00\",major='".$major."',job_type = '".$job_type."' WHERE email='".$email."'";
+    
     $result = mysql_query($sql);
     if(!$result){
       print "Error- Update student table failed";
@@ -47,9 +51,10 @@
     }
   }
   else{
+    $position = $_POST["position"];
     $company = $_POST["company"];
     $Linkedin = $_POST["Linkedin"];
-    $sql = "UPDATE employer SET grad_year=".$year.",company='".$company."',Linkedin = '".$Linkedin."' WHERE email='".$email."'";
+    $sql = " UPDATE employer SET grad_year=\"".$year."-".$month."-"."00\",company='".$company."',Linkedin = '".$Linkedin."',position ='". $position ."' WHERE email='".$email."' ";
     $result = mysql_query($sql);
     if(!$result){
       print "Error- Update employer table failed";
@@ -64,7 +69,7 @@
 <form action = "update-connect-info.php" method = "POST">
   <div id="recmd" class="center">
   <div>
-    Click to establish the connections...
+    see some connections you may have...
   </div>
 
   <div class="recmdp">

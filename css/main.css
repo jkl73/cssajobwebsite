@@ -3,6 +3,10 @@ html {
   min-height: 100%;
 }
 
+.input-group {
+  width: 100%;
+}
+
 .showarticle {
   width:70%;
   margin: auto;

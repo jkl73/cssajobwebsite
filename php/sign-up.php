@@ -38,7 +38,7 @@
 			  </div>
 			  <label for="Alumni">Are you an Alumni or Student?</label>
 			  <select class="form-control" id="sel1" name="alumni">
-				<option value = "alu">Alumni</option>
+				<option value = "alu">Employer</option>
 				<option value = "stu">Student</option>
 			  </select>
 			  <br></br>

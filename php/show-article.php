@@ -22,8 +22,6 @@
 <?php
 	include("./sqlfuncs.php");
 
-
-
 	if (!isset($_GET['postid'])) {
 		header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found");
 		echo "<h2 align=center>No such article found</h2>";
@@ -94,7 +92,7 @@
     echo '</div>';
 
     echo '</div>';
-
+	sql_update_visit($_GET['postid']);
 
 ?>
 

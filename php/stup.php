@@ -15,18 +15,18 @@
 			  		<div class="col-sm-6 month">
 				  		<select name="month" id="month" class="form-control">
 				  			<option value="">---Month---</option>
-	                        <option value="january">January</option>
-						    <option value="february">February</option>
-						    <option value="march">March</option>
-						    <option value="april">April</option>
-						    <option value="may">May</option>
-						    <option value="june">June</option>
-						    <option value="july">July</option>
-						    <option value="august">August</option>
-						    <option value="september">September</option>
-						    <option value="october">October</option>
-						    <option value="november">November</option>
-						    <option value="december">December</option>
+	                        <option value="01">January</option>
+						    <option value="02">February</option>
+						    <option value="03">March</option>
+						    <option value="04">April</option>
+						    <option value="05">May</option>
+						    <option value="06">June</option>
+						    <option value="07">July</option>
+						    <option value="08">August</option>
+						    <option value="09">September</option>
+						    <option value="10">October</option>
+						    <option value="11">November</option>
+						    <option value="12">December</option>
 	                    </select>
 	            	</div>
 	            	<div class="col-sm-6 year">
@@ -42,9 +42,9 @@
 			  	<div class="form-group">
 			  		<select name="job-type" id="job-type" class="form-control">
 			  			<option value="">---Please select one---</option>
-	                    <option value="full">Full-time job</option>
-	                    <option value="part">Part-time job</option>
-	                    <option value="intern">Internship</option>
+	                    <option value="1">Full-time job</option>
+	                    <option value="2">Part-time job</option>
+	                    <option value="3">Internship</option>
 	                </select>
 			  	</div>
 			  	<button type="reset" class="btn">Reset</button>

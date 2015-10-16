@@ -62,23 +62,24 @@
            // setcookie("email", $email);
            // setcookie("type", "stu");
            echo "<h1 class = 'text-center'>Hello!</h1><br>";
+           header('Location: homepage.php');
         } else{
            echo "<p>Wrong Password!</p><br>";
         }
       } else {
-        if($alu_row[0] == $pwd){
+        if($alu_row[0] == $pwd) {
            $_SESSION["email"] = $email;
            $_SESSION["type"] = "alu";
 
            // setcookie("email", $email);
            // setcookie("type", "alu");
            echo "<h1 class = 'text-center'>Hello!</h1><br>";
+           header('Location: homepage.php');
         } else{
            echo "<p>Wrong Password!</p><br>";
         }
       }
     }
-    header('Location: homepage.php');
     ?>
     
     </div>

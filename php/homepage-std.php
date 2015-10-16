@@ -57,7 +57,7 @@
 		reset($row); 
 		echo "<li class=\"list-group-item\">";
 		echo "<span class=\"badge\">".$row["visit"]."</span>";
-		echo '<a href="show-article.php'. '">'.$row["company"].' information by '.$row["email"].' for position: '.$row["position"].'</a>';
+		echo '<a href="show-article.php?postid='. $row["postid"] .'">'.$row["company"].' is looking for '.$row["position"].", please contact ".$row["email"].'</a>';
 		echo "</li> "; 
 	} 
 	print "</ul>";
@@ -77,10 +77,24 @@
 	$row = mysql_fetch_array($result);
 		$num_fields = sizeof($row);
 		echo '<li class="list-group-item">Username: '.$row["name"].'</li>';
-		echo '<li class="list-group-item">Expected Graduation Year: '.$row["grad_year"].'</li>';
+		echo '<li class="list-group-item">Expected Graduation Year: '.substr($row["grad_year"], 0, 7).'</li>';
 		echo '<li class="list-group-item">Major: '.$row["major"].'</li>';
-		echo '<li class="list-group-item">Looking for job\'s type: '.$row["job_type"].'</li>';
-	echo "</ul>"
+		echo '<li class="list-group-item">Looking for ';
+
+		switch ($row["job_type"]) {
+		case 1:
+			echo "Full-time job";
+			break;
+		case 2:
+			echo "Part-time job";
+			break;
+		case 3:
+			echo "Internship";
+			break;
+		}
+
+		echo '</li>';
+		echo "</ul>";
 ?>
   </div>
 </div>

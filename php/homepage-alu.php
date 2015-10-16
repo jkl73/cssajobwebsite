@@ -84,7 +84,7 @@
 	$row = mysql_fetch_array($result);
 		$num_fields = sizeof($row);
 		echo '<li class="list-group-item">Username: '.$row["name"].'</li>';
-		echo '<li class="list-group-item">Expected Graduation Year: '.$row["grad_year"].'</li>';
+		echo '<li class="list-group-item">Graduation Year: '.substr($row["grad_year"],0,7).'</li>';
 		echo '<li class="list-group-item">Company: '.$row["company"].'</li>';
 		echo '<li class="list-group-item">Position: '.$row["position"].'</li>';
 		echo '<li class="list-group-item">Linkedin Homepage: '.$row["Linkedin"].'</li>';
