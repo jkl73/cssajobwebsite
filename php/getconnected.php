@@ -11,10 +11,6 @@
  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
 
  <style>
-
-
-
-
   .recmdp {
     margin: 20px;
     border-radius: 50%;
@@ -22,30 +18,28 @@
     width: 100px;
     height: 150px;
   }
-.center {
+  .center {
      float: none;
      margin-left: auto;
      margin-right: auto;
-
-}
-
-.recmdp img{
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-}
-.text-right button{
-  margin-right: 10px;
-}
+  }
+  .recmdp img{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+  }
+  .text-right button{
+    margin-right: 10px;
+  }
 
 #recmd {
   width: 600px;
 }
 
 .recmddescip {
-text-align:center;
-margin: auto;
-display: table;
+  text-align:center;
+  margin: auto;
+  display: table;
 }
 
 .text{
@@ -54,11 +48,7 @@ display: table;
   background:#FFF;
   opacity: 0;
 }
-
-
 .pic:hover .text { opacity:0.6; text-align: justify;  vertical-align: middle;color:#000000  ; font-size:20px; font-weight:700; padding:10px; } 
-
-
 .pic {
     background: url("../pictures/shuai.jpg");
     background-size: 100px 100px;
@@ -132,10 +122,10 @@ display: table;
     </div>
   </div>
   <span class="recmddescip">
-    Ab Cd EE
+    Mike
   </span>
   <span class="recmddescip">
-    Company
+    google
   </span>
   </div>
 
@@ -147,24 +137,10 @@ display: table;
     </div>
   </div>
   <span class="recmddescip">
-    Ab Cd EE
+    Shi
   </span>
   <span class="recmddescip">
-    Company
-  </span>
-  </div>
-    <div class="recmdp">
-  <div class="pic">
-    <div class="text">
-      Get
-      Connect!
-    </div>
-  </div>
-  <span class="recmddescip">
-    Ab Cd EE
-  </span>
-  <span class="recmddescip">
-    Company
+    Microsoft
   </span>
   </div>
     <div class="recmdp">
@@ -175,24 +151,10 @@ display: table;
     </div>
   </div>
   <span class="recmddescip">
-    Ab Cd EE
+    Yi
   </span>
   <span class="recmddescip">
-    Company
-  </span>
-  </div>
-    <div class="recmdp">
-  <div class="pic">
-    <div class="text">
-      Get
-      Connect!
-    </div>
-  </div>
-  <span class="recmddescip">
-    Ab Cd EE
-  </span>
-  <span class="recmddescip">
-    Company
+    Oracle
   </span>
   </div>
     <div class="recmdp">
@@ -203,24 +165,10 @@ display: table;
     </div>
   </div>
   <span class="recmddescip">
-    Ab Cd EE
+    Fan
   </span>
   <span class="recmddescip">
-    Company
-  </span>
-  </div>
-    <div class="recmdp">
-  <div class="pic">
-    <div class="text">
-      Get
-      Connect!
-    </div>
-  </div>
-  <span class="recmddescip">
-    Ab Cd EE
-  </span>
-  <span class="recmddescip">
-    Company
+    Yelp
   </span>
   </div>
     <div class="recmdp">
@@ -231,10 +179,52 @@ display: table;
     </div>
   </div>
   <span class="recmddescip">
-    Ab Cd EE
+    Chen
   </span>
   <span class="recmddescip">
-    Company
+    Uber
+  </span>
+  </div>
+    <div class="recmdp">
+  <div class="pic">
+    <div class="text">
+      Get
+      Connect!
+    </div>
+  </div>
+  <span class="recmddescip">
+    Charles
+  </span>
+  <span class="recmddescip">
+    Facebook
+  </span>
+  </div>
+    <div class="recmdp">
+  <div class="pic">
+    <div class="text">
+      Get
+      Connect!
+    </div>
+  </div>
+  <span class="recmddescip">
+    Luke
+  </span>
+  <span class="recmddescip">
+    IBM
+  </span>
+  </div>
+    <div class="recmdp">
+  <div class="pic">
+    <div class="text">
+      Get
+      Connect!
+    </div>
+  </div>
+  <span class="recmddescip">
+    Wang
+  </span>
+  <span class="recmddescip">
+    Intel
   </span>
   </div>
   

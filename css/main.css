@@ -3,6 +3,10 @@ html {
   min-height: 100%;
 }
 
+.addpostbtn a{
+  margin-bottom: 10px;
+  width: 100%;
+}
 .jobpostform {
   width: 90%;
 }

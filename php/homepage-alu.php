@@ -19,11 +19,15 @@
   include("header.php");
 ?>
 <div class = "container">
+
+<div class = "row">
+	<div class="addpostbtn col-xs-12 col-sm-6 col-md-8">
+		<a class = "btn btn-warning" href="postjob.php">Add Post</a> 
+	</div>
+</div>
+
 <div class="row">
   <div class="col-xs-12 col-sm-6 col-md-8">
-  	<div class = "row">
-  		<a class = "btn btn-default" href="postjob.php">Add Post</a>
-  	</div>
   	 <ul class="list-group">
 <?php
 	//$server = mysql_connect("localhost","root","1qaz-pl,");
@@ -77,17 +81,16 @@
 	}
 	$row = mysql_fetch_array($result);
 		$num_fields = sizeof($row);
-		echo '<li class="list-group-item">Username:'.$row["name"].'</li>';
-		echo '<li class="list-group-item">Expected Graduation Year:'.$row["grad_year"].'</li>';
-		echo '<li class="list-group-item">Company:'.$row["company"].'</li>';
-		echo '<li class="list-group-item">Position:'.$row["position"].'</li>';
-		echo '<li class="list-group-item">Linkedin Homepage:'.$row["Linkedin"].'</li>';
+		echo '<li class="list-group-item">Username: '.$row["name"].'</li>';
+		echo '<li class="list-group-item">Expected Graduation Year: '.$row["grad_year"].'</li>';
+		echo '<li class="list-group-item">Company: '.$row["company"].'</li>';
+		echo '<li class="list-group-item">Position: '.$row["position"].'</li>';
+		echo '<li class="list-group-item">Linkedin Homepage: '.$row["Linkedin"].'</li>';
 	echo "</ul>"
 ?>
   </div>
 </div>
 </div>
-
 
 <?php
   include("footer.php");

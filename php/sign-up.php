@@ -19,7 +19,6 @@
 <?php
   include("header.php");
 ?>
-
 	<div class = "container col-sm-offset-3 col-sm-6 col-sm-offset-3" >
 		<div class = "text-center">
 			<h1>Join us Today!</h1>

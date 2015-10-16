@@ -74,10 +74,10 @@
 	}
 	$row = mysql_fetch_array($result);
 		$num_fields = sizeof($row);
-		echo '<li class="list-group-item">Username:'.$row["name"].'</li>';
-		echo '<li class="list-group-item">Expected Graduation Year:'.$row["grad_year"].'</li>';
-		echo '<li class="list-group-item">Major'.$row["major"].'</li>';
-		echo '<li class="list-group-item">Looking for job\'s type:'.$row["job_type"].'</li>';
+		echo '<li class="list-group-item">Username: '.$row["name"].'</li>';
+		echo '<li class="list-group-item">Expected Graduation Year: '.$row["grad_year"].'</li>';
+		echo '<li class="list-group-item">Major: '.$row["major"].'</li>';
+		echo '<li class="list-group-item">Looking for job\'s type: '.$row["job_type"].'</li>';
 	echo "</ul>"
 ?>
   </div>
