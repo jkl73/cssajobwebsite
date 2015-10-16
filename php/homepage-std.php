@@ -41,7 +41,7 @@
 	}
 	$myemail = $_COOKIE["email"];
 
-	$query = "select comapny,postid,email,position,visit from post_info;";
+	$query = "select company,postid,email,position,visit from post_info;";
 	$result = mysql_query($query);
 	if(!$result){
 		print "Error- Get info from post_info failed";
@@ -55,7 +55,7 @@
 		reset($row); 
 		echo "<li class=\"list-group-item\">";
 		echo "<span class=\"badge\">".$row["visit"]."</span>";
-		echo '<a href="#">'.$row["comapny"].' information by '.$row["email"].' for position: '.$row["position"].'</a>';
+		echo '<a href="#">'.$row["company"].' information by '.$row["email"].' for position: '.$row["position"].'</a>';
 		echo "</li> "; 
 	} 
 	print "</ul>";

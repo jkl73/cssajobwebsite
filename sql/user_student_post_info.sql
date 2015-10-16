@@ -23,14 +23,14 @@ DROP TABLE IF EXISTS `post_info`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `post_info` (
-  `postid` int(11) NOT NULL,
+  `postid` int(11) NOT NULL auto_increment,
   `email` varchar(64) NOT NULL,
-  `comapny` varchar(64) NOT NULL,
+  `company` varchar(64) NOT NULL,
   `position` varchar(65) DEFAULT NULL,
   `tags` varchar(255) DEFAULT NULL,
   `time` datetime NOT NULL,
   `visit` int(10) unsigned DEFAULT NULL,
-  `like` int(10) unsigned DEFAULT NULL,
+  `fav` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`postid`),
   UNIQUE KEY `postid_UNIQUE` (`postid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;

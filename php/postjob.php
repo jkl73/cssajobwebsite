@@ -22,33 +22,94 @@
 
 <body>
 
-
-
-
-
-
-
 <?php
   include("header.php");
 
+  if (!isset($_POST["mode"])) {
+  	write_add_new_page();
+  }
+  else {
+    $mode = $_POST["mode"];
 
+  	if ($mode == "add") {
+		echo "adding to db...";
+		sql_add_post($_POST["email"], $_POST["company_name"], $_POST["position"], $_POST["description"]);
+    }
+  }
+
+  include("footer.php");
+
+function sql_add_post($email, $company_name, $position, $description) {
+
+	$conn = getconn();
+    $post_id = $conn->lastInsertId();
+
+    $stmt = $conn->prepare("insert into post_info(email, company, position, tags, time, visit, fav) values(:email, :company, :position, :tags, now(), 0, 0)");
+
+    $stmt->bindParam(':email', $email);
+    $stmt->bindParam(':company', $company_name);
+    $stmt->bindParam(':position', $position);
+    $stmt->bindParam(':tags', $description);
+    
+    $result = $stmt->execute();
+
+    $post_id = $conn->lastInsertId();
+
+    if (!$result)
+        pdo_die($stmt);
+
+    echo $post_id;
+    return $post_id;
+}
+
+function pdo_die($stmt)
+{
+    var_dump($stmt->errorInfo());
+    die("PDO error!");
+}
+
+function getconn()
+{
+    static $conn;
+
+    if ($conn)
+        return $conn;
+        
+    $dbname = "user_student";
+    $user = "cssaadmin"; $pw = "cssaadmin123";
+    $host = "cssadbinstance.ccmgeu2ghiy1.us-east-1.rds.amazonaws.com";
+        
+    $dsn = "mysql:host=$host;dbname=$dbname"; // Data source name
+    $conn = new PDO($dsn, $user, $pw);
+    return $conn;
+}
+
+
+
+function write_add_new_page() {
 	echo "<div class=\"jobpostform center\">";
 	echo "<h2 align=\"center\">Post a new job</h2>";
-	echo "<form  method=get action=post.php>";
+	echo "<form  method=post action=postjob.php>";
 	echo "<input type=hidden name=mode value=add>";
+	
 	echo '<div class="row">';
-	echo '<div align="right" class="col-md-4">Title:</div>';
-	echo '<div class="col-md-6"><input class="form-control"  name=title type=text size=40 required></div>';
+	echo '<div align="right" class="col-md-4">Short Description:</div>';
+	echo '<div class="col-md-6"><input class="form-control"  name=description type=text size=40 required></div>';
+	echo '</div>';
+
+	echo '<div class="row">';
+	echo '<div align="right" class="col-md-4">Email:</div>';
+	echo '<div class="col-md-6"><input class="form-control"  name=email type=text size=40 required></div>';
 	echo '</div>';
 
 	echo '<div class="row">';
 	echo '<div align="right" class="col-md-4">Company Name:</div>';
-	echo '<div class="col-md-6"><input class="form-control"  name=title type=text size=40 required></div>';
+	echo '<div class="col-md-6"><input class="form-control"  name=company_name type=text size=40 required></div>';
 	echo '</div>';
 
 	echo '<div class="row">';
 	echo '<div align="right" class="col-md-4">Position Title:</div>';
-	echo '<div class="col-md-6"><input class="form-control"  name=title type=text size=40 required></div>';
+	echo '<div class="col-md-6"><input class="form-control"  name=position type=text size=40 required></div>';
 	echo '</div>';
 
 	echo '<div class="row">';
@@ -58,7 +119,7 @@
 
 	echo '<div class="row">';
 	echo '<div align="right" class="col-md-4">Please input job information here:</div>';
-	echo '<div class="col-md-2"><textarea class="form-control" name=text style="margin: 0px; width: 535px; height: 140px;" required></textarea></div>';
+	echo '<div class="col-md-2"><textarea class="form-control" name=job_info style="margin: 0px; width: 535px; height: 140px;" required></textarea></div>';
 	echo '</div>';
 
 	echo '<div class="row">';
@@ -101,8 +162,6 @@
 	echo '</div>';
 	echo '</div>';
 
-
-
 //	$known_tags = get_known_tags($entries);
 //	echo "<div>";
 //	foreach ($known_tags as $t)
@@ -114,11 +173,9 @@
 //	echo "</div>";
 //	echo "<div style=\"width: 600px; margin: 5px auto;\"><span style=\"float: left\">New tag(s):&nbsp;</span><input name=newtags type=text size=60><span>(separate with commas)</span></div>";
 
-
 	echo "</form>";
 	echo "</div>";
-
-    include("footer.php");
+}
 ?>
 
 </body>
