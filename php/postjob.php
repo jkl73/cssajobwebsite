@@ -33,13 +33,13 @@
 
   	if ($mode == "add") {
 		echo "adding to db...";
-		sql_add_post($_POST["email"], $_POST["company_name"], $_POST["position"], $_POST["description"]);
+		sql_add_post($_POST["email"], $_POST["company_name"], $_POST["position"], $_POST["description"], $_POST["job_content"]);
     }
   }
 
   include("footer.php");
 
-function sql_add_post($email, $company_name, $position, $description) {
+function sql_add_post($email, $company_name, $position, $description, $job_content) {
 
 	$conn = getconn();
     $post_id = $conn->lastInsertId();
@@ -52,7 +52,17 @@ function sql_add_post($email, $company_name, $position, $description) {
     $stmt->bindParam(':tags', $description);
     
     $result = $stmt->execute();
+    $post_id = $conn->lastInsertId();
 
+    if (!$result)
+        pdo_die($stmt);
+
+	$stmt = $conn->prepare("insert into post_content(postid, content) values(:postid, :content)");
+
+    $stmt->bindParam(':postid', $post_id);
+    $stmt->bindParam(':content', $job_content);
+
+    $result = $stmt->execute();
     $post_id = $conn->lastInsertId();
 
     if (!$result)
@@ -119,7 +129,7 @@ function write_add_new_page() {
 
 	echo '<div class="row">';
 	echo '<div align="right" class="col-md-4">Please input job information here:</div>';
-	echo '<div class="col-md-2"><textarea class="form-control" name=job_info style="margin: 0px; width: 535px; height: 140px;" required></textarea></div>';
+	echo '<div class="col-md-2"><textarea class="form-control" name=job_content style="margin: 0px; width: 535px; height: 140px;" required></textarea></div>';
 	echo '</div>';
 
 	echo '<div class="row">';
