@@ -61,7 +61,8 @@
 
     $rset = $stmt->fetchAll(PDO::FETCH_ASSOC);
     echo '<p>'.$rset[0]['content'].'</p>';
-
+    echo '<hr style="width: 100%; color: black; height: 1px; background-color:black;" />';
+    echo '<p><i>people you may want to connect...</i></p>';
     echo '<div class="recmdp">';
     echo '<div class="pic">';
     echo '<div class="text">';
