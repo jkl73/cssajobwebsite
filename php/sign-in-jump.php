@@ -53,27 +53,22 @@
     } else {
       if($stu_row){
         if($stu_row[0] == $pwd){
-           setcookie("logininfo", "test");
+           setcookie("email", $email);
            echo "<h1 class = 'text-center'>Hello!</h1><br>";
         } else{
            echo "<p>Wrong Password!</p><br>";
-           exit;
         }
       } else {
         if($alu_row[0] == $pwd){
-           setcookie("logininfo", "test");
+           setcookie("email", $email);
            echo "<h1 class = 'text-center'>Hello!</h1><br>";
         } else{
            echo "<p>Wrong Password!</p><br>";
-           exit;
         }
       }
     }
+    header('Location: homepage.php');
     ?>
-    <form action = "homepage.php" method = "POST">
-      <input type = "hidden" name = "email" value = <?php echo '"'.$email.'"'; ?>>
-      <button type = "submit" class = "btn-lg">Click to continue</button>
-    </form>
     
     </div>
 

@@ -73,7 +73,6 @@ display: table;
 <body>
 <?php
   include("./header.php");
-  setcookie("logininfo", "test");
   //$server = mysql_connect("localhost", "root", "1qaz-pl,"); 
   $server = mysql_connect("cssadbinstance.ccmgeu2ghiy1.us-east-1.rds.amazonaws.com", "cssaadmin", "cssaadmin123"); 
   if (!$server) { 
@@ -90,6 +89,9 @@ display: table;
   $email = $_POST["email"];
   $month = $_POST["month"];
   $year = $_POST["year"];
+  setcookie("email", $email);
+
+
 
   if($type == "stu"){
     $major = $_POST["major"];

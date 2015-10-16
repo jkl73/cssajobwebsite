@@ -35,7 +35,11 @@
 		print "Error - Could not select the user_student database"; 
 		exit; 
 	}
-	$myemail = $_POST["email"];
+	if(!isset($_COOKIE['email']))
+	{
+		header('Location: index.php');
+	}
+	$myemail = $_COOKIE["email"];
 
 	$query = "select comapny,postid,email,position,visit from post_info;";
 	$result = mysql_query($query);

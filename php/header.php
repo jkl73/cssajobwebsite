@@ -16,7 +16,7 @@
 <?php
   setcookie("last_visit", time());
 
-  if (isset($_COOKIE['logininfo'])) {
+  if (isset($_COOKIE['email'])) {
 
     echo '<div class="nav navbar-nav navbar-right">';
     echo '<button class="dropdown-toggle" type="button" data-toggle="dropdown">';
