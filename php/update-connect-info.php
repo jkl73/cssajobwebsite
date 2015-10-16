@@ -34,8 +34,11 @@
     $email = $_POST['email'];
     $type = $_POST['type'];
 
-    setcookie("email",$email);
-    setcookie("type",$type);
+    $_SEESION["email"] = $email;
+    $_SESSION["type"] = $type;
+
+    // setcookie("email",$email);
+    // setcookie("type",$type);
 
     
     header('Location: homepage.php');

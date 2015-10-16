@@ -1,5 +1,6 @@
 <?php
-  if (isset($_COOKIE['email'])) {
+  session_start();
+  if (isset($_SESSION['email'])) {
     header('Location: homepage.php');
   }
 ?>

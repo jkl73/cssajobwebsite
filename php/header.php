@@ -14,9 +14,9 @@
     </div>      
 
 <?php
-  setcookie("last_visit", time());
+ // session_start();
 
-  if (isset($_COOKIE['email'])) {
+  if (isset($_SESSION['email'])) {
 
     echo '<div class="nav navbar-nav navbar-right">';
     echo '<button class="dropdown-toggle" type="button" data-toggle="dropdown">';
@@ -27,12 +27,9 @@
     echo '</ul>';
     echo "</div>";
 
-
-
-
     echo '<div class="usrlogininfo nav navbar-nav navbar-right">';
     echo "<div>";
-    echo $_COOKIE["email"];
+    echo $_SESSION["email"];
     echo "</div>";
 
     echo "</div>";

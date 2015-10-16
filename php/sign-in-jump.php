@@ -16,7 +16,10 @@
 </head>
 
 <body>
-  <?php include("header.php");?>
+  <?php
+    session_start();
+    include("header.php");
+  ?>
   <div class = "container">
     <?php
     //$server = mysql_connect("localhost", "root", "1qaz-pl,"); 
@@ -53,16 +56,22 @@
     } else {
       if($stu_row){
         if($stu_row[0] == $pwd){
-           setcookie("email", $email);
-           setcookie("type", "stu");
+           $_SESSION["email"] = $email;
+           $_SESSION["type"] = "stu";
+
+           // setcookie("email", $email);
+           // setcookie("type", "stu");
            echo "<h1 class = 'text-center'>Hello!</h1><br>";
         } else{
            echo "<p>Wrong Password!</p><br>";
         }
       } else {
         if($alu_row[0] == $pwd){
-           setcookie("email", $email);
-           setcookie("type", "alu");
+           $_SESSION["email"] = $email;
+           $_SESSION["type"] = "alu";
+
+           // setcookie("email", $email);
+           // setcookie("type", "alu");
            echo "<h1 class = 'text-center'>Hello!</h1><br>";
         } else{
            echo "<p>Wrong Password!</p><br>";

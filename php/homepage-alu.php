@@ -16,13 +16,15 @@
 
 <body>
 <?php
+  session_start();
+
   include("header.php");
 ?>
 <div class = "container">
 
 <div class = "row">
 	<div class="addpostbtn col-xs-12 col-sm-6 col-md-8">
-		<a class = "btn btn-warning" href="postjob.php">Add Post</a> 
+		<a class = "btn btn-warning" href="postjob.php">Post New Job!</a> 
 	</div>
 </div>
 
@@ -41,12 +43,12 @@
 		print "Error - Could not select the user_student database"; 
 		exit; 
 	}
-	if(!isset($_COOKIE['email']))
+	if(!isset($_SESSION['email']))
 	{
 		header('Location: index.php');
 		exit;
 	}
-	$myemail = $_COOKIE["email"];
+	$myemail = $_SESSION["email"];
 
 	$query = "select company,postid,email,position,visit from post_info;";
 	$result = mysql_query($query);
@@ -62,8 +64,8 @@
 		reset($row); 
 		echo "<li class=\"list-group-item\">";
 		echo "<span class=\"badge\">".$row["visit"]."</span>";
-		echo '<a href="#">'.$row["company"].' information by '.$row["email"].' for position: '.$row["position"].'</a>';
-		echo "</li> "; 
+		echo '<a href="show-article.php?postid='. $row["postid"] .'">'.$row["company"].' is looking for '.$row["position"].", please contact ".$row["email"].'</a>';
+		echo "</li>"; 
 	} 
 	print "</ul>";
 ?>

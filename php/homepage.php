@@ -16,6 +16,8 @@
 
 <body>
 <?php
+  session_start();
+
   include("header.php");
 ?>
 <?php
@@ -30,12 +32,12 @@
 		print "Error - Could not select the user_student database"; 
 		exit; 
 	}
-	if(!isset($_COOKIE['email'])||!isset($_COOKIE['type']))
+	if(!isset($_SESSION['email'])||!isset($_SESSION['type']))
 	{
-		header('Location: index.php');
+		//header('Location: index.php');
 		exit;
 	}
-	$type = $_COOKIE['type'];
+	$type = $_SESSION['type'];
 	if($type == 'stu'){
 		header('Location: homepage-std.php');
 		exit;

@@ -23,6 +23,8 @@
 <body>
 
 <?php
+  session_start();
+  include("sqlfuncs.php");
   include("header.php");
 
   if (!isset($_POST["mode"])) {
@@ -32,69 +34,18 @@
     $mode = $_POST["mode"];
 
   	if ($mode == "add") {
-		echo "adding to db...";
-		sql_add_post($_POST["email"], $_POST["company_name"], $_POST["position"], $_POST["description"], $_POST["job_content"]);
+		if (sql_add_post($_POST["email"], $_POST["company_name"], $_POST["position"], $_POST["description"], $_POST["job_content"]) == 1) {
+			echo "<h2 align=center>Your job posting is successful</h2>";
+			echo "<h3 align=center><a  href='homepage.php' class='btn'>My homepage</a></h3>";
+		}
+		else {
+			echo "<h2 align=center>Something went wrong... Please try again</h2>";
+			echo "<h3 align=center><a  href='homepage.php' class='btn'>My homepage</a></h3>";
+		}
     }
   }
 
   include("footer.php");
-
-function sql_add_post($email, $company_name, $position, $description, $job_content) {
-
-	$conn = getconn();
-    $post_id = $conn->lastInsertId();
-
-    $stmt = $conn->prepare("insert into post_info(email, company, position, tags, time, visit, fav) values(:email, :company, :position, :tags, now(), 0, 0)");
-
-    $stmt->bindParam(':email', $email);
-    $stmt->bindParam(':company', $company_name);
-    $stmt->bindParam(':position', $position);
-    $stmt->bindParam(':tags', $description);
-    
-    $result = $stmt->execute();
-    $post_id = $conn->lastInsertId();
-
-    if (!$result)
-        pdo_die($stmt);
-
-	$stmt = $conn->prepare("insert into post_content(postid, content) values(:postid, :content)");
-
-    $stmt->bindParam(':postid', $post_id);
-    $stmt->bindParam(':content', $job_content);
-
-    $result = $stmt->execute();
-    $post_id = $conn->lastInsertId();
-
-    if (!$result)
-        pdo_die($stmt);
-
-    echo $post_id;
-    return $post_id;
-}
-
-function pdo_die($stmt)
-{
-    var_dump($stmt->errorInfo());
-    die("PDO error!");
-}
-
-function getconn()
-{
-    static $conn;
-
-    if ($conn)
-        return $conn;
-        
-    $dbname = "user_student";
-    $user = "cssaadmin"; $pw = "cssaadmin123";
-    $host = "cssadbinstance.ccmgeu2ghiy1.us-east-1.rds.amazonaws.com";
-        
-    $dsn = "mysql:host=$host;dbname=$dbname"; // Data source name
-    $conn = new PDO($dsn, $user, $pw);
-    return $conn;
-}
-
-
 
 function write_add_new_page() {
 	echo "<div class=\"jobpostform center\">";
@@ -129,7 +80,7 @@ function write_add_new_page() {
 
 	echo '<div class="row">';
 	echo '<div align="right" class="col-md-4">Please input job information here:</div>';
-	echo '<div class="col-md-2"><textarea class="form-control" name=job_content style="margin: 0px; width: 535px; height: 140px;" required></textarea></div>';
+	echo '<div class="col-md-6"><textarea class="form-control" name=job_content style="margin: 0px; width: 100%; height: 140px;" required></textarea></div>';
 	echo '</div>';
 
 	echo '<div class="row">';
@@ -166,7 +117,7 @@ function write_add_new_page() {
 
 	echo '<div class="row">';
 	echo '<div align="right" class="col-md-4"></div>';
-	echo '<div class="col-md-8">';
+	echo '<div class="col-md-6">';
 	echo "<a id=\"loginbutton\" class=\"btn\" href=\"homepage-alu.php\" >Cancel</a>";
 	echo "<input id=\"loginbutton\" class=\"btn\" type=submit name=submit value=Submit>";
 	echo '</div>';
