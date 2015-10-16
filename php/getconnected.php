@@ -89,8 +89,6 @@ display: table;
   $email = $_POST["email"];
   $month = $_POST["month"];
   $year = $_POST["year"];
-  echo "TYPE = ".$type;
-
 
 
   if($type == "stu"){
