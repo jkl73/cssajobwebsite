@@ -60,6 +60,37 @@
 			$query = "INSERT INTO student(name, email, password) VALUES('".$name."','".$email. "','".$pwd."')";
 	}
 
+	/*==== send email verifi ====*/
+	$to = "jl3387@cornell.edu"; // Send email to our user
+
+	require('./PHPMailer/PHPMailerAutoload.php');
+	$mail=new PHPMailer();
+	$mail->CharSet = 'UTF-8';
+
+	$body = 'This is the message';
+
+	$mail->IsSMTP();
+	$mail->Host       = 'smtp.ecloudpanel.com';
+
+	$mail->SMTPSecure = 'tls';
+	$mail->Port       = 587;
+	$mail->SMTPDebug  = 1;
+	$mail->SMTPAuth   = true;
+
+	$mail->Username   = 'no-reply@jiankun.lu';
+	$mail->Password   = 'charles309226';
+
+	$mail->SetFrom('me.sender@gmail.com', 'no-reply');
+	$mail->AddReplyTo('no-reply@mycomp.com','no-reply');
+	$mail->Subject    = 'subject';
+	$mail->MsgHTML($body);
+
+	$mail->AddAddress($to, 'title1');
+
+	//$mail->AddAttachment($fileName);
+	$mail->send();
+	/*=============================*/
+
 	$query = stripslashes($query);
 	$result = mysql_query($query);
 	if(!$result){
