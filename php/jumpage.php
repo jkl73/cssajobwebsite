@@ -53,6 +53,8 @@
 		exit;
 	}
 
+	$hash = md5(rand(0,1000));
+
 	if($type == 'alu'){
 			$query = "INSERT INTO employer(name, email, password) VALUES('".$name."','".$email. "','".$pwd."')";
 	}
@@ -61,34 +63,51 @@
 	}
 
 	/*==== send email verifi ====*/
+	/*===========================*/
+	// to user email
 	$to = "jl3387@cornell.edu"; // Send email to our user
 
 	require('./PHPMailer/PHPMailerAutoload.php');
 	$mail=new PHPMailer();
 	$mail->CharSet = 'UTF-8';
 
-	$body = 'This is the message';
+	$body = 'Hello ' . $name . ',<br><br>
 
-	$mail->IsSMTP();
-	$mail->Host       = 'smtp.ecloudpanel.com';
+	Thank you for sign up CSSA job website!<br>
+	Please Click the link to verfiy your email:<br><br>
+	http://localhost/cssajobwebsite/php/verify.php?email='.$email.'&hash='.$hash.'<br><br>
+	--CSSA team';
 
-	$mail->SMTPSecure = 'tls';
-	$mail->Port       = 587;
-	$mail->SMTPDebug  = 1;
-	$mail->SMTPAuth   = true;
+	try {
+		$mail->IsSMTP();
+		$mail->Host       = 'smtp.ecloudpanel.com';
 
-	$mail->Username   = 'no-reply@jiankun.lu';
-	$mail->Password   = 'charles309226';
+		$mail->SMTPSecure = 'tls';
+		$mail->Port       = 587;
+		$mail->SMTPDebug  = 1;
+		$mail->SMTPAuth   = true;
 
-	$mail->SetFrom('me.sender@gmail.com', 'no-reply');
-	$mail->AddReplyTo('no-reply@mycomp.com','no-reply');
-	$mail->Subject    = 'subject';
-	$mail->MsgHTML($body);
+		$mail->Username   = 'no-reply@jiankun.lu';
+		$mail->Password   = 'charles309226';
 
-	$mail->AddAddress($to, 'title1');
+		$mail->SetFrom('me.sender@gmail.com', 'no-reply');
 
-	//$mail->AddAttachment($fileName);
-	$mail->send();
+		$mail->AddReplyTo('no-reply@mycomp.com','no-reply');
+		$mail->Subject    = 'Verifiy your Email';
+
+		$mail->MsgHTML($body);
+		$mail->SMTPDebug = false;
+		$mail->AddAddress($to, 'title1');
+
+		//$mail->AddAttachment($fileName);
+		$mail->send();
+		echo "<div class='container'>Verification email sent! Please check your mailbox</div>";
+	}catch (phpmailerException $e) {
+		echo $e->errorMessage(); //Pretty error messages from PHPMailer
+	} catch (Exception $e) {
+		echo $e->getMessage(); //Boring error messages from anything else!
+	}
+	/*=============================*/
 	/*=============================*/
 
 	$query = stripslashes($query);
