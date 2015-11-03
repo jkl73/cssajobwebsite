@@ -16,11 +16,24 @@
 </head>
 
 <body>
+
 	<?php
-	  session_start();
-	  include("header.php");
-	?>
-	<?php
+	$type = $_POST["alumni"];
+	$name = $_POST["username"];
+	$email = $_POST["email"];
+	$pwd = $_POST["pwd"];
+	session_start();
+	$_SESSION["email"] = $email;
+
+	if ($type == 'alu'){
+		$_SESSION["type"] = "alu";
+	}
+	else{
+		$_SESSION["type"] = "stu";
+	}
+
+	include("header.php");
+
 	//$server = mysql_connect("localhost", "root", "1qaz-pl,"); 
 	$server = mysql_connect("cssadbinstance.ccmgeu2ghiy1.us-east-1.rds.amazonaws.com", "cssaadmin", "cssaadmin123"); 
 	if (!$server) { 
@@ -32,11 +45,6 @@
 		print "Error - Could not select the user_student database"; 
 		exit; 
 	}
-
-	$type = $_POST["alumni"];
-	$name = $_POST["username"];
-	$email = $_POST["email"];
-	$pwd = $_POST["pwd"];
 
 	$query = "select * from employer E,student S where S.email ='". $email. "' || E.email ='". $email. "';";
 	$result = mysql_query($query);
@@ -110,6 +118,14 @@
 	/*=============================*/
 	/*=============================*/
 
+
+	if ($type == 'alu'){
+		include("alup.php");
+	}
+	else {
+		include("stup.php");
+	}
+
 	$query = stripslashes($query);
 	$result = mysql_query($query);
 	if(!$result){
@@ -118,16 +134,7 @@
 		print "<p>". $error . "</p>";
 		exit;		
 	}
-    $_SESSION["email"] = $email;
 
-	if ($type == 'alu'){
-		include("alup.php");
-	    $_SESSION["type"] = "alu";
-	}
-	else{
-		include("stup.php");
-		$_SESSION["type"] = "stu";
-	}
 	$hidden_form = "<input type=\"hidden\" name=\"email\" value=\"".$email."\">";
 	echo $hidden_form;
 	/*
