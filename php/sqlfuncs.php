@@ -1,4 +1,23 @@
 <?php
+function sql_update_verify($email) {
+    $conn = getconn();
+    $stmt = $conn->prepare("update employer set verified=1 where email=:email");
+    $stmt->bindParam(":email", $email);
+
+    $result = $stmt->execute();
+    if (!$result)
+        pdo_die($stmt);
+
+    
+    $result = $stmt->fetchAll();
+
+    assert(count($result) <= 1);
+    if (count($result) != 0)
+        return $result[0][$column];
+    else
+        return null;
+}
+
 
 function sql_update_visit($postid) {
 	$conn = getconn();
@@ -29,13 +48,7 @@ function sql_update_visit($postid) {
     else
         return null;
 
-
-
 //    $stmt = $conn->prepare("update post_info set status=:new_status where id=:order_id");
-
-
-
-
 }
 
 function sql_add_post($email, $company_name, $position, $description, $job_content) {

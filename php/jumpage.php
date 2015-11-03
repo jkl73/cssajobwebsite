@@ -56,10 +56,10 @@
 	$hash = md5(rand(0,1000));
 
 	if($type == 'alu'){
-			$query = "INSERT INTO employer(name, email, password) VALUES('".$name."','".$email. "','".$pwd."')";
+			$query = "INSERT INTO employer(name, email, hash, verified, password) VALUES('".$name."','".$email. "', '".$hash."', 0, '".$pwd."')";
 	}
 	else if($type == 'stu'){
-			$query = "INSERT INTO student(name, email, password) VALUES('".$name."','".$email. "','".$pwd."')";
+			$query = "INSERT INTO student(name, email, hash, verified, password) VALUES('".$name."','".$email. "','".$hash."', 0 ,'".$pwd."')";
 	}
 
 	/*==== send email verifi ====*/

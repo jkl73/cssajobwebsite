@@ -26,6 +26,8 @@ CREATE TABLE `employer` (
   `name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `hash` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `verified` varchar(1) COLLATE utf8_unicode_ci NOT NULL,
   `grad_year` date DEFAULT NULL,
   `company` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
   `position` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -40,11 +42,11 @@ CREATE TABLE `employer` (
 -- Dumping data for table `employer`
 --
 
-LOCK TABLES `employer` WRITE;
+-- LOCK TABLES `employer` WRITE;
 /*!40000 ALTER TABLE `employer` DISABLE KEYS */;
-INSERT INTO `employer` VALUES ('','','',NULL,NULL,NULL,NULL,NULL),('lcs','123@23','123456',NULL,NULL,NULL,NULL,NULL),('lcs','123@23333','lcs123',NULL,NULL,NULL,NULL,NULL),('lcs','123@234','lcs123',NULL,NULL,NULL,NULL,NULL);
+-- INSERT INTO `employer` VALUES ('','','',NULL,NULL,NULL,NULL,NULL),('lcs','123@23','123456',NULL,NULL,NULL,NULL,NULL),('lcs','123@23333','lcs123',NULL,NULL,NULL,NULL,NULL),('lcs','123@234','lcs123',NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `employer` ENABLE KEYS */;
-UNLOCK TABLES;
+-- UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

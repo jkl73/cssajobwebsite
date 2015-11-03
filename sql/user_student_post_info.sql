@@ -39,11 +39,12 @@ CREATE TABLE `post_info` (
 --
 -- Dumping data for table `post_info`
 --
+-- 
 
-LOCK TABLES `post_info` WRITE;
+-- LOCK TABLES `post_info` WRITE;
 /*!40000 ALTER TABLE `post_info` DISABLE KEYS */;
 /*!40000 ALTER TABLE `post_info` ENABLE KEYS */;
-UNLOCK TABLES;
+-- UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

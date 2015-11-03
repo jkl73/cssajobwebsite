@@ -26,13 +26,14 @@ CREATE TABLE `student` (
   `name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `hash` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `verified` varchar(1) COLLATE utf8_unicode_ci NOT NULL,
   `grad_year` date DEFAULT NULL,
   `major` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
   `job_type` int(2) DEFAULT NULL,
   `degree` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`email`),
-  UNIQUE KEY `email` (`email`),
-  KEY `student_name` (`name`)
+  UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -40,11 +41,11 @@ CREATE TABLE `student` (
 -- Dumping data for table `student`
 --
 
-LOCK TABLES `student` WRITE;
+-- LOCK TABLES `student` WRITE;
 /*!40000 ALTER TABLE `student` DISABLE KEYS */;
-INSERT INTO `student` VALUES ('dbn','123@456','123456',NULL,NULL,NULL,NULL);
+-- INSERT INTO `student` VALUES ('dbn','123@456','123456',NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `student` ENABLE KEYS */;
-UNLOCK TABLES;
+-- UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
