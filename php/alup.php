@@ -6,14 +6,14 @@
 					<input name = "company" type="company" class="form-control" id="company" placeholder = "Google">
 				</div>
 				<div class="form-group">
-					<label for="company">Your Linkedin url:</label>
+					<label for="company">Your Linkedin url: <br><small>(Optional)</small></label>
 					<input name = "Linkedin" type="Linkedin" class="form-control" id="company" placeholder = "LinkedinUrl">
 				</div>
 				<div class="form-group">
 					<label for="company">Your Position:</label>
 					<input name = "position" type="Linkedin" class="form-control" id="company" placeholder = "Manager">
 				</div>
-				<label for="graduation-year">Graduation Year:</label>
+				<label for="graduation-year">Graduation Year: <br><small>(For current student or alumni)</small></label>
 				<div class="form-group">
 					<div class="col-sm-6 month">
 						<select name="month" id="job-type" class="form-control">
