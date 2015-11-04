@@ -16,6 +16,32 @@
 
 
   	<style>
+  	.black_overlay{
+        display: none;
+        position: absolute;
+        top: 0%;
+        left: 0%;
+        width: 100%;
+        height: 100%;
+        background-color: black;
+        z-index:1001;
+        -moz-opacity: 0.8;
+        opacity:.80;
+        filter: alpha(opacity=80);
+    }
+    .white_content {
+        display: none;
+        position: absolute;
+        top: 25%;
+        left: 25%;
+        width: 50%;
+        height: 50%;
+        padding: 16px;
+        border: 16px solid orange;
+        background-color: white;
+        z-index:1002;
+        overflow: auto;
+    }
   	</style>
 
 </head>
@@ -34,6 +60,7 @@
 	$mode = $_POST["submit"];
 
 	if ($mode == "preview") {
+
 		echo '<div class="showarticle">';
  	 	echo '<h3>'. $_POST["description"] .'</h3>';
    		echo '<h4>Company: '. $_POST["company_name"] .'</h4>';
@@ -162,6 +189,7 @@ function write_add_new_page() {
 	echo '<div class="col-md-6 col-xs-10"><textarea class="form-control" name=job_content style="margin: 0px; width: 100%; height: 140px;" required></textarea></div>';
 	echo '</div>';
 
+
 	// echo '<div class="row">';
 	// echo '<div align="right" class="col-md-4">Tags:</div>';
 	// echo '<div class="col-md-6">';
@@ -202,6 +230,22 @@ function write_add_new_page() {
 	echo '</div>';
 	echo '</div>';
 
+	//Jia Pop-Up Window
+    echo '<p>Preview Here:';
+    echo '<a href = "javascript:void(0)" onclick = "document.getElementById(\'light\').style.display=\'block\'; document.getElementById(\'fade\').style.display=\'block\'">';
+    echo 'Preview';
+    echo '</a>';
+    echo '</p>';
+
+    echo '<div id="light" class="white_content">'; 
+    echo '<a href = "javascript:void(0)" onclick = "document.getElementById(\'light\').style.display=\'none\'; document.getElementById(\'fade\').style.display=\'none\'">';
+    echo 'Close';
+    echo '</a>';
+    echo '</div>';
+
+    echo '<div id="fade" class="black_overlay">';
+    echo '</div>';
+
 //	$known_tags = get_known_tags($entries);
 //	echo "<div>";
 //	foreach ($known_tags as $t)
@@ -215,6 +259,7 @@ function write_add_new_page() {
 
 	echo "</form>";
 	echo "</div>";
+
 }
 ?>
 
