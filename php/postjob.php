@@ -13,6 +13,17 @@
 	 <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.0/css/bootstrap-toggle.min.css" rel="stylesheet">
 	 <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.0/js/bootstrap-toggle.min.js"></script>
 	 <script src="js/main.js"></script>
+	 <script>
+		function showPreview() {
+		    document.getElementById('light').style.display='block'; 
+		    document.getElementById('fade').style.display='block';
+		    
+		}
+		function hidepreview(){
+			document.getElementById('light').style.display='none'; 
+		    document.getElementById('fade').style.display='none';
+		}
+	</script>
 
 
   	<style>
@@ -232,15 +243,21 @@ function write_add_new_page() {
 
 	//Jia Pop-Up Window
     echo '<p>Preview Here:';
-    echo '<a href = "javascript:void(0)" onclick = "document.getElementById(\'light\').style.display=\'block\'; document.getElementById(\'fade\').style.display=\'block\'">';
+    echo '<a href = "javascript:void(0)" onclick = "showPreview()">';
     echo 'Preview';
     echo '</a>';
     echo '</p>';
 
     echo '<div id="light" class="white_content">'; 
-    echo '<a href = "javascript:void(0)" onclick = "document.getElementById(\'light\').style.display=\'none\'; document.getElementById(\'fade\').style.display=\'none\'">';
+    echo '<a href = "javascript:void(0)" onclick = "hidepreview()">';
     echo 'Close';
     echo '</a>';
+    echo '<h4 id="JiaDes">Description:</h4>';
+    echo '<h4 id="JiaEma">Email:</h4>';
+    echo '<h4 id="JiaCom">Company:</h4>';
+    echo '<h4 id="JiaPos">Position:</h4>';
+    echo '<h4 id="JiaDea">Deadline:</h4>';
+    echo '<h4 id="JiaInf">Information:</h4>';
     echo '</div>';
 
     echo '<div id="fade" class="black_overlay">';
