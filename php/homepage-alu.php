@@ -49,8 +49,15 @@
 		exit;
 	}
 	$myemail = $_SESSION["email"];
-
-	$query = "select company,postid,email,position,visit from post_info;";
+	if(isset($_GET["srch-term"]))
+	{
+		$query = "select company,postid,email,position,visit from post_info where company = '".$_GET["srch-term"]."' order by time DESC;";
+	}
+	else
+	{
+		$query = "select company,postid,email,position,visit from post_info order by time DESC;";
+	}
+	
 	$result = mysql_query($query);
 	if(!$result){
 		print "Error- Get info from post_info failed";

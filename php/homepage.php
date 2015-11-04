@@ -38,14 +38,30 @@
 		exit;
 	}
 	$type = $_SESSION['type'];
-	if($type == 'stu'){
-		header('Location: homepage-std.php');
-		exit;
+	if(isset($_GET["srch-term"]))
+	{
+		$SRCH = $_GET["srch-term"];
+		if($type == 'stu'){
+			header('Location: homepage-std.php?srch-term='.$SRCH);
+			exit;
+		}
+		else{
+			header('Location: homepage-alu.php?srch-term='.$SRCH);
+			exit;
+		}
 	}
-	else{
-		header('Location: homepage-alu.php');
-		exit;
+	else
+	{
+		if($type == 'stu'){
+			header('Location: homepage-std.php');
+			exit;
+		}
+		else{
+			header('Location: homepage-alu.php');
+			exit;
+		}
 	}
+	
   include("footer.php");
 ?>
 

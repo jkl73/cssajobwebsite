@@ -43,7 +43,7 @@
   }
 ?>
       <div class="col-sm-3 col-md-6 pull-left">
-        <form class="navbar-form" role="search">
+        <form class="navbar-form" role="search" action = "homepage.php">
         <div class="input-group">
             <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
             <div class="input-group-btn">
