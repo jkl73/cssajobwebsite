@@ -27,6 +27,11 @@
 		echo "<h2 align=center>No such article found</h2>";
 		exit();
 	}
+    if(isset($_POST["submit"]))
+    {
+        sql_add_reply($_SESSION["email"],$_POST["reply_content"],$_GET['postid']);
+    }
+
 	$conn = getconn();
 
     $stmt = $conn->prepare("select * from post_info where postid=:id");
@@ -45,6 +50,7 @@
     echo '<h4>Company: '. $rset[0]['company'] .'</h4>';
     echo '<h4>Job position: '. $rset[0]['position'] .'</h4>';
     echo '<h4>Email: '. $rset[0]['email'] .'</h4>';
+    echo '<h4>Time:'.$rset[0]['time'].'</h4>';
 
     echo '<h6>This job has been viewed '. $rset[0]['visit'] .' times</h6>';
 
@@ -58,8 +64,34 @@
         pdo_die($stmt);
 
     $rset = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    echo '<p>'.$rset[0]['content'].'</p>';
-    echo '<hr style="width: 100%; color: black; height: 1px; background-color:black;" />';
+    echo '<div class="panel panel-default">';
+    echo '<div class="panel-heading">content</div>';
+    echo '<div class="panel-body">'.$rset[0]['content'].'</div>';
+    echo '</div>';
+
+
+    $rset = sql_get_reply($_GET['postid']);
+    $cnt = 0;
+    foreach ($rset as $row) {
+        $cnt = $cnt+1;
+        if($cnt == 1)
+            echo "<h4>Reply List</h4>";
+
+        echo '<div class="panel panel-default">';
+        echo '<div class="panel-heading">Floor '.$cnt.'</div>';
+        echo '<div class="panel-body">';
+        echo '<a href="#">'.$row['email'].'</a>:'.$row['content'].'</div>';
+        echo '<p style="font-size : 70%">Time:'.$row['time'].'</p>';
+        echo '</div>';
+        
+    }
+    /*while($row = $rset->fetch_assoc()) {
+        echo '<hr style="width: 100%; color: black; height: 1px; background-color:black;" />';
+        echo '<p>'.$row['content'].'</p>';
+        echo '<p style="fontsize = %50">Time:'.$row['time'].'</p>';
+    }*/
+
+
     echo '<p><i>people you may want to connect...</i></p>';
     echo '<div class="recmdp">';
     echo '<div class="pic">';
@@ -76,6 +108,7 @@
     echo '</span>';
     echo '</div>';
 
+    
     echo '<div class="recmdp">';
     echo '<div class="pic">';
     echo '<div class="text">';
@@ -93,6 +126,17 @@
 
     echo '</div>';
 	sql_update_visit($_GET['postid']);
+
+    echo "<div class=\"jobpostform center\">";
+    echo "<h3 align=\"center\">Post a reply</h2>";
+    echo '<form method=post action=show-article.php?postid='. $_GET["postid"].'>';
+    echo '<div class="row">';
+    echo '<div align="right" class="col-md-4 col-xs-2">Reply:</div>';
+    echo '<div class="col-md-6 col-xs-10"><textarea class="form-control" name=reply_content style="margin: 0px; width: 100%; height: 140px;" required></textarea></div>';
+    echo '</div>';
+    echo '<input id=\"loginbutton\" class=\"btn\" type=submit name=submit value=reply>';
+    echo '</form>';
+    echo '</div>';
 
 ?>
 
