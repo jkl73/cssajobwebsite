@@ -43,7 +43,7 @@
 	}
 	$myemail = $_SESSION["email"];
 
-	$query = "select company,postid,email,position,visit from post_info;";
+	$query = "select company,postid,email,position,visit from post_info order by time DESC;";
 	$result = mysql_query($query);
 	if(!$result){
 		print "Error- Get info from post_info failed";
