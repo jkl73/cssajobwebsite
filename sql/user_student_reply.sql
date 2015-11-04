@@ -27,7 +27,7 @@ CREATE TABLE `reply` (
   `email` varchar(64) NOT NULL,
   `content` varchar(1024) NOT NULL,
   `time` datetime NOT NULL,
-  PRIMARY KEY (`postid`,`email`)
+  PRIMARY KEY (`postid`,`email`,`time`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
