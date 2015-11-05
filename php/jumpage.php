@@ -74,6 +74,7 @@
 	/*===========================*/
 	
 	// to user email
+	echo $email;
 	$to = $email; // Send email to our user
 
 	require('./PHPMailer/PHPMailerAutoload.php');
@@ -110,7 +111,7 @@
 		$mail->Subject    = 'Verifiy your Email';
 
 		$mail->MsgHTML($body);
-		$mail->SMTPDebug = false;
+		$mail->SMTPDebug = true;
 		$mail->AddAddress($to, 'title1');
 
 		//$mail->AddAttachment($fileName);
