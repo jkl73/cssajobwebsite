@@ -112,7 +112,6 @@
 			} 
 			$token = strtok(" \t\n");
 	   }
-
 	}
 	else
 	{

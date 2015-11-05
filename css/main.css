@@ -225,7 +225,7 @@ body {
 }
 
 .searchbox {
- background-color: grey;
+ background-color: LightGray;
  border: 1px solid grey;
  border-radius: 5px;
  margin: 5px;
@@ -237,8 +237,12 @@ body {
   margin-top: 4px;
 }
 
+.searchbox #btndiv {
+margin-top: 9px}
+
 .searchbox button {
   float: right;
+  height: 100%;
   margin-right: 30px
 }
 
