@@ -98,7 +98,8 @@
 		$mail->Host       = 'smtp.ecloudpanel.com';
 
 		// now its unsecure
-		// $mail->SMTPSecure = 'tls';
+		$mail->SMTPSecure = 'tls';
+
 		$mail->Port       = 587;
 		$mail->SMTPDebug  = 1;
 		$mail->SMTPAuth   = true;
