@@ -21,8 +21,17 @@
   include("header.php");
 ?>
 <div class = "container">
-<div class="row">
-  <div class="col-xs-12 col-sm-6 col-md-8">
+<div class="row" >
+  <div class="col-xs-12 col-sm-6 col-md-8" style = "overflow:scroll; height:450px">
+  	<h2>Job Post</h2>
+  <div class="panel-group">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" href="#collapse1">This week</a>
+        </h4>
+      </div>
+      <div id="collapse1" class="panel-collapse collapse in">
   	 <ul class="list-group">
 <?php
 	//$server = mysql_connect("localhost","root","1qaz-pl,");
@@ -44,12 +53,13 @@
 	$myemail = $_SESSION["email"];
 	if(isset($_GET["srch-term"]))
 	{
-		$query = "select company,postid,email,position,visit from post_info where company = '".$_GET["srch-term"]."' order by time DESC;";
+		$query = "select * from post_info where company = '".$_GET["srch-term"]."' order by time DESC;";
 	}
 	else
 	{
-		$query = "select company,postid,email,position,visit from post_info order by time DESC;";
+		$query = "select * from post_info order by time DESC;";
 	}
+	
 	$result = mysql_query($query);
 	if(!$result){
 		print "Error- Get info from post_info failed";
@@ -58,17 +68,56 @@
 		//exit;		
 	}
 
+	$cnt = 0;
+	$row;
 	while($row = mysql_fetch_array($result)){
-		$num_fields = sizeof($row);
+		$cnt = $cnt+1;
+		if( strtotime($row['time']) < strtotime('-7 day'))
+			break;
+
 		reset($row); 
-		echo "<li class=\"list-group-item\">";
-		echo "<span class=\"badge\">".$row["visit"]."</span>";
+		if($cnt % 2 == 0)echo "<li class=\"list-group-item\">";
+		else echo "<li class=\"list-group-item list-group-item-info\">";
+		echo "<span class=\"badge\">".$row["visit"]." views</span>";
 		echo '<a href="show-article.php?postid='. $row["postid"] .'">'.$row["company"].' is looking for '.$row["position"].", please contact ".$row["email"].'</a>';
-		echo "</li> "; 
+		echo "</li>"; 
 	} 
+	
 	print "</ul>";
 ?>
+</div>
   </div>
+  <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" href="#collapse2">One week ago</a>
+        </h4>
+      </div>
+      <div id="collapse2" class="panel-collapse collapse">
+  	 <ul class="list-group">
+
+<?php
+		reset($row); 
+		if($cnt % 2 == 0)echo "<li class=\"list-group-item\">";
+		else echo "<li class=\"list-group-item list-group-item-info\">";
+		echo "<span class=\"badge\">".$row["visit"]." views</span>";
+		echo '<a href="show-article.php?postid='. $row["postid"] .'">'.$row["company"].' is looking for '.$row["position"].", please contact ".$row["email"].'</a>';
+		echo "</li>"; 
+	while($row = mysql_fetch_array($result)){
+		$cnt = $cnt+1;
+		reset($row); 
+		if($cnt % 2 == 0)echo "<li class=\"list-group-item\">";
+		else echo "<li class=\"list-group-item list-group-item-info\">";
+		echo "<span class=\"badge\">".$row["visit"]." views</span>";
+		echo '<a href="show-article.php?postid='. $row["postid"] .'">'.$row["company"].' is looking for '.$row["position"].", please contact ".$row["email"].'</a>';
+		echo "</li>"; 
+	}
+
+?>
+  	 </div>
+  	</div>
+  </div>
+</div>
   <div class="col-xs-6 col-md-4">
   	<ul class="list-group">
 <?php

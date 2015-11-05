@@ -64,9 +64,42 @@
         pdo_die($stmt);
 
     $rset = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    echo '<div class="panel panel-default">';
-    echo '<div class="panel-heading">content</div>';
+    echo '<div class="panel panel-primary">';
+    echo '<div class="panel-heading" style="font-size:150%">Detailed Information</div>';
     echo '<div class="panel-body">'.$rset[0]['content'].'</div>';
+    echo '</div>';
+
+    echo '<p><i>people you may want to connect...</i></p>';
+    echo '<div class = "container">';
+    echo '<div class="recmdp">';
+    echo '<div class="pic">';
+    echo '<div class="text">';
+    echo 'Get<br>';
+    echo 'Connect';
+    echo '</div>';
+    echo '</div>';
+    echo '<span class="recmddescip">';
+    echo 'Mike';
+    echo '</span>';
+    echo '<span class="recmddescip">';
+    echo 'google';
+    echo '</span>';
+    echo '</div>';
+    
+    echo '<div class="recmdp">';
+    echo '<div class="pic">';
+    echo '<div class="text">';
+    echo 'Get<br>';
+    echo 'Connect';
+    echo '</div>';
+    echo '</div>';
+    echo '<span class="recmddescip">';
+    echo 'Jay';
+    echo '</span>';
+    echo '<span class="recmddescip">';
+    echo 'google';
+    echo '</span>';
+    echo '</div>';
     echo '</div>';
 
 
@@ -77,8 +110,8 @@
         if($cnt == 1)
             echo "<h4>Reply List</h4>";
 
-        echo '<div class="panel panel-default">';
-        echo '<div class="panel-heading">Floor '.$cnt.'</div>';
+        echo '<div class="panel panel-info">';
+        echo '<div class="panel-heading">Followup '.$cnt.'</div>';
         echo '<div class="panel-body">';
         echo '<a href="#">'.$row['email'].'</a>:'.$row['content'].'</div>';
         echo '<p style="font-size : 70%">Time:'.$row['time'].'</p>';
@@ -101,38 +134,6 @@
     echo '<input id="loginbutton" class="btn btn-primary btn-lg" type=submit name=submit value=reply></div>';
     echo '</div>';
     echo '</form>';
-    echo '</div>';
-
-    echo '<p><i>people you may want to connect...</i></p>';
-    echo '<div class="recmdp">';
-    echo '<div class="pic">';
-    echo '<div class="text">';
-    echo 'Get<br>';
-    echo 'Connect';
-    echo '</div>';
-    echo '</div>';
-    echo '<span class="recmddescip">';
-    echo 'Mike';
-    echo '</span>';
-    echo '<span class="recmddescip">';
-    echo 'google';
-    echo '</span>';
-    echo '</div>';
-
-    
-    echo '<div class="recmdp">';
-    echo '<div class="pic">';
-    echo '<div class="text">';
-    echo 'Get<br>';
-    echo 'Connect';
-    echo '</div>';
-    echo '</div>';
-    echo '<span class="recmddescip">';
-    echo 'Jay';
-    echo '</span>';
-    echo '<span class="recmddescip">';
-    echo 'google';
-    echo '</span>';
     echo '</div>';
 
     echo '</div>';
