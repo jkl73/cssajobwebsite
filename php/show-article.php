@@ -91,6 +91,17 @@
         echo '<p style="fontsize = %50">Time:'.$row['time'].'</p>';
     }*/
 
+    echo "<div class=\"jobpostform\">";
+    echo "<h3 align=\"center\">Post a reply</h2>";
+    echo '<form method=post action=show-article.php?postid='. $_GET["postid"].'>';
+    echo '<div class="row">';
+    echo '<div align="right" class="col-md-2 col-xs-2">Reply:</div>';
+    echo '<div class="col-md-8 col-xs-10"><textarea class="form-control" name=reply_content style="margin: 0px; width: 100%; height: 140px;" required></textarea>';
+    
+    echo '<input id="loginbutton" class="btn btn-primary btn-lg" type=submit name=submit value=reply></div>';
+    echo '</div>';
+    echo '</form>';
+    echo '</div>';
 
     echo '<p><i>people you may want to connect...</i></p>';
     echo '<div class="recmdp">';
@@ -125,19 +136,7 @@
     echo '</div>';
 
     echo '</div>';
-	sql_update_visit($_GET['postid']);
-
-    echo "<div class=\"jobpostform center\">";
-    echo "<h3 align=\"center\">Post a reply</h2>";
-    echo '<form method=post action=show-article.php?postid='. $_GET["postid"].'>';
-    echo '<div class="row">';
-    echo '<div align="right" class="col-md-4 col-xs-2">Reply:</div>';
-    echo '<div class="col-md-6 col-xs-10"><textarea class="form-control" name=reply_content style="margin: 0px; width: 100%; height: 140px;" required></textarea></div>';
-    echo '</div>';
-    echo '<input id=\"loginbutton\" class=\"btn\" type=submit name=submit value=reply>';
-    echo '</form>';
-    echo '</div>';
-
+    sql_update_visit($_GET['postid']);
 ?>
 
 <?php
