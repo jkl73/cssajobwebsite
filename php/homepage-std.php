@@ -302,7 +302,7 @@ function print_text_search($SRCH)
 				reset($row); 
 
 				echo "<li class=\"list-group-item\">";
-				echo "<span class=\"badge\">".$row["visit"]."</span>";
+				echo "<span class=\"badge\">".$row["visit"]." views</span>";
 				echo '<a href="show-article.php?postid='. $row["postid"] .'">'.$row["company"].' is looking for '.$row["position"].", please contact ".$row["email"].'</a>';
 				echo "</li> "; 
 			} 
@@ -347,7 +347,7 @@ function Display_all_query()
     	echo '<div class="panel panel-default">';
       	echo '<div class="panel-heading">';
         echo '<h4 class="panel-title">';
-        echo '<a data-toggle="collapse" href="#collapse1">This week</a>';
+        echo '<a data-toggle="collapse" href="#collapse1">This week<i class="glyphicon glyphicon-triangle-bottom"></i></a>';
         echo '</h4>';
       	echo '</div>';
       	echo '<div id="collapse1" class="panel-collapse collapse in">';
