@@ -72,6 +72,7 @@
 
 	/*==== send email verifi ====*/
 	/*===========================*/
+	
 	// to user email
 	$to = "jl3387@cornell.edu"; // Send email to our user
 
@@ -83,7 +84,7 @@
 
 	Thank you for sign up CSSA job website!<br>
 	Please Click the link to verfiy your email:<br><br>
-	http://localhost/cssajobwebsite/php/verify.php?email='.$email.'&hash='.$hash.'<br><br>
+	http://localhost/cssajobwebsite/php/verify.php?email='.$email.'&hash='.$hash.'&type='.$type.'    <br><br>
 	--CSSA team';
 
 	try {

@@ -16,9 +16,24 @@
 
 <body>
 <?php
-  session_start();
+	session_start();
 
-  include("header.php");
+	include("header.php");
+	include("sqlfuncs.php");
+
+	if(!isset($_SESSION['email']))
+	{
+		header('Location: index.php');
+		exit;
+	}
+	$myemail = $_SESSION["email"];
+
+	if (sql_is_verified($myemail, $_SESSION['type'])) {
+
+	} else {
+		echo "<h3>Please verify your email</h3>";
+		return;
+	}
 ?>
 <div class = "container">
 <div class="row" >
@@ -30,7 +45,6 @@
   <div class="col-xs-12 col-sm-6 col-md-8" style = "overflow:scroll; height:450px">
   	<h2>Job Post</h2>
   <?php
-
 	//$server = mysql_connect("localhost","root","1qaz-pl,");
 	$server = mysql_connect("cssadbinstance.ccmgeu2ghiy1.us-east-1.rds.amazonaws.com", "cssaadmin", "cssaadmin123"); 
 	if (!$server) { 
@@ -42,12 +56,7 @@
 		print "Error - Could not select the user_student database"; 
 		exit; 
 	}
-	if(!isset($_SESSION['email']))
-	{
-		header('Location: index.php');
-		exit;
-	}
-	$myemail = $_SESSION["email"];
+
 	if(isset($_GET["srch-term"]))
 	{
 		echo '<ul class="list-group">';

@@ -1,7 +1,13 @@
 <?php
-function sql_update_verify($email) {
+function sql_update_verify($email, $type) {
     $conn = getconn();
-    $stmt = $conn->prepare("update employer set verified=1 where email=:email");
+
+    if ($type == 'stu') {
+        $stmt = $conn->prepare("update student set verified=1 where email=:email");
+    } else {
+        $stmt = $conn->prepare("update employer set verified=1 where email=:email");
+    }
+
     $stmt->bindParam(":email", $email);
 
     $result = $stmt->execute();
@@ -18,6 +24,28 @@ function sql_update_verify($email) {
         return null;
 }
 
+function sql_is_verified($email, $type){
+    $conn = getconn();
+   
+    if ($type == 'stu') {
+        $stmt = $conn->prepare("select verified from student where email=:email");
+    } else {
+        $stmt = $conn->prepare("select verified from employer where email=:email");
+    }
+
+    $stmt->bindParam(":email", $email);
+    $result = $stmt->execute();
+    if (!$result)
+        pdo_die($stmt);
+
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    if ($result[0]['verified'] == 0) {
+        return false;
+    } else {
+        return true;
+    }
+}
 
 // input : an string "(1,3,4)" "(2,5,6,9,8,7)"
 function sql_get_post_by_ids($id_list) {
