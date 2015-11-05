@@ -19,6 +19,26 @@ function sql_update_verify($email) {
 }
 
 
+function sql_get_post_by_ids($id_list) {
+    $conn = getconn();
+
+    foreach ($variable as $key => $value) {
+
+        # code...
+    }
+
+
+    $stmt = $conn->prepare("select * from reply where postid = :postid order by time");
+    $stmt->bindParam(':postid', $post_id);
+
+    $result = $stmt->execute();
+    if (!$result)
+        pdo_die($stmt);
+
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $result;
+}
+
 function sql_update_visit($postid) {
 	$conn = getconn();
     $stmt = $conn->prepare("select visit from post_info where postid=:postid");
@@ -48,7 +68,7 @@ function sql_update_visit($postid) {
     else
         return null;
 
-//    $stmt = $conn->prepare("update post_info set status=:new_status where id=:order_id");
+//  $stmt = $conn->prepare("update post_info set status=:new_status where id=:order_id");
 }
 
 function sql_add_post($email, $company_name, $position, $description, $job_content) 

@@ -223,3 +223,23 @@ body {
   z-index:1002;
   overflow: auto;
 }
+
+.searchbox {
+ background-color: grey;
+ border: 1px solid grey;
+ border-radius: 5px;
+ margin: 5px;
+ padding: 0px;
+ margin: 0px;
+}
+.searchbox div {
+  margin-bottom: 4px;
+  margin-top: 4px;
+}
+
+.searchbox button {
+  float: right;
+  margin-right: 30px
+}
+
+
