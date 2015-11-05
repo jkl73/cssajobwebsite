@@ -65,7 +65,7 @@
 
     $rset = $stmt->fetchAll(PDO::FETCH_ASSOC);
     echo '<div class="panel panel-primary">';
-    echo '<div class="panel-heading" style="font-size:150%">Detailed Information</div>';
+    echo '<div class="panel-heading" style="font-size:100%">Detailed Information</div>';
     echo '<div class="panel-body">'.$rset[0]['content'].'</div>';
     echo '</div>';
 
