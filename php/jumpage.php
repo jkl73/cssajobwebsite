@@ -81,12 +81,10 @@
 	$mail->CharSet = 'UTF-8';
 
 	// $body = 'Hello ' . $name . ',<br><br>
-
 	// Thank you for sign up CSSA job website!<br>
 	// Please Click the link to verfiy your email:<br><br>
 	// http://localhost/cssajobwebsite/php/verify.php?email='.$email.'&hash='.$hash.'&type='.$type.'    <br><br>
 	// --CSSA team';
-
 
 	$body = 'Hello ' . $name . ',<br><br>
 	Thank you for sign up CSSA job website!<br>
@@ -112,7 +110,7 @@
 		$mail->Subject    = 'Verifiy your Email';
 
 		$mail->MsgHTML($body);
-//		$mail->SMTPDebug = false;
+		$mail->SMTPDebug = false;
 		$mail->AddAddress($to, 'title1');
 
 		//$mail->AddAttachment($fileName);
