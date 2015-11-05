@@ -19,17 +19,11 @@ function sql_update_verify($email) {
 }
 
 
+// input : an string "(1,3,4)" "(2,5,6,9,8,7)"
 function sql_get_post_by_ids($id_list) {
     $conn = getconn();
 
-    foreach ($variable as $key => $value) {
-
-        # code...
-    }
-
-
-    $stmt = $conn->prepare("select * from reply where postid = :postid order by time");
-    $stmt->bindParam(':postid', $post_id);
+    $stmt = $conn->prepare("select * from post_info where postid IN ".$id_list);
 
     $result = $stmt->execute();
     if (!$result)

@@ -125,7 +125,7 @@
 
 
   <?php
-
+  	include('sqlfuncs.php');
 	
 	//$server = mysql_connect("localhost","root","1qaz-pl,");
 	$server = mysql_connect("cssadbinstance.ccmgeu2ghiy1.us-east-1.rds.amazonaws.com", "cssaadmin", "cssaadmin123"); 
@@ -154,10 +154,19 @@
 	{
 		if ($_GET['mode'] == 'search') {
 			$result =  searchPost(array($_GET['major'], $_GET['company'], $_GET['job_type']));
+			$targetstring = "(";
 			foreach ($result as $key => $value) {
-				echo $value;
+				$targetstring = $targetstring.$value.',';
 			}
 
+			if (count($result) == 0) {
+				echo "<h5>Sorry, didn't find any result :(</h5>";
+			}
+			else {
+				$targetstring[strlen($targetstring) - 1] = ')';
+				$res_data = sql_get_post_by_ids($targetstring);
+				print_posts($res_data);
+			}
 
 			echo "</div>";
 		}
@@ -167,15 +176,7 @@
 		Display_all_query();
   	}
 
-
-
  ?>
-
-
-
-
-
-
 
 
   <div class="col-xs-6 col-md-4">
@@ -231,6 +232,16 @@
 
 
 <?php
+function print_posts($res_data) {
+	foreach ($res_data as $key => $row) {
+		echo "<li class=\"list-group-item\">";
+		echo "<span class=\"badge\">".$row["visit"]."</span>";
+		echo '<a href="show-article.php?postid='. $row["postid"] .'">'.$row["company"].' is looking for '.$row["position"].", please contact ".$row["email"].'</a>';
+		echo "</li> "; 
+	}
+}
+
+
 function print_text_search($SRCH)
 {
 	echo '<ul class="list-group">';
