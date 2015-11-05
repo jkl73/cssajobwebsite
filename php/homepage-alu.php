@@ -74,9 +74,9 @@
 	 		"she", "she'd", "she'll", "she's", "should", "shouldn't", "so", "some", "such", "than", "that", "that's", 
 	 		"the", "their", "theirs", "them", "themselves", "then", "there", "there's", "these", "they", "they'd", 
 	 		"they'll", "they're", "they've", "this", "those", "through", "to", "too", "under", "until", "up", "very", 
-	 		"was", "wasn't", "we", "we'd", "we'll", "we're", "we've", "were", "weren't", "what", "what's", "when", 
+	 		"was", "wasn't", "we", "we'd", "we'll", "we're", "we've", "were", "weren't", "what", "what's", "when", "want","wants",
 	 		"when's", "where", "where's", "which", "while", "who", "who's", "whom", "why", "why's", "with", "won't", 
-	 		"would", "wouldn't", "you", "you'd", "you'll", "you're", "you've", "your", "yours", "yourself", 
+	 		"wanted", "would", "wouldn't", "you", "you'd", "you'll", "you're", "you've", "your", "yours", "yourself", 
 	 		"yourselves", 
 			);
 	 	$res_id = array();
@@ -115,9 +115,13 @@
 				reset($row); 
 
 				echo "<li class=\"list-group-item\">";
-				echo "<span class=\"badge\">".$row["visit"]." views</span>";
-				echo '<a href="show-article.php?postid='. $row["postid"] .'">'.$row["company"].' is looking for '.$row["position"].", please contact ".$row["email"].'</a>';
-				echo "</li> "; 
+				echo "<span class=\"badge\">".$row["visit"]." view</span>";
+				echo '<a href="show-article.php?postid='. $row["postid"] .'">'.$row["tags"].'</a>';
+				echo '<div>';
+				echo '<span class="label label-info">'.$row["company"].'</span>';
+				echo '<span class="label label-info">'.$row["position"].'</span>';
+				echo '</div>';
+				echo "</li> ";  
 			} 
 			$token = strtok(" \t\n");
 	   }
@@ -155,9 +159,13 @@
 			reset($row); 
 			if($cnt % 2 == 0)echo "<li class=\"list-group-item\">";
 			else echo "<li class=\"list-group-item list-group-item-info\">";
-			echo "<span class=\"badge\">".$row["visit"]." views</span>";
-			echo '<a href="show-article.php?postid='. $row["postid"] .'">'.$row["company"].' is looking for '.$row["position"].", please contact ".$row["email"].'</a>';
-			echo "</li>"; 
+			echo "<span class=\"badge\">".$row["visit"]." view</span>";
+			echo '<a href="show-article.php?postid='. $row["postid"] .'">'.$row["tags"].'</a>';
+			echo '<div>';
+			echo '<span class="label label-info">'.$row["company"].'</span>';
+			echo '<span class="label label-info">'.$row["position"].'</span>';
+			echo '</div>';
+			echo "</li> ";  
 		}
 		
 		
@@ -178,9 +186,13 @@
 		reset($row); 
 		if($cnt % 2 == 0)echo "<li class=\"list-group-item\">";
 		else echo "<li class=\"list-group-item list-group-item-info\">";
-		echo "<span class=\"badge\">".$row["visit"]." views</span>";
-		echo '<a href="show-article.php?postid='. $row["postid"] .'">'.$row["company"].' is looking for '.$row["position"].", please contact ".$row["email"].'</a>';
-		echo "</li>"; 
+		echo "<span class=\"badge\">".$row["visit"]." view</span>";
+		echo '<a href="show-article.php?postid='. $row["postid"] .'">'.$row["tags"].'</a>';
+		echo '<div>';
+		echo '<span class="label label-info">'.$row["company"].'</span>';
+		echo '<span class="label label-info">'.$row["position"].'</span>';
+		echo '</div>';
+		echo "</li> ";  
 
 		while($row = mysql_fetch_array($result))
 		{
@@ -188,9 +200,13 @@
 			reset($row); 
 			if($cnt % 2 == 0)echo "<li class=\"list-group-item\">";
 			else echo "<li class=\"list-group-item list-group-item-info\">";
-			echo "<span class=\"badge\">".$row["visit"]." views</span>";
-			echo '<a href="show-article.php?postid='. $row["postid"] .'">'.$row["company"].' is looking for '.$row["position"].", please contact ".$row["email"].'</a>';
-			echo "</li>"; 
+			echo "<span class=\"badge\">".$row["visit"]." view</span>";
+			echo '<a href="show-article.php?postid='. $row["postid"] .'">'.$row["tags"].'</a>';
+			echo '<div>';
+			echo '<span class="label label-info">'.$row["company"].'</span>';
+			echo '<span class="label label-info">'.$row["position"].'</span>';
+			echo '</div>';
+			echo "</li> ";  
 		}
 
 
