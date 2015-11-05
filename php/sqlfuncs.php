@@ -40,6 +40,10 @@ function sql_is_verified($email, $type){
 
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+    if (count($result) == 0) {
+        return false;
+    }
+
     if ($result[0]['verified'] == 0) {
         return false;
     } else {

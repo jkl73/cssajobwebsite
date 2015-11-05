@@ -112,7 +112,7 @@
 		$mail->Subject    = 'Verifiy your Email';
 
 		$mail->MsgHTML($body);
-		$mail->SMTPDebug = false;
+//		$mail->SMTPDebug = false;
 		$mail->AddAddress($to, 'title1');
 
 		//$mail->AddAttachment($fileName);
