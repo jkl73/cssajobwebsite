@@ -32,11 +32,15 @@
   <ul class="nav nav-tabs">
     <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
     <li><a data-toggle="tab" href="#menu1">Manage User</a></li>
-    <li><a data-toggle="tab" href="#menu2">Manage Post</a></li>
+    <li><a data-toggle="tab" href="#menu2">Use query to manipulate</a></li>
   </ul>
 
   <div class="tab-content">
-    <div id="home" class="tab-pane fade <?php if($active_pos<2)echo 'in active';?>">
+    <div id="home" class="tab-pane fade <?php if($active_pos == 0)echo 'in active';?>">
+      <h3>Home page</h3>
+      <p>Useless homepage</p>
+    </div>
+    <div id="menu1" class="tab-pane fade <?php if($active_pos == 1)echo 'in active';?>">
       <h3>Manage User</h3>
       <?php
           $conn = getconn();
@@ -103,7 +107,7 @@
           <input type=submit name="delete" value = "delete">
         </form>
     </div>
-    <div id="menu1" class="tab-pane fade <?php if($active_pos>=2)echo 'in active';?>">
+    <div id="menu2" class="tab-pane fade <?php if($active_pos == 2)echo 'in active';?>">
       <?php
         if (isset($_POST["submit"])) {
           $query = $_POST["content"];
@@ -124,10 +128,6 @@
           echo '</form>';
         }
       ?>
-    </div>
-    <div id="menu2" class="tab-pane fade">
-      <h3>Menu 2</h3>
-      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
     </div>
   </div>
 </div>
