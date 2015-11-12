@@ -18,15 +18,16 @@
 <body>
 
 	<?php
-	$type = $_POST["alumni"];
+	include("sqlfuncs.php");
+	$type = $_POST["employer"];
 	$name = $_POST["username"];
 	$email = $_POST["email"];
 	$pwd = $_POST["pwd"];
 	session_start();
 	$_SESSION["email"] = $email;
 
-	if ($type == 'alu'){
-		$_SESSION["type"] = "alu";
+	if ($type == 'emp'){
+		$_SESSION["type"] = "emp";
 	}
 	else{
 		$_SESSION["type"] = "stu";
@@ -34,41 +35,16 @@
 
 	include("header.php");
 
-	//$server = mysql_connect("localhost", "root", "1qaz-pl,"); 
-	$server = mysql_connect("cssadbinstance.ccmgeu2ghiy1.us-east-1.rds.amazonaws.com", "cssaadmin", "cssaadmin123"); 
-	if (!$server) { 
-		print "Error - Could not connect to MySQL"; 
-		exit; 
-	}
-	$db = mysql_select_db("user_student"); 
-	if (!$db) { 
-		print "Error - Could not select the user_student database"; 
-		exit; 
-	}
+	$stu_res = sql_get_stuInfo_byEmail($email);
+	$emp_res = sql_get_empInfo_byEmail($email);
 
-	$query = "select * from employer E,student S where S.email ='". $email. "' || E.email ='". $email. "';";
-	$result = mysql_query($query);
-	if(!$result){
-		print "Error- Judge failed";
-		$error = mysql_error();
-		print "<p>". $error . "</p>";
-		exit;		
-	}
-
-	$row = mysql_fetch_array($result);
-	if($row){
+	if($stu_res || $emp_res){
 		print "Email used";
 		exit;
 	}
 
 	$hash = md5(rand(0,1000));
 
-	if($type == 'alu'){
-			$query = "INSERT INTO employer(name, email, hash, verified, password) VALUES('".$name."','".$email. "', '".$hash."', 0, '".$pwd."')";
-	}
-	else if($type == 'stu'){
-			$query = "INSERT INTO student(name, email, hash, verified, password) VALUES('".$name."','".$email. "','".$hash."', 0 ,'".$pwd."')";
-	}
 
 	/*==== send email verifi ====*/
 	/*===========================*/
@@ -112,7 +88,7 @@
 		$mail->Subject    = 'Verifiy your Email';
 
 		$mail->MsgHTML($body);
-		 $mail->SMTPDebug = false;
+		$mail->SMTPDebug = false;
 		$mail->AddAddress($to, 'title1');
 
 		//$mail->AddAttachment($fileName);
@@ -127,23 +103,19 @@
 	/*=============================*/
 
 
-	if ($type == 'alu'){
+	if($type == 'emp'){
+		sql_insert_empInfo($email,$name,$hash,$pwd);
 		include("alup.php");
+			//$query = "INSERT INTO employer(name, email, hash, verified, password) VALUES('".$name."','".$email. "', '".$hash."', 0, '".$pwd."')";
 	}
-	else {
+	else if($type == 'stu'){
+		sql_insert_stuInfo($email,$name,$hash,$pwd);
 		include("stup.php");
+			//$query = "INSERT INTO student(name, email, hash, verified, password) VALUES('".$name."','".$email. "','".$hash."', 0 ,'".$pwd."')";
 	}
+	
 
-	$query = stripslashes($query);
-	$result = mysql_query($query);
-	if(!$result){
-		print "Error- Inserting into student/employer failed";
-		$error = mysql_error();
-		print "<p>". $error . "</p>";
-		exit;		
-	}
-
-	$hidden_form = "<input type=\"hidden\" name=\"email\" value=\"".$email."\">";
+	$hidden_form = '<input type="hidden" name="email" value="'.$email.'">';
 	echo $hidden_form;
 	/*
 	$query = "select * from user_info";

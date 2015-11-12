@@ -157,6 +157,74 @@ function sql_get_reply($post_id)
     return $result;
 }
 
+function sql_get_stuInfo_byEmail($email)
+{
+    $conn = getconn();
+    $stmt = $conn->prepare("select * from student where email = :email");
+    $stmt->bindParam(':email', $email);
+
+    $result = $stmt->execute();
+    if (!$result)
+    {
+        echo "What the fuck?";
+        pdo_die($stmt);
+    }
+        
+
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $result;
+}
+function sql_get_empInfo_byEmail($email)
+{
+    $conn = getconn();
+    $stmt = $conn->prepare("select * from employer where email = :email");
+    $stmt->bindParam(':email', $email);
+
+    $result = $stmt->execute();
+    if (!$result)
+    {
+        echo "What the fuck?";
+        pdo_die($stmt);
+    }
+        
+
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $result;
+}
+function sql_insert_stuInfo($email,$username,$hash,$password)
+{
+    $conn = getconn();
+    $stmt = $conn->prepare("insert into student(email,name,hash,verified,password) values(:email,:username,:hash,0,:password)");
+    $stmt->bindParam(':email', $email);
+    $stmt->bindParam(':username', $username);
+    $stmt->bindParam(':hash', $hash);
+    $stmt->bindParam(':password', $password);
+
+
+    $result = $stmt->execute();
+    if (!$result)
+    {
+        echo "What the fuck?";
+        pdo_die($stmt);
+    }
+    
+}
+function sql_insert_empInfo($email,$username,$hash,$password)
+{
+    $conn = getconn();
+    $stmt = $conn->prepare("insert into employer(email,name,hash,verified,password) values(:email,:username,:hash,0,:password)");
+    $stmt->bindParam(':email', $email);
+    $stmt->bindParam(':username', $username);
+    $stmt->bindParam(':hash', $hash);
+    $stmt->bindParam(':password', $password);
+
+    $result = $stmt->execute();
+    if (!$result)
+    {
+        echo "What the fuck?";
+        pdo_die($stmt);
+    }
+}
 function pdo_die($stmt)
 {
     var_dump($stmt->errorInfo());

@@ -66,5 +66,5 @@
 				</div>
 				<button type="reset" class="btn">Reset</button>
 				<button type="submit" class="btn">Update</button>
-				<input type = "hidden" name="type" value="alu">
+				<input type = "hidden" name="type" value="emp">
 

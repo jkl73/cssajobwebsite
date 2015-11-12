@@ -17,17 +17,9 @@
 <?php
   session_start();
   include("./header.php");
+  include("sqlfuncs.php");
   //$server = mysql_connect("localhost", "root", "1qaz-pl,"); 
-  $server = mysql_connect("cssadbinstance.ccmgeu2ghiy1.us-east-1.rds.amazonaws.com", "cssaadmin", "cssaadmin123"); 
-  if (!$server) { 
-    print "Error - Could not connect to MySQL"; 
-    exit; 
-  }
-  $db = mysql_select_db("user_student"); 
-  if (!$db) { 
-    print "Error - Could not select the user_student database"; 
-    exit; 
-  }
+  $conn = getconn();
 
   $type = $_POST["type"];
   $email = $_POST["email"];
@@ -42,12 +34,10 @@
 
     $sql = "UPDATE student SET grad_year=\"".$year."-".$month."-"."00\",major='".$major."',job_type = '".$job_type."' WHERE email='".$email."'";
     
-    $result = mysql_query($sql);
+    $stmt = $conn->prepare($sql);
+    $result = $stmt->execute();
     if(!$result){
-      print "Error- Update student table failed";
-      $error = mysql_error();
-      print "<p>". $error . "</p>";
-      exit;   
+      pdo_die($stmt);  
     }
   }
   else{
@@ -55,12 +45,10 @@
     $company = $_POST["company"];
     $Linkedin = $_POST["Linkedin"];
     $sql = " UPDATE employer SET grad_year=\"".$year."-".$month."-"."00\",company='".$company."',Linkedin = '".$Linkedin."',position ='". $position ."' WHERE email='".$email."' ";
-    $result = mysql_query($sql);
+    $stmt = $conn->prepare($sql);
+    $result = $stmt->execute();
     if(!$result){
-      print "Error- Update employer table failed";
-      $error = mysql_error();
-      print "<p>". $error . "</p>";
-      exit;
+      pdo_die($stmt);  
     }
   }
 ?>
