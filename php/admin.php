@@ -25,14 +25,15 @@
   if(isset($_POST["delete"]))
     $active_pos = 1;
   else if(isset($_POST["submit"]))
-    $active_pos = 2;
+    $active_pos = 3;
 ?>
 <div class="container">
   <h2>Welcome Admin!!</h2>
   <ul class="nav nav-tabs">
-    <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
-    <li><a data-toggle="tab" href="#menu1">Manage User</a></li>
-    <li><a data-toggle="tab" href="#menu2">Use query to manipulate</a></li>
+    <li <?php if($active_pos == 0)echo 'class = "active"';?>><a data-toggle="tab" href="#home">Home</a></li>
+    <li <?php if($active_pos == 1)echo 'class = "active"';?>><a data-toggle="tab" href="#menu1">Manage User</a></li>
+    <li <?php if($active_pos == 2)echo 'class = "active"';?>><a data-toggle="tab" href="#menu2">Manage Post</a></li>
+    <li <?php if($active_pos == 3)echo 'class = "active"';?>><a data-toggle="tab" href="#menu3">Use query to manipulate</a></li>
   </ul>
 
   <div class="tab-content">
@@ -44,15 +45,27 @@
       <h3>Manage User</h3>
       <?php
           $conn = getconn();
+          /*if(isset($_POST["delete"]))
+          {
+            if(isset($_POST["users"]))
+            {
+              $rowCount = count($_POST["users"]);
+              for($i=0;$i<$rowCount;$i++) 
+              {
+                $stmt = $conn->prepare("DELETE FROM student WHERE email='" . $_POST["users"][$i] . "'");
+                $stmt->execute();
+                $stmt = $conn->prepare("DELETE FROM employer WHERE email='" . $_POST["users"][$i] . "'");
+                $stmt->execute();
+              }
+            }
+            
+          }*/
           if(isset($_POST["delete"]))
           {
-            $rowCount = count($_POST["users"]);
-            for($i=0;$i<$rowCount;$i++) {
-              $stmt = $conn->prepare("DELETE FROM student WHERE email='" . $_POST["users"][$i] . "'");
-              $stmt->execute();
-              $stmt = $conn->prepare("DELETE FROM employer WHERE email='" . $_POST["users"][$i] . "'");
-              $stmt->execute();
-            }
+            $stmt = $conn->prepare("DELETE FROM student WHERE email='" . $_POST["delete"][0] . "'");
+            $stmt->execute();
+            $stmt = $conn->prepare("DELETE FROM employer WHERE email='" . $_POST["delete"][0] . "'");
+            $stmt->execute();
           }
           $stmt = $conn->prepare("select * from student");
           $result = $stmt->execute();
@@ -62,6 +75,16 @@
           $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
           ?>
           <form action ="admin.php" method = POST>
+            <div class = "row">
+            <div class="alert alert-info fade in col-md-4">
+              <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+              <p>Click on &times; and delete user</p> 
+            </div>
+            <!--div class = "col-md-8">
+              <button class="btn btn-primary btn-lg" type=submit name="delete" value = "davd">dedflete user</button>
+            </div-->
+            </div>
+          <div style = "overflow:scroll; height:450px">
           <table class="table table-striped">
             <thead>
               <tr>
@@ -75,13 +98,19 @@
           <?php
           foreach ($result as $row) {
             echo '<tr>';
-            echo '<td><input type="checkbox" name="users[]" value="'.$row["email"].'" ></td>';
+            echo '<td><button class="btn btn-primary btn-lg" type=submit name="delete[]" value ='.$row["email"].'>&times;</button></td>';
+            //echo '<td><input type="checkbox" name="users[]" value="'.$row["email"].'" ></td>';
             echo '<td>Student</td>';
             echo '<td>'.$row["name"].'</td>';
             echo '<td>'.$row["email"].'</td>';
-            $verified = "yes";
-            if($row["verified"] == 0)$verified = "no";
-            echo '<td>'.$verified.'</td>';
+            echo '<td>';
+              echo '<label class="checkbox">';
+              if($row["verified"] == 0)
+                echo '<input data-toggle="toggle" data-on="Yes" data-off="No" type="checkbox">';
+              else
+                echo '<input checked data-toggle="toggle" data-on="Yes" data-off="No" type="checkbox">';
+              echo '</label>';
+            echo '</td>';
             echo '</tr>';
           }
           $stmt = $conn->prepare("select * from employer");
@@ -92,22 +121,46 @@
           $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
           foreach ($result as $row) {
             echo '<tr>';
-            echo '<td><input type="checkbox" name="users[]" value="'.$row["email"].'" ></td>';
+            echo '<td><button class="btn btn-primary btn-lg" type=submit name="delete[]" value ='.$row["email"].'>&times;</button></td>';
+            //echo '<td><input type="checkbox" name="users[]" value="'.$row["email"].'" ></td>';
             echo '<td>Employer</td>';
             echo '<td>'.$row["name"].'</td>';
             echo '<td>'.$row["email"].'</td>';
-            $verified = "yes";
-            if($row["verified"] == 0)$verified = "no";
-            echo '<td>'.$verified.'</td>';
+            echo '<td>';
+              echo '<label class="checkbox">';
+              if($row["verified"] == 0)
+                echo '<input data-toggle="toggle" data-on="Yes" data-off="No" type="checkbox">';
+              else
+                echo '<input checked data-toggle="toggle" data-on="Yes" data-off="No" type="checkbox">';
+              echo '</label>';
+            echo '</td>';
             echo '</tr>';
           }
           ?>
             </tbody>
           </table>
-          <input type=submit name="delete" value = "delete">
+        </div>
         </form>
     </div>
     <div id="menu2" class="tab-pane fade <?php if($active_pos == 2)echo 'in active';?>">
+      <div class = "container">
+        <div style = "overflow:scroll; height:450px">
+      <?php
+        $conn = getconn();
+        $stmt = $conn->prepare("select * from post_info order by time DESC;");
+        $result = $stmt->execute();
+        if (!$result)
+          {
+              echo "What the fuck?";
+              pdo_die($stmt);
+          }
+          $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+          Print_Post($result);
+      ?>
+      </div>
+      </div>
+    </div>
+    <div id="menu3" class="tab-pane fade <?php if($active_pos == 3)echo 'in active';?>">
       <?php
         if (isset($_POST["submit"])) {
           $query = $_POST["content"];

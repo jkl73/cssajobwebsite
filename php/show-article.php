@@ -139,7 +139,24 @@
     echo '</div>';
     sql_update_visit($_GET['postid']);
 ?>
+<div class = "container">
+    <div class = "row">
+        <div class="panel panel-info">
+            <div class="panel-heading">Topic</div>
+            <div class="panel-body">
+                <p>Content</p>
+                <div class = "pull-right">
+                    <a href="#demo" class="btn btn-info" data-toggle="collapse"><i class="glyphicon glyphicon-triangle-bottom"></i></a>
+                </div>
+            </div>
 
+            <div id = "demo" class = "collapse">
+                <p>Reply</p>
+                <input type="text" id="reply">
+            </div>
+        </div>
+    </div>
+</div>
 <?php
   include("./footer.php");
 ?>

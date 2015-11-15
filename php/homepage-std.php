@@ -138,7 +138,7 @@
   	<h2>Job Posts</h2>
   <?php	
 	//$server = mysql_connect("localhost","root","1qaz-pl,");
-	$server = mysql_connect("cssadbinstance.ccmgeu2ghiy1.us-east-1.rds.amazonaws.com", "cssaadmin", "cssaadmin123"); 
+	/*$server = mysql_connect("cssadbinstance.ccmgeu2ghiy1.us-east-1.rds.amazonaws.com", "cssaadmin", "cssaadmin123"); 
 	if (!$server) { 
 		print "Error - Could not connect to MySQL"; 
 		exit; 
@@ -147,7 +147,7 @@
 	if (!$db) { 
 		print "Error - Could not select the user_student database"; 
 		exit; 
-	}
+	}*/
 
 	if(isset($_GET["srch-term"]))
 	{
@@ -159,7 +159,7 @@
 			$result =  searchPost(array($_GET['major'], $_GET['company'], $_GET['job_type']));
 			$targetstring = "(";
 			foreach ($result as $key => $value) {
-				$targetstring = $targetstring.$value.',';
+				$targetstring = $targetstring.$value["postid"].',';
 			}
 
 			if (count($result) == 0) {
@@ -168,10 +168,8 @@
 			else {
 				$targetstring[strlen($targetstring) - 1] = ')';
 				$res_data = sql_get_post_by_ids($targetstring);
-				print_posts($res_data);
-			}
-
-			echo "</div>";
+				Print_Post($res_data);
+			}			
 		}
 	}
 	else
@@ -181,23 +179,26 @@
 
  ?>
 
-
-  <div class="col-xs-6 col-md-4">
+</div>
+<div class="col-xs-6 col-md-4">
   	<ul class="list-group">
 
 
 <?php
+	
+	$conn = getconn();
+	$stmt = $conn->prepare("select name,grad_year,major,job_type from student where email = :myemail;");
+	$stmt->bindParam(":myemail",$myemail);
+	$result = $stmt->execute();
+	if (!$result)
+    {
+        echo "What the fuck?";
+        pdo_die($stmt);
+    }
+        
 
-	$query = 'select name,grad_year,major,job_type from student where email = "'.$myemail.'";';
-	$result = mysql_query($query);
-	if(!$result){
-		print "Error- Get info from student failed";
-		$error = mysql_error();
-		print "<p>". $error . "</p>";
-		exit;		
-	}
-	$row = mysql_fetch_array($result);
-		$num_fields = sizeof($row);
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	$row = $result[0];
 		echo '<li class="list-group-item">Username: '.$row["name"].'</li>';
 		echo '<li class="list-group-item">Expected Graduation Year: '.substr($row["grad_year"], 0, 7).'</li>';
 		echo '<li class="list-group-item">Major: '.$row["major"].'</li>';
@@ -235,7 +236,7 @@
 
 
 <?php
-function print_posts($res_data) {
+/*function print_posts($res_data) {
 	foreach ($res_data as $key => $row) {
 		echo "<li class=\"list-group-item\">";
 		echo "<span class=\"badge\">".$row["visit"]." view</span>";
@@ -246,12 +247,14 @@ function print_posts($res_data) {
 		echo '</div>';
 		echo "</li> "; 
 	}
-}
+}*/
 
 
 function print_text_search($SRCH)
 {
-	echo '<ul class="list-group">';
+	$conn = getconn();
+
+	//echo '<ul class="list-group">';
 		$token = strtok($SRCH, " \t\n");
   
 	 	$stop_words = array("a", "about", "above", "after", "again", "against", "all", "am", "an", "and", "any", "are", 
@@ -279,17 +282,27 @@ function print_text_search($SRCH)
 	   		$token = strtok(" \t\n");
 	   		continue;
 	   	}
-	   	$query = "select tags,company,postid,email,position,visit from post_info 
+	   	$query = "select * from post_info 
 	   	where company like '%".$token."%' or position like '%".$token."%' or tags like '%".$token."%' order by visit DESC;";
-			$result = mysql_query($query);
+			$stmt = $conn->prepare($query);
+			$result = $stmt->execute();
+			if (!$result)
+		    {
+		        echo "What the fuck?";
+		        pdo_die($stmt);
+		    }
+		    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+		    Print_Post($result);
+			/*$result = mysql_query($query);
 			if(!$result){
 				print "Error- Get info from post_info failed";
 				$error = mysql_error();
 				print "<p>". $error . "</p>";
 				//exit;		
-			}
-			
-			while($row = mysql_fetch_array($result)){
+			}*/
+			/*
+			foreach ($result as $row) {
 				if(in_array($row["postid"], $res_id)) {
 					reset($row);
 					continue;
@@ -314,127 +327,51 @@ function print_text_search($SRCH)
 				echo '</div>';
 				echo "</li> "; 
 			} 
-			$token = strtok(" \t\n");
+			$token = strtok(" \t\n");*/
 	   }
-	   echo '</div>';
+	   //echo '</div>';
 }
 
 
 function searchPost($tag_array) {
-	/*$conn = getconn();*/
+	$conn = getconn();
 
-	$server = mysql_connect("cssadbinstance.ccmgeu2ghiy1.us-east-1.rds.amazonaws.com", "cssaadmin", "cssaadmin123");
-	if (!$server) {
-		print "Error - Could not connect to MySQL";
-		exit;
-	}
-	$db = mysql_select_db("user_student");
-	if (!$db) {
-		print "Error - Could not select the guest database";
-		exit;
-	}
+	
 	$majorClass = $tag_array[0];
 	$companyName = $tag_array[1];
 	$jobType = $tag_array[2];
 
 	$query = "select postid from post_tags where (".$majorClass." = 0 or major_class = ".$majorClass.") and (".$companyName." = 0 or company = ".$companyName.") and (".$jobType." = 0 or job_type = ".$jobType.")";
-	$result = mysql_query($query);
-	
+	$stmt = $conn->prepare($query);
+	$result = $stmt->execute();
+	if (!$result)
+    {
+        echo "What the fuck?";
+        pdo_die($stmt);
+    }
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	/*
 	$pid_array = array();
 
 
 	while ($row = mysql_fetch_array($result)) {
 		array_push($pid_array, $row["postid"]);
 	}
-	return $pid_array;
+	return $pid_array;*/
+	return $result;
 }
 
 function Display_all_query()
 {
-	echo '<div class="panel-group">';
-    	echo '<div class="panel panel-default">';
-      	echo '<div class="panel-heading">';
-        echo '<h4 class="panel-title">';
-        echo '<a data-toggle="collapse" href="#collapse1">This week<i class="glyphicon glyphicon-triangle-bottom"></i></a>';
-        echo '</h4>';
-      	echo '</div>';
-      	echo '<div id="collapse1" class="panel-collapse collapse in">';
-  	 	echo '<ul class="list-group">';
-		$query = "select * from post_info order by time DESC;";
-	
-		$result = mysql_query($query);
-		if(!$result)
-		{
-			print "Error- Get info from post_info failed";
-			$error = mysql_error();
-			print "<p>". $error . "</p>";
-			//exit;		
-		}
-
-		$cnt = 0;
-		$row;
-		while($row = mysql_fetch_array($result))
-		{
-			$cnt = $cnt+1;
-			if( strtotime($row['time']) < strtotime('-7 day'))
-				break;
-
-			reset($row); 
-			if($cnt % 2 == 0)echo "<li class=\"list-group-item\">";
-			else echo "<li class=\"list-group-item list-group-item-info\">";
-			echo "<span class=\"badge\">".$row["visit"]." view</span>";
-			echo '<a href="show-article.php?postid='. $row["postid"] .'">'.$row["tags"].'</a>';
-			echo '<div>';
-			echo '<span class="label label-info">'.$row["company"].'</span>';
-			echo '<span class="label label-info">'.$row["position"].'</span>';
-			echo '</div>';
-			echo "</li>"; 
-		}
-		
-		print "</ul>";
-
-		echo '</div>';
-	  	echo '</div>';
-	  	echo '<div class="panel panel-default">';
-	    echo '<div class="panel-heading">';
-	    echo '<h4 class="panel-title">';
-	    echo '<a data-toggle="collapse" href="#collapse2">One week ago</a>';
-	    echo '</h4>';
-	    echo '</div>';
-	    echo '<div id="collapse2" class="panel-collapse collapse">';
-	  	echo '<ul class="list-group">';
-
-
-		reset($row); 
-		if($cnt % 2 == 0)echo "<li class=\"list-group-item\">";
-		else echo "<li class=\"list-group-item list-group-item-info\">";
-		echo "<span class=\"badge\">".$row["visit"]." view</span>";
-		echo '<a href="show-article.php?postid='. $row["postid"] .'">'.$row["tags"].'</a>';
-		echo '<div>';
-		echo '<span class="label label-info">'.$row["company"].'</span>';
-		echo '<span class="label label-info">'.$row["position"].'</span>';
-		echo '</div>';
-		echo "</li>"; 
-
-		while($row = mysql_fetch_array($result))
-		{
-			$cnt = $cnt+1;
-			reset($row); 
-			if($cnt % 2 == 0)echo "<li class=\"list-group-item\">";
-			else echo "<li class=\"list-group-item list-group-item-info\">";
-			echo "<span class=\"badge\">".$row["visit"]." view</span>";
-			echo '<a href="show-article.php?postid='. $row["postid"] .'">'.$row["tags"].'</a>';
-			echo '<div>';
-			echo '<span class="label label-info">'.$row["company"].'</span>';
-			echo '<span class="label label-info">'.$row["position"].'</span>';
-			echo '</div>';
-			echo "</li>"; 
-		}
-
-
-	  	echo '</div>';
-	  	echo '</div>';
-	  	echo '</div>';
-	  	echo '</div>';
+	$conn = getconn();
+	$stmt = $conn->prepare("select * from post_info order by time DESC;");
+	$result = $stmt->execute();
+	if (!$result)
+    {
+        echo "What the fuck?";
+        pdo_die($stmt);
+    }
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    Print_Post($result);
 }
 ?>

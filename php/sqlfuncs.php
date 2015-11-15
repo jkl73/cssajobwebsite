@@ -128,6 +128,25 @@ function sql_add_post($email, $company_name, $position, $description, $job_conte
 
     return 1;
 }
+function sql_delete_post_byPostId($postid)
+{
+    $conn = getconn();
+    $stmt = $conn->prepare("delete from post_info where postid = :postid");
+    $stmt->bindParam(':postid',$postid);
+    $result = $stmt->execute();
+    if (!$result)
+        pdo_die($stmt);
+    $stmt = $conn->prepare("delete from post_content where postid = :postid");
+    $stmt->bindParam(':postid',$postid);
+    $result = $stmt->execute();
+    if (!$result)
+        pdo_die($stmt);
+    $stmt = $conn->prepare("delete from reply where postid = :postid");
+    $stmt->bindParam(':postid',$postid);
+    $result = $stmt->execute();
+    if (!$result)
+        pdo_die($stmt);
+}
 
 function sql_add_reply($email, $reply_content, $post_id)
 {
@@ -246,6 +265,57 @@ function getconn()
     $conn = new PDO($dsn, $user, $pw);
     return $conn;
 }
-
+function Print_Post($post_row)
+{
+    $flag = 0;
+    $cnt = 0;
+    echo '<div class="panel-group">';
+    echo '<div class="panel panel-default">';
+    echo '<div class="panel-heading">';
+    echo '<h4 class="panel-title">';
+    echo '<a data-toggle="collapse" href="#collapse1">This week<i class="glyphicon glyphicon-triangle-bottom"></i></a>';
+    echo '</h4>';
+    echo '</div>';
+    echo '<div id="collapse1" class="panel-collapse collapse in">';
+    echo '<ul class="list-group">';
+    foreach ($post_row as $row)
+    {
+        $cnt = $cnt + 1;
+        if( $flag == 0 && strtotime($row['time']) < strtotime('-7 day'))
+        {
+            $flag = 1;
+            echo '</ul>';
+            echo '</div>';
+            echo '</div>';
+            echo '<div class="panel panel-default">';
+            echo '<div class="panel-heading">';
+            echo '<h4 class="panel-title">';
+            echo '<a data-toggle="collapse" href="#collapse2">A Week ago<i class="glyphicon glyphicon-triangle-bottom"></i></a>';
+            echo '</h4>';
+            echo '</div>';
+            $in = "";
+            if($cnt == 1)$in = "in";
+            echo '<div id="collapse2" class="panel-collapse collapse '.$in.'">';
+            echo '<ul class="list-group">';
+        }
+        if($cnt % 2 == 0) echo '<li class="list-group-item">';
+        else echo '<li class="list-group-item list-group-item-info">';
+        echo '<div style="padding:5px">';
+        echo '<td><button class="btn btn-primary btn-lg" type=submit name="delete[]" value ='.$row["postid"].'>&times;</button></td>';
+        echo '<a href="show-article.php?postid='.$row["postid"].'">'.$row["tags"].'</a>';
+        echo '<span class = "badge pull-right">'.$row["visit"].' view</span>';
+        echo '</div>';
+        echo '<div style="padding:5px">';
+        echo '<span class="label label-info pull-left">'.$row["company"].'</span>';
+        echo '<span class="label label-info pull-left">'.$row["position"].'</span>';
+        echo '<small class = "pull-right" style="text-color:gray">Post by: '.$row["email"].'</small>';
+        echo '</div>';
+        echo '</li>';
+    }
+    echo '</ul>';
+    echo '</div>';
+    echo '</div>';
+    echo '</div>';
+}
 
 ?>
