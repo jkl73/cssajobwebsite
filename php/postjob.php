@@ -80,15 +80,9 @@
 	$mode = $_POST["mode"];
 
 	if ($mode == "submit") {	
-		if (sql_add_post($_POST["email"], $_POST["company_name"], $_POST["position"], $_POST["description"], $_POST["job_content"]) == 1) {
-			if (sql_add_post_tag()) {
+		if (sql_add_post($_POST["email"], $_POST["company_name"], $_POST["position"], $_POST["description"], $_POST["job_content"], $_POST['job_type'], $_POST['major'], $_POST['date']) == 1) {
 				echo "<h2 align=center>Your job posting is successful</h2>";
 				echo "<h3 align=center><a  href='homepage.php' class='btn'>My homepage</a></h3>";
-			}
-			else {
-				echo "<h2 align=center>Something went wrong... Please try again</h2>";
-				echo "<h3 align=center><a  href='homepage.php' class='btn'>My homepage</a></h3>";
-			}
 		}
 		else {
 			echo "<h2 align=center>Something went wrong... Please try again</h2>";
@@ -132,7 +126,7 @@ function write_add_new_page() {
 	echo '</div>';
 
 	echo '<div class="row">';
-	echo '<div align="right" class="col-md-4 col-xs-2">Please input detail here (URL, Qualification...)<span style="font-size:120%; color:red;">*</span>:</div>';
+	echo '<div align="right" class="col-md-4 col-xs-2">Please input detail here<span style="font-size:120%; color:red;">*</span>:<br>(URL, Qualification...)</div>';
 	echo '<div class="col-md-6 col-xs-10"><textarea id="InInf" class="form-control" name=job_content style="margin: 0px; width: 100%; height: 140px;" required></textarea></div>';
 	echo '</div>';
 

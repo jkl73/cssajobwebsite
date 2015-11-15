@@ -97,7 +97,7 @@ function sql_update_visit($postid) {
 //  $stmt = $conn->prepare("update post_info set status=:new_status where id=:order_id");
 }
 
-function sql_add_post($email, $company_name, $position, $description, $job_content) 
+function sql_add_post($email, $company_name, $position, $description, $job_content, $job_type, $major, $job_year)
 {
 	$conn = getconn();
     $post_id = $conn->lastInsertId();
@@ -121,13 +121,26 @@ function sql_add_post($email, $company_name, $position, $description, $job_conte
     $stmt->bindParam(':content', $job_content);
 
     $result = $stmt->execute();
+
+    if (!$result)
+        pdo_die($stmt);
+    
+    $stmt = $conn->prepare("insert into post_tags(postid, job_year, major_class, company, job_type) values(:postid, :jy, :mc, :company, :jt)");
+
+    $stmt->bindParam(':postid', $post_id);
+    $stmt->bindParam(':jy', substr($job_year, 0, 4));
+    $stmt->bindParam(':mc', $major);
+    $stmt->bindParam(':company', $company_name);
+    $stmt->bindParam(':jt', $job_type);
+  
+    $result = $stmt->execute();
     $post_id = $conn->lastInsertId();
 
     if (!$result)
         pdo_die($stmt);
-
     return 1;
 }
+
 function sql_delete_post_byPostId($postid)
 {
     $conn = getconn();
@@ -155,7 +168,6 @@ function sql_add_reply($email, $reply_content, $post_id)
     $stmt->bindParam(':email', $email);
     $stmt->bindParam(':content', $reply_content);
     $stmt->bindParam(':postid', $post_id);
-
     $result = $stmt->execute();
     if (!$result)
         pdo_die($stmt);
