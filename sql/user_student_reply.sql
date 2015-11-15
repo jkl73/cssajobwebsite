@@ -23,11 +23,15 @@ DROP TABLE IF EXISTS `reply`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `reply` (
+  `replyid` int(11) NOT NULL,
+  `parentid` int(11) NOT NULL,
   `postid` int(11) NOT NULL,
   `email` varchar(64) NOT NULL,
   `content` varchar(1024) NOT NULL,
   `time` datetime NOT NULL,
-  PRIMARY KEY (`postid`,`email`,`time`)
+  PRIMARY KEY (`replyid`),
+  FOREIGN KEY (`postid`) REFERENCES postinfo(`postid`),
+  FOREIGN KEY (`parentid`) REFERENCES reply(`replyid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
