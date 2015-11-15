@@ -274,16 +274,17 @@ function print_text_search($SRCH)
 	 		"yourselves", 
 			);
 	 	$res_id = array();
+	 	$Allres = array();
 		while ($token !== false)
-	   {
-	   	$token = strtolower($token);
-	   	if (in_array($token, $stop_words)) 
 	   	{
-	   		$token = strtok(" \t\n");
-	   		continue;
-	   	}
-	   	$query = "select * from post_info 
-	   	where company like '%".$token."%' or position like '%".$token."%' or tags like '%".$token."%' order by visit DESC;";
+		   	$token = strtolower($token);
+		   	if (in_array($token, $stop_words)) 
+		   	{
+		   		$token = strtok(" \t\n");
+		   		continue;
+		   	}
+		   	$query = "select * from post_info 
+		   	where company like '%".$token."%' or position like '%".$token."%' or tags like '%".$token."%' order by time DESC;";
 			$stmt = $conn->prepare($query);
 			$result = $stmt->execute();
 			if (!$result)
@@ -292,8 +293,6 @@ function print_text_search($SRCH)
 		        pdo_die($stmt);
 		    }
 		    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-		    Print_Post($result);
 			/*$result = mysql_query($query);
 			if(!$result){
 				print "Error- Get info from post_info failed";
@@ -301,22 +300,23 @@ function print_text_search($SRCH)
 				print "<p>". $error . "</p>";
 				//exit;		
 			}*/
-			/*
+			
 			foreach ($result as $row) {
 				if(in_array($row["postid"], $res_id)) {
-					reset($row);
+					//reset($row);
 					continue;
 				} 
 				$info = $row["tags"]." ".$row["company"]." ".$row["position"];
 				$info = strtolower($info);
 				$info_token = explode(" ", $info);
 				if (!in_array($token, $info_token) && eregi("[^\x80-\xff]", $token)) {
-					reset($row);
+					//reset($row);
 					continue;
 				}
 				array_push($res_id, $row["postid"]);
-				$num_fields = sizeof($row);
-				reset($row); 
+				array_push($Allres,$row);
+				/*$num_fields = sizeof($row);
+				//reset($row); 
 
 				echo "<li class=\"list-group-item\">";
 				echo "<span class=\"badge\">".$row["visit"]." view</span>";
@@ -325,10 +325,11 @@ function print_text_search($SRCH)
 				echo '<span class="label label-info">'.$row["company"].'</span>';
 				echo '<span class="label label-info">'.$row["position"].'</span>';
 				echo '</div>';
-				echo "</li> "; 
+				echo "</li> "; */
 			} 
-			$token = strtok(" \t\n");*/
+			$token = strtok(" \t\n");
 	   }
+	   Print_Post($Allres);
 	   //echo '</div>';
 }
 

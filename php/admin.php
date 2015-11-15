@@ -98,7 +98,7 @@
           <?php
           foreach ($result as $row) {
             echo '<tr>';
-            echo '<td><button class="btn btn-primary btn-lg" type=submit name="delete[]" value ='.$row["email"].'>&times;</button></td>';
+            echo '<td><button class="btn btn-danger" type=submit name="delete[]" value ='.$row["email"].'>&times;</button></td>';
             //echo '<td><input type="checkbox" name="users[]" value="'.$row["email"].'" ></td>';
             echo '<td>Student</td>';
             echo '<td>'.$row["name"].'</td>';
@@ -121,7 +121,7 @@
           $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
           foreach ($result as $row) {
             echo '<tr>';
-            echo '<td><button class="btn btn-primary btn-lg" type=submit name="delete[]" value ='.$row["email"].'>&times;</button></td>';
+            echo '<td><button class="btn btn-danger" type=submit name="delete[]" value ='.$row["email"].'>&times;</button></td>';
             //echo '<td><input type="checkbox" name="users[]" value="'.$row["email"].'" ></td>';
             echo '<td>Employer</td>';
             echo '<td>'.$row["name"].'</td>';
