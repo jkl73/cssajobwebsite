@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
 <head>
-	<title>Profile</title>
+	<title>Homepage</title>
 	<meta charset="utf-8">
 	 <meta name="viewport" content="width=device-width, initial-scale=1">
 	 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -187,7 +187,7 @@
 <?php
 	
 	$conn = getconn();
-	$stmt = $conn->prepare("select name,grad_year,major,job_type from student where email = :myemail;");
+	$stmt = $conn->prepare("select * from student where email = :myemail;");
 	$stmt->bindParam(":myemail",$myemail);
 	$result = $stmt->execute();
 	if (!$result)
