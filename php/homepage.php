@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
 <head>
-	<title>Profile</title>
+	<title>Homepage</title>
 	<meta charset="utf-8">
 	 <meta name="viewport" content="width=device-width, initial-scale=1">
 	 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -49,7 +49,7 @@
 ?>
 <div class = "row">
 <div class="searchbox col-xs-12 col-sm-6 col-md-8">
-	<form action='homepage-std.php' method='get'>
+	<form action='homepage.php' method='get'>
 		<input type='hidden' name='mode' value='search'></input>
 <!-- 		<div class="col-xs-3 col-sm-2 col-md-3">
 			<select name="year" id="" class="form-control">
@@ -190,7 +190,21 @@
 	}*/
 	if(isset($_GET["srch-term"]))
 	{
-		print_text_search($_GET["srch-term"]);
+		$res = print_text_search($_GET["srch-term"]);
+		$targetstring = "(";
+		foreach ($res as $key => $value) {
+			$targetstring = $targetstring.$value.',';
+		}
+		if(count($res) == 0){
+			echo "<h5> Sorry, we didn't find any matched result :(</h5>";
+		}
+		else
+		{
+			$targetstring[strlen($targetstring) - 1] = ')';
+			//echo $targetstring;
+			$res_data = sql_get_post_by_ids($targetstring);
+			Print_Post($res_data);
+		}
 	}
 	else if (isset($_GET["mode"]))
 	{
@@ -269,6 +283,7 @@
 	echo '</div>';
 	echo '</div>';
 	echo '</div>';
+	echo '</div>';
   	include("footer.php");
 ?>
 
@@ -313,7 +328,6 @@ function print_text_search($SRCH)
 	 		"yourselves", 
 			);
 	 	$res_id = array();
-	 	$Allres = array();
 		while ($token !== false)
 	   	{
 		   	$token = strtolower($token);
@@ -332,13 +346,6 @@ function print_text_search($SRCH)
 		        pdo_die($stmt);
 		    }
 		    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-			/*$result = mysql_query($query);
-			if(!$result){
-				print "Error- Get info from post_info failed";
-				$error = mysql_error();
-				print "<p>". $error . "</p>";
-				//exit;		
-			}*/
 			
 			foreach ($result as $row) {
 				if(in_array($row["postid"], $res_id)) {
@@ -353,22 +360,10 @@ function print_text_search($SRCH)
 					continue;
 				}
 				array_push($res_id, $row["postid"]);
-				array_push($Allres,$row);
-				/*$num_fields = sizeof($row);
-				//reset($row); 
-
-				echo "<li class=\"list-group-item\">";
-				echo "<span class=\"badge\">".$row["visit"]." view</span>";
-				echo '<a href="show-article.php?postid='. $row["postid"] .'">'.$row["tags"].'</a>';
-				echo '<div>';
-				echo '<span class="label label-info">'.$row["company"].'</span>';
-				echo '<span class="label label-info">'.$row["position"].'</span>';
-				echo '</div>';
-				echo "</li> "; */
 			} 
 			$token = strtok(" \t\n");
 	   }
-	   Print_Post($Allres);
+	   return $res_id;
 	   //echo '</div>';
 }
 

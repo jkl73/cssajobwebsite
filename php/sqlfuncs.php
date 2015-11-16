@@ -55,7 +55,7 @@ function sql_is_verified($email, $type){
 function sql_get_post_by_ids($id_list) {
     $conn = getconn();
 
-    $stmt = $conn->prepare("select * from post_info where postid IN ".$id_list);
+    $stmt = $conn->prepare("select * from post_info where postid IN ".$id_list." order by time DESC");
 
     $result = $stmt->execute();
     if (!$result)
