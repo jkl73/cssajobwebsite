@@ -72,6 +72,19 @@
   session_start();
   include("sqlfuncs.php");
   include("header.php");
+  if(!isset($_SESSION['email']))
+	{
+		header('Location: index.php');
+		exit;
+	}
+  $myemail = $_SESSION["email"];
+
+	if (sql_is_verified($myemail, $_SESSION['type'])) {
+
+	} else {
+		echo "<h3>Please verify your email</h3>";
+		return;
+	}
 
   if (!isset($_POST["mode"])) {
   	write_add_new_page();
@@ -80,7 +93,7 @@
 	$mode = $_POST["mode"];
 
 	if ($mode == "submit") {	
-		if (sql_add_post($_POST["email"], $_POST["company_name"], $_POST["position"], $_POST["description"], $_POST["job_content"], $_POST['job_type'], $_POST['major'], $_POST['date']) == 1) {
+		if (sql_add_post($myemail,$_POST["email"], $_POST["company_name"], $_POST["position"], $_POST["description"], $_POST["job_content"], $_POST['job_type'], $_POST['major'], $_POST['date']) == 1) {
 				echo "<h2 align=center>Your job posting is successful</h2>";
 				echo "<h3 align=center><a  href='homepage.php' class='btn'>My homepage</a></h3>";
 		}

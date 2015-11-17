@@ -151,7 +151,21 @@
 
 	if(isset($_GET["srch-term"]))
 	{
-		print_text_search($_GET["srch-term"]);
+		$res = print_text_search($_GET["srch-term"]);
+		$targetstring = "(";
+		foreach ($res as $key => $value) {
+			$targetstring = $targetstring.$value.',';
+		}
+		if(count($res) == 0){
+			echo "<h5> Sorry, we didn't find any matched result :(</h5>";
+		}
+		else
+		{
+			$targetstring[strlen($targetstring) - 1] = ')';
+			echo $targetstring;
+			$res_data = sql_get_post_by_ids($targetstring);
+			Print_Post($res_data);
+		}
 	}
 	else if (isset($_GET["mode"]))
 	{
@@ -274,7 +288,6 @@ function print_text_search($SRCH)
 	 		"yourselves", 
 			);
 	 	$res_id = array();
-	 	$Allres = array();
 		while ($token !== false)
 	   	{
 		   	$token = strtolower($token);
@@ -314,7 +327,6 @@ function print_text_search($SRCH)
 					continue;
 				}
 				array_push($res_id, $row["postid"]);
-				array_push($Allres,$row);
 				/*$num_fields = sizeof($row);
 				//reset($row); 
 
@@ -329,7 +341,7 @@ function print_text_search($SRCH)
 			} 
 			$token = strtok(" \t\n");
 	   }
-	   Print_Post($Allres);
+	   return $res_id;
 	   //echo '</div>';
 }
 

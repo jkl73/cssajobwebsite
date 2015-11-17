@@ -19,11 +19,14 @@
 <body>
 <?php
   session_start();
+  $adminEamil = "admin@cornell.com";
   include("sqlfuncs.php");
   include("header.php");
   $active_pos = 0;
   if(isset($_POST["delete"]))
     $active_pos = 1;
+  else if(isset($_POST["deletePost"]))
+    $active_pos = 2;
   else if(isset($_POST["submit"]))
     $active_pos = 3;
 ?>
@@ -145,7 +148,13 @@
     <div id="menu2" class="tab-pane fade <?php if($active_pos == 2)echo 'in active';?>">
       <div class = "container">
         <div style = "overflow:scroll; height:450px">
+          <form action ="admin.php" method = POST>
       <?php
+        if(isset($_POST["deletePost"]))
+          {
+            $postid = $_POST["deletePost"][0];
+            sql_delete_post_byPostId($postid);
+          }
         $conn = getconn();
         $stmt = $conn->prepare("select * from post_info order by time DESC;");
         $result = $stmt->execute();
@@ -155,8 +164,9 @@
               pdo_die($stmt);
           }
           $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-          Print_Post($result);
+          Print_Post($result,$adminEamil);
       ?>
+          </form>
       </div>
       </div>
     </div>
@@ -166,6 +176,11 @@
           $query = $_POST["content"];
           $conn = getconn();
           $result = $conn->query($query);
+          if (!$result)
+          {
+              echo "What the fuck?";
+              pdo_die($stmt);
+          }
           foreach ($result->fetchALL(PDO::FETCH_ASSOC) as $row) {
             foreach ($row as $key => $value) {
               echo "[Key: ".$key." value: ".$value."]";

@@ -97,13 +97,14 @@ function sql_update_visit($postid) {
 //  $stmt = $conn->prepare("update post_info set status=:new_status where id=:order_id");
 }
 
-function sql_add_post($email, $company_name, $position, $description, $job_content, $job_type, $major, $job_year)
+function sql_add_post($useremail,$email, $company_name, $position, $description, $job_content, $job_type, $major, $job_year)
 {
 	$conn = getconn();
     $post_id = $conn->lastInsertId();
 
-    $stmt = $conn->prepare("insert into post_info(email, company, position, tags, time, visit, fav) values(:email, :company, :position, :tags, now(), 0, 0)");
+    $stmt = $conn->prepare("insert into post_info(user_email, email, company, position, tags, time, visit, fav) values(:useremail,:email, :company, :position, :tags, now(), 0, 0)");
 
+    $stmt->bindParam(':useremail',$useremail);
     $stmt->bindParam(':email', $email);
     $stmt->bindParam(':company', $company_name);
     $stmt->bindParam(':position', $position);
@@ -144,21 +145,24 @@ function sql_add_post($email, $company_name, $position, $description, $job_conte
 function sql_delete_post_byPostId($postid)
 {
     $conn = getconn();
-    $stmt = $conn->prepare("delete from post_info where postid = :postid");
-    $stmt->bindParam(':postid',$postid);
+    $stmt = $conn->prepare("delete from post_info where postid =".$postid);
+    //$stmt = $conn->prepare("delete from post_info where postid = :postid");
+    //$stmt->bindParam(':postid',$postid);
     $result = $stmt->execute();
     if (!$result)
         pdo_die($stmt);
-    $stmt = $conn->prepare("delete from post_content where postid = :postid");
-    $stmt->bindParam(':postid',$postid);
-    $result = $stmt->execute();
-    if (!$result)
-        pdo_die($stmt);
-    $stmt = $conn->prepare("delete from reply where postid = :postid");
-    $stmt->bindParam(':postid',$postid);
-    $result = $stmt->execute();
-    if (!$result)
-        pdo_die($stmt);
+    //$stmt = $conn->prepare("delete from post_content where postid =".$postid);
+    //$stmt = $conn->prepare("delete from post_content where postid = :postid");
+    //$stmt->bindParam(':postid',$postid);
+    //$result = $stmt->execute();
+    //if (!$result)
+    //    pdo_die($stmt);
+    //$stmt = $conn->prepare("delete from reply where postid =".$postid);
+    //$stmt = $conn->prepare("delete from reply where postid = :postid");
+    //$stmt->bindParam(':postid',$postid);
+    //$result = $stmt->execute();
+    //if (!$result)
+    //    pdo_die($stmt);
 }
 
 function sql_add_reply($email, $reply_content, $post_id, $parent)
@@ -225,6 +229,22 @@ function sql_get_empInfo_byEmail($email)
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $result;
 }
+
+function admin_byEmail($email)
+{
+    $conn = getconn();
+    $stmt = $conn->prepare("select * from admin where email = :email");
+    $stmt->bindParam(':email', $email);
+    $result = $stmt->execute();
+    if (!$result)
+    {
+        echo "What the fuck?";
+        pdo_die($stmt);
+    }
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    if(count($result)>0)return true;
+    return false;
+}
 function sql_insert_stuInfo($email,$username,$hash,$password)
 {
     $conn = getconn();
@@ -280,8 +300,9 @@ function getconn()
     $conn = new PDO($dsn, $user, $pw);
     return $conn;
 }
-function Print_Post($post_row)
+function Print_Post($post_row,$email)
 {
+    if(count($post_row) == 0)return;
     $flag = 0;
     $cnt = 0;
     echo '<div class="panel-group">';
@@ -296,6 +317,7 @@ function Print_Post($post_row)
     foreach ($post_row as $row)
     {
         $cnt = $cnt + 1;
+        if(strtotime($row['time']) > strtotime('now'))continue;
         if( $flag == 0 && strtotime($row['time']) < strtotime('-7 day'))
         {
             $flag = 1;
@@ -316,14 +338,17 @@ function Print_Post($post_row)
         if($cnt % 2 == 0) echo '<li class="list-group-item">';
         else echo '<li class="list-group-item list-group-item-info">';
         echo '<div style="padding:5px">';
-        echo '<td><button class="btn btn-primary btn-lg" type=submit name="delete[]" value ='.$row["postid"].'>&times;</button></td>';
+        if($email == $row["user_email"] || admin_byEmail($email))
+            echo '<button class="btn btn-danger" type=submit name="deletePost[]" value ='.$row["postid"].'>&times;</button>';
+        else
+            echo '<button class="btn btn-primary disabled" type=submit name="deletePost[]" value ='.$row["postid"].'>&times;</button>';
         echo '<a href="show-article.php?postid='.$row["postid"].'">'.$row["tags"].'</a>';
         echo '<span class = "badge pull-right">'.$row["visit"].' view</span>';
         echo '</div>';
         echo '<div style="padding:5px">';
         echo '<span class="label label-info pull-left">'.$row["company"].'</span>';
         echo '<span class="label label-info pull-left">'.$row["position"].'</span>';
-        echo '<small class = "pull-right" style="text-color:gray">Post by: '.$row["email"].'</small>';
+        echo '<small class = "pull-right" style="text-color:gray">Post by: '.$row["user_email"].'</small>';
         echo '</div>';
         echo '</li>';
     }

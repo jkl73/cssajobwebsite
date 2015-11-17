@@ -148,6 +148,7 @@
 <div class="row" >
 	<h2>Job Posts</h2>
 <div class="col-xs-12 col-sm-6 col-md-8" style = "overflow:scroll; height:450px">
+	<form action ="homepage.php" method = POST>
 <?php
 	//$server = mysql_connect("localhost","root","1qaz-pl,");
 	/*$server = mysql_connect("cssadbinstance.ccmgeu2ghiy1.us-east-1.rds.amazonaws.com", "cssaadmin", "cssaadmin123"); 
@@ -189,6 +190,11 @@
 			exit;
 		}
 	}*/
+	if(isset($_POST["deletePost"]))
+          {
+            $postid = $_POST["deletePost"][0];
+            sql_delete_post_byPostId($postid);
+          }
 	if(isset($_GET["srch-term"]))
 	{
 		$res = print_text_search($_GET["srch-term"]);
@@ -204,7 +210,7 @@
 			$targetstring[strlen($targetstring) - 1] = ')';
 			//echo $targetstring;
 			$res_data = sql_get_post_by_ids($targetstring);
-			Print_Post($res_data);
+			Print_Post($res_data,$myemail);
 		}
 	}
 	else if (isset($_GET["mode"]))
@@ -222,15 +228,16 @@
 			else {
 				$targetstring[strlen($targetstring) - 1] = ')';
 				$res_data = sql_get_post_by_ids($targetstring);
-				Print_Post($res_data);
+				Print_Post($res_data,$myemail);
 			}			
 		}
 	}
 	else
 	{
-		Display_all_query();
+		Display_all_query($myemail);
   	}
 ?>
+</form>
 </div>
 <div class="col-xs-6 col-md-4">
   	<ul class="list-group">
@@ -405,7 +412,7 @@ function searchPost($tag_array) {
 	return $result;
 }
 
-function Display_all_query()
+function Display_all_query($myemail)
 {
 	$conn = getconn();
 	$stmt = $conn->prepare("select * from post_info order by time DESC;");
@@ -416,6 +423,6 @@ function Display_all_query()
         pdo_die($stmt);
     }
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    Print_Post($result);
+    Print_Post($result,$myemail);
 }
 ?>
