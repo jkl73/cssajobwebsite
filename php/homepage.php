@@ -45,6 +45,7 @@
 				echo '<a class = "btn btn-warning" href="postjob.php">Post New Job!</a> ';
 			echo '</div>';
 		echo '</div>';
+		
 	}
 ?>
 <div class = "row">
@@ -280,6 +281,14 @@
 		echo '<li class="list-group-item">Linkedin Homepage: '.$row["Linkedin"].'</li>';
 	}
 	echo "</ul>";
+	// Jia Test, SHoud be removed
+		echo '<div class="row" >';
+			echo '<div class = "row">';
+			echo '<div class="addpostbtn col-xs-12 col-sm-6 col-md-8">';
+				echo '<a class = "btn btn-warning" href="myfavourate.php">Go to my Favourates!</a> ';
+			echo '</div>';
+		echo '</div>';
+		echo '</div>';
 	echo '</div>';
 	echo '</div>';
 	echo '</div>';
