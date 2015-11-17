@@ -161,13 +161,16 @@ function sql_delete_post_byPostId($postid)
         pdo_die($stmt);
 }
 
-function sql_add_reply($email, $reply_content, $post_id)
+function sql_add_reply($email, $reply_content, $post_id, $parent)
 {
     $conn = getconn();
-    $stmt = $conn->prepare("insert into reply(email, content, postid, time) values(:email, :content, :postid, now())");
-    $stmt->bindParam(':email', $email);
-    $stmt->bindParam(':content', $reply_content);
+    $stmt = $conn->prepare("insert into reply(parentid, postid, email, content, time) values(:parentid, :postid, :email, :content, now())");
+
+    $stmt->bindParam(':parentid', $parent);
+
     $stmt->bindParam(':postid', $post_id);
+    $stmt->bindParam(':content', $reply_content);
+    $stmt->bindParam('email', $email);
     $result = $stmt->execute();
     if (!$result)
         pdo_die($stmt);
