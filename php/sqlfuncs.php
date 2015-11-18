@@ -54,8 +54,24 @@ function sql_is_verified($email, $type){
 // input : an string "(1,3,4)" "(2,5,6,9,8,7)"
 function sql_get_post_by_ids($id_list) {
     $conn = getconn();
+    $query = "select * from post_info where postid IN ".$id_list." order by time DESC";
+    //echo $query;
+    $stmt = $conn->prepare($query);
 
-    $stmt = $conn->prepare("select * from post_info where postid IN ".$id_list." order by time DESC");
+    $result = $stmt->execute();
+    if (!$result)
+        pdo_die($stmt);
+
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $result;
+}
+
+function sql_get_post_content_byID($postid)
+{
+    $conn = getconn();
+
+    $stmt = $conn->prepare("select * from post_content where postid = ".$postid);
+    //echo "select * from post_content where postid = ".$postid;
 
     $result = $stmt->execute();
     if (!$result)
@@ -137,6 +153,50 @@ function sql_add_post($useremail,$email, $company_name, $position, $description,
   
     $result = $stmt->execute();
     $post_id = $conn->lastInsertId();
+
+    if (!$result)
+        pdo_die($stmt);
+    return 1;
+}
+
+function update_post($postid,$useremail,$email, $company_name, $position, $description, $job_content, $job_type, $major, $job_year,$visit)
+{
+    $conn = getconn();
+
+    $stmt = $conn->prepare("update post_info set user_email=:useremail,email=:email, company=:company, position=:position, title=:title, time=now(), visit=:visit where postid=:postid");
+
+    $stmt->bindParam(':postid',$postid);
+    $stmt->bindParam(':useremail',$useremail);
+    $stmt->bindParam(':email', $email);
+    $stmt->bindParam(':company', $company_name);
+    $stmt->bindParam(':position', $position);
+    $stmt->bindParam(':title', $description);
+    $stmt->bindParam(':visit',$visit);
+    
+    $result = $stmt->execute();
+
+    if (!$result)
+        pdo_die($stmt);
+
+    $stmt = $conn->prepare("update post_content set content=:content where postid=:postid");
+
+    $stmt->bindParam(':postid', $post_id);
+    $stmt->bindParam(':content', $job_content);
+
+    $result = $stmt->execute();
+
+    if (!$result)
+        pdo_die($stmt);
+    
+    $stmt = $conn->prepare("update post_tags set job_year=:jy, major_class=:mc, company=:company, job_type=:jt where postid=:postid");
+
+    $stmt->bindParam(':postid', $post_id);
+    $stmt->bindParam(':jy', substr($job_year, 0, 4));
+    $stmt->bindParam(':mc', $major);
+    $stmt->bindParam(':company', $company_name);
+    $stmt->bindParam(':jt', $job_type);
+  
+    $result = $stmt->execute();
 
     if (!$result)
         pdo_die($stmt);

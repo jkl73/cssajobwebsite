@@ -32,11 +32,20 @@ function changeDisplay(id)
 <?php
   session_start();
   include("./header.php");
-?>
-
-<?php
 	include("./sqlfuncs.php");
+    if(!isset($_SESSION['email']))
+    {
+        header('Location: index.php');
+        exit;
+    }
+  $myemail = $_SESSION["email"];
 
+    if (sql_is_verified($myemail, $_SESSION['type'])) {
+
+    } else {
+        echo "<h3>Please verify your email</h3>";
+        return;
+    }
 	if (!isset($_GET['postid'])) {
 		header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found");
 		echo "<h2 align=center>No such article found</h2>";
@@ -58,9 +67,12 @@ function changeDisplay(id)
         pdo_die($stmt);
 
     $rset = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
 
 
     echo '<div class="showarticle">';
+    if($myemail == $rset[0]["user_email"] || admin_byEmail($myemail))
+            echo '<form action = "editpost.php" method = post><button class="btn btn-primary" type=submit name="edit" value ='.$rset[0]["postid"].'>Edit</button></form>';
     echo '<h3>'. $rset[0]['title'] .'</h3>';
     echo '<h4>Company: '. $rset[0]['company'] .'</h4>';
     echo '<h4>Job position: '. $rset[0]['position'] .'</h4>';
