@@ -340,6 +340,19 @@ function sql_insert_empInfo($email,$username,$hash,$password)
         pdo_die($stmt);
     }
 }
+function sql_insert_notification($email, $postid, $readtag, $replyername)
+{
+    $conn = getconn();
+    echo "insert into notification(email,postid,readtag,time,replyername) values('".$email."',".$postid.",".$readtag.",now(),'".$replyername."')";
+    $stmt = $conn->prepare("insert into notification(email,postid,readtag,time,replyername) values('".$email."',".$postid.",".$readtag.",now(),'".$replyername."')");
+
+    $result = $stmt->execute();
+    if (!$result)
+    {
+        echo "What the fuck?";
+        pdo_die($stmt);
+    }
+}
 function pdo_die($stmt)
 {
     var_dump($stmt->errorInfo());

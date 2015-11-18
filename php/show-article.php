@@ -54,6 +54,7 @@ function changeDisplay(id)
     if(isset($_POST["submit"]))
     {
         sql_add_reply($_SESSION["email"],$_POST["reply_content"],$_GET['postid'],$_POST['parentid']);
+        sql_insert_notification($_POST["replyedname"], $_GET['postid'], 0, $_SESSION["email"]);
     }
 
 	$conn = getconn();
@@ -71,7 +72,8 @@ function changeDisplay(id)
 
 
     echo '<div class="showarticle">';
-    if($myemail == $rset[0]["user_email"] || admin_byEmail($myemail))
+    $postEmail = $rset[0]["user_email"];
+    if($myemail == $postEmail || admin_byEmail($myemail))
             echo '<form action = "editpost.php" method = post><button class="btn btn-primary" type=submit name="edit" value ='.$rset[0]["postid"].'>Edit</button></form>';
     echo '<h3>'. $rset[0]['title'] .'</h3>';
     echo '<h4>Company: '. $rset[0]['company'] .'</h4>';
@@ -166,6 +168,7 @@ function changeDisplay(id)
 
             echo '<form method=post action=show-article.php?postid='. $_GET["postid"].'>';
             echo '<input type=hidden name="parentid" value='.$replyArr[$i]['id'].'>';
+            echo '<input type=hidden name="replyedname" value='.$replyArr[$i]['email'].'>';
             echo '<div align="right" class="col-md-2 col-xs-2">Reply:</div>';
             echo '<div class="col-md-8 col-xs-10"><textarea class="form-control" name=reply_content style="margin: 0px; width: 100%; height: 140px;" required></textarea>';
             echo '<input id="loginbutton" class="btn btn-primary" type=submit name=submit value=reply>';
@@ -190,6 +193,7 @@ function changeDisplay(id)
     echo "<h3 align=\"center\">Post a reply</h2>";
     echo '<form method=post action=show-article.php?postid='. $_GET["postid"].'>';
     echo '<input type="hidden" name="parentid" value=0>';
+    echo '<input type=hidden name="replyedname" value='.$postEmail.'>';
     echo '<div class="row">';
     echo '<div align="right" class="col-md-2 col-xs-2">Reply:</div>';
     echo '<div class="col-md-8 col-xs-10"><textarea class="form-control" name=reply_content style="margin: 0px; width: 100%; height: 140px;" required></textarea>';
