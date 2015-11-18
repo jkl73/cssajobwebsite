@@ -341,7 +341,7 @@ function Print_Post($post_row,$email)
         if($email == $row["user_email"] || admin_byEmail($email))
             echo '<button class="btn btn-danger" type=submit name="deletePost[]" value ='.$row["postid"].'>&times;</button>';
         else
-            echo '<button class="btn btn-primary disabled" type=submit name="deletePost[]" value ='.$row["postid"].'>&times;</button>';
+            echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
         echo '<a href="show-article.php?postid='.$row["postid"].'">'.$row["tags"].'</a>';
         echo '<span class = "badge pull-right">'.$row["visit"].' view</span>';
         echo '</div>';
@@ -351,6 +351,7 @@ function Print_Post($post_row,$email)
         echo '<small class = "pull-right" style="text-color:gray">Post by: '.$row["user_email"].'</small>';
         echo '</div>';
         echo '</li>';
+        if($cnt>100)break;
     }
     echo '</ul>';
     echo '</div>';
