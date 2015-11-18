@@ -346,7 +346,7 @@ function Print_Post($post_row,$email)
         echo '<a href="show-article.php?postid='.$row["postid"].'">'.$row["tags"].'</a>';
         echo '<span class = "badge pull-right">'.$row["visit"].' view>';
         echo '</span>';
-        echo '<img id="myImage'. $index .'" onclick="changeImage(\'myImage'. $index .'\')" src="../pictures/jiaStaroff.png" alt="STAR" width="34" height="26">';
+        echo '<img id="myImage'. $index .'" onclick="changeImage(\'myImage'. $index .'\')" src="../pictures/off.png" alt="STAR" width="34" height="26">';
         $index = $index + 1;
         echo '</div>';
         echo '<div style="padding:5px">';
