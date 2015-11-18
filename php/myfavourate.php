@@ -10,6 +10,16 @@
 	 <link rel="stylesheet" href="../css/main.css">
 	 <link rel="stylesheet" href="../css/profile.css">
 	 <script src="js/main.js"></script>
+	 <script>
+	function changeFavorateImage() {
+	    var image = document.getElementById('jiaStar');
+	    if (image.src.match("bulbon")) {
+	        image.src = "jiaStaroff.png";
+	    } else {
+	        image.src = "jiaStaron.png";
+	    }
+	}
+	</script>
   	<style>
   	</style>
 </head>
@@ -157,5 +167,4 @@ function Display_all_query()
     }
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     Print_Post($result);
-}
-?>
+}?>
