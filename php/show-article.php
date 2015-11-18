@@ -61,7 +61,7 @@ function changeDisplay(id)
 
 
     echo '<div class="showarticle">';
-    echo '<h3>'. $rset[0]['tags'] .'</h3>';
+    echo '<h3>'. $rset[0]['title'] .'</h3>';
     echo '<h4>Company: '. $rset[0]['company'] .'</h4>';
     echo '<h4>Job position: '. $rset[0]['position'] .'</h4>';
     echo '<h4>Email: '. $rset[0]['email'] .'</h4>';

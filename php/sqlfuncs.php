@@ -102,13 +102,13 @@ function sql_add_post($useremail,$email, $company_name, $position, $description,
 	$conn = getconn();
     $post_id = $conn->lastInsertId();
 
-    $stmt = $conn->prepare("insert into post_info(user_email, email, company, position, tags, time, visit, fav) values(:useremail,:email, :company, :position, :tags, now(), 0, 0)");
+    $stmt = $conn->prepare("insert into post_info(user_email, email, company, position, title, time, visit, fav) values(:useremail,:email, :company, :position, :title, now(), 0, 0)");
 
     $stmt->bindParam(':useremail',$useremail);
     $stmt->bindParam(':email', $email);
     $stmt->bindParam(':company', $company_name);
     $stmt->bindParam(':position', $position);
-    $stmt->bindParam(':tags', $description);
+    $stmt->bindParam(':title', $description);
     
     $result = $stmt->execute();
     $post_id = $conn->lastInsertId();
@@ -248,7 +248,7 @@ function admin_byEmail($email)
 function sql_insert_stuInfo($email,$username,$hash,$password)
 {
     $conn = getconn();
-    $stmt = $conn->prepare("insert into student(email,name,hash,verified,password) values(:email,:username,:hash,0,:password)");
+    $stmt = $conn->prepare("insert into student(email,name,hash,verified,password) values(:email,:username,:hash,1,:password)");
     $stmt->bindParam(':email', $email);
     $stmt->bindParam(':username', $username);
     $stmt->bindParam(':hash', $hash);
@@ -266,7 +266,7 @@ function sql_insert_stuInfo($email,$username,$hash,$password)
 function sql_insert_empInfo($email,$username,$hash,$password)
 {
     $conn = getconn();
-    $stmt = $conn->prepare("insert into employer(email,name,hash,verified,password) values(:email,:username,:hash,0,:password)");
+    $stmt = $conn->prepare("insert into employer(email,name,hash,verified,password) values(:email,:username,:hash,1,:password)");
     $stmt->bindParam(':email', $email);
     $stmt->bindParam(':username', $username);
     $stmt->bindParam(':hash', $hash);
@@ -342,7 +342,7 @@ function Print_Post($post_row,$email)
             echo '<button class="btn btn-danger" type=submit name="deletePost[]" value ='.$row["postid"].'>&times;</button>';
         else
             echo '<button class="btn btn-primary disabled" type=submit name="deletePost[]" value ='.$row["postid"].'>&times;</button>';
-        echo '<a href="show-article.php?postid='.$row["postid"].'">'.$row["tags"].'</a>';
+        echo '<a href="show-article.php?postid='.$row["postid"].'">'.$row["title"].'</a>';
         echo '<span class = "badge pull-right">'.$row["visit"].' view</span>';
         echo '</div>';
         echo '<div style="padding:5px">';
