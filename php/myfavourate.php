@@ -12,6 +12,16 @@
 	 <script src="js/main.js"></script>
   	<style>
   	</style>
+  	<script>
+	function changeImage(elementId) {
+	    var image = document.getElementById(elementId);
+	    if (image.src.match("jiaStaron")) {
+	        image.src = "../pictures/jiaStaroff.png";
+	    } else {
+	        image.src = "../pictures/jiaStaron.png";
+	    }
+	}
+</script>
 </head>
 
 <body>

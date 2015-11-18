@@ -66,11 +66,11 @@ function sql_get_post_by_ids($id_list) {
 }
 
 function sql_update_visit($postid) {
-	$conn = getconn();
+    $conn = getconn();
     $stmt = $conn->prepare("select visit from post_info where postid=:postid");
     $stmt->bindParam(":postid", $postid);
     $result = $stmt->execute();
-	if (!$result)
+    if (!$result)
         pdo_die($stmt);
 
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -80,7 +80,7 @@ function sql_update_visit($postid) {
 
     $stmt = $conn->prepare("update post_info set visit=:newvisit where postid=:postid");
     $stmt->bindParam(":newvisit", $newvisit);
-	$stmt->bindParam(":postid", $postid);
+    $stmt->bindParam(":postid", $postid);
     $result = $stmt->execute();
 
     if (!$result)
@@ -99,7 +99,7 @@ function sql_update_visit($postid) {
 
 function sql_add_post($useremail,$email, $company_name, $position, $description, $job_content, $job_type, $major, $job_year)
 {
-	$conn = getconn();
+    $conn = getconn();
     $post_id = $conn->lastInsertId();
 
 
@@ -117,7 +117,7 @@ function sql_add_post($useremail,$email, $company_name, $position, $description,
     if (!$result)
         pdo_die($stmt);
 
-	$stmt = $conn->prepare("insert into post_content(postid, content) values(:postid, :content)");
+    $stmt = $conn->prepare("insert into post_content(postid, content) values(:postid, :content)");
 
     $stmt->bindParam(':postid', $post_id);
     $stmt->bindParam(':content', $job_content);
@@ -315,6 +315,7 @@ function Print_Post($post_row,$email)
     echo '</div>';
     echo '<div id="collapse1" class="panel-collapse collapse in">';
     echo '<ul class="list-group">';
+    $index = 0;
     foreach ($post_row as $row)
     {
         if(strtotime($row['time']) > strtotime('now'))continue;
@@ -342,8 +343,16 @@ function Print_Post($post_row,$email)
             echo '<button class="btn btn-danger" type=submit name="deletePost[]" value ='.$row["postid"].'>&times;</button>';
         else
             echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+<<<<<<< Updated upstream
         echo '<a href="show-article.php?postid='.$row["postid"].'">'.$row["title"].'</a>';
         echo '<span class = "badge pull-right">'.$row["visit"].' view</span>';
+=======
+        echo '<a href="show-article.php?postid='.$row["postid"].'">'.$row["tags"].'</a>';
+        echo '<span class = "badge pull-right">'.$row["visit"].' view>';
+        echo '</span>';
+        echo '<img id="myImage'. $index .'" onclick="changeImage(\'myImage'. $index .'\')" src="../pictures/jiaStaroff.png" alt="STAR" width="34" height="26">';
+        $index = $index + 1;
+>>>>>>> Stashed changes
         echo '</div>';
         echo '<div style="padding:5px">';
         echo '<span class="label label-info pull-left">'.$row["company"].'</span>';
