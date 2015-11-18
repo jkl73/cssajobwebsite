@@ -58,7 +58,7 @@
 			$targetstring[strlen($targetstring) - 1] = ')';
 			//echo $targetstring;
 			$res_data = sql_get_post_by_ids($targetstring);
-			Print_Post($res_data);
+			Print_Post($res_data,$myemail);
 		}
 	}
 	else if (isset($_GET["mode"]))
@@ -76,13 +76,13 @@
 			else {
 				$targetstring[strlen($targetstring) - 1] = ')';
 				$res_data = sql_get_post_by_ids($targetstring);
-				Print_Post($res_data);
+				Print_Post($res_data,$myemail);
 			}			
 		}
 	}
 	else
 	{
-		Display_all_query();
+		Display_all_query($myemail);
   	}
 ?>
 </div>
@@ -145,7 +145,7 @@
 </body>
 </html>
 <?php
-function Display_all_query()
+function Display_all_query($myemail)
 {
 	$conn = getconn();
 	$stmt = $conn->prepare("select * from post_info order by time DESC;");
@@ -156,6 +156,6 @@ function Display_all_query()
         pdo_die($stmt);
     }
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    Print_Post($result);
+    Print_Post($result,$myemail);
 }
 ?>
