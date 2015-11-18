@@ -113,19 +113,20 @@ function sql_update_visit($postid) {
 //  $stmt = $conn->prepare("update post_info set status=:new_status where id=:order_id");
 }
 
-function sql_add_post($useremail,$email, $company_name, $position, $description, $job_content, $job_type, $major, $job_year)
+function sql_add_post($useremail,$email, $company_name, $position, $description, $job_content, $job_type, $major, $job_year, $url, $visa)
 {
 	$conn = getconn();
     $post_id = $conn->lastInsertId();
 
-
-    $stmt = $conn->prepare("insert into post_info(user_email, email, company, position, title, time, visit, fav) values(:useremail,:email, :company, :position, :title, now(), 0, 0)");
+    $stmt = $conn->prepare("insert into post_info(user_email, email, company, position, title, time, visit, fav, url, visa) values(:useremail,:email, :company, :position, :title, now(), 0, 0, :url, :visa)");
 
     $stmt->bindParam(':useremail',$useremail);
     $stmt->bindParam(':email', $email);
     $stmt->bindParam(':company', $company_name);
     $stmt->bindParam(':position', $position);
     $stmt->bindParam(':title', $description);
+    $stmt->bindParam(':url', $url);
+    $stmt->bindParam(':visa', $visa);
     
     $result = $stmt->execute();
     $post_id = $conn->lastInsertId();
