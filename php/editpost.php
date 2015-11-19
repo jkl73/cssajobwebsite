@@ -93,8 +93,42 @@
   else if(isset($_POST["mode"])){
 	$mode = $_POST["mode"];
 
-	if ($mode == "submit") {	
-		if (update_post($_POST["postid"],$myemail,$_POST["email"], $_POST["company_name"], $_POST["position"], $_POST["description"], $_POST["job_content"], $_POST['job_type'], $_POST['major'], $_POST['date'],$_POST["visit"]) == 1) {
+	if ($mode == "submit") {
+		$post_id = $_POST["postid"];	
+		if(update_post($_POST["postid"],$myemail,$_POST["email"], $_POST["company_name"], $_POST["position"], $_POST["description"], $_POST["job_content"], $_POST['job_type'], $_POST['major'], $_POST['date'], $_POST['url'], $_POST['visa'],$_POST["visit"])== 1)
+		{
+			//echo $_POST["job_content"];
+			echo "<h2 align=center>Your job has successfully modified</h2>";
+			echo "<h3 align=center><a href='homepage.php' class='btn'>My homepage</a></h3>";
+		}
+		else {
+			echo "<h2 align=center>Something went wrong... Please try again</h2>";
+			echo "<h3 align=center><a  href='homepage.php' class='btn'>My homepage</a></h3>";
+		}
+		/*if ($post_id >= 0) {
+    			if($_FILES["file"]["error"] > 0){
+    				if($_FILES["file"]["error"] != 4){
+    					echo "Error:" . $_FILES["file"]["error"] ."</br/>";
+    				}
+    			}
+    			//  改了sql函数的返回文件
+    			if($_FILES["file"]["name"] != NULL){
+    				$filename = (string)$post_id . "-" .(string)$_FILES["file"]["name"];
+    				$path = "../upload-file/post/". $filename;
+    				//$newfile = "../upload-file/post";
+    				
+    				move_uploaded_file($_FILES["file"]["tmp_name"], $path);
+					update_post_file($post_id, $path, $_FILES["file"]["name"]);
+    				
+				}
+
+				echo "<h2 align=center>Your job posting is successful</h2>";
+				echo "<h3 align=center><a  href='homepage.php' class='btn'>My homepage</a></h3>";
+		}*/
+		
+	}
+	/*if ($mode == "submit") {	
+		if (update_post($_POST["postid"],$myemail,$_POST["email"], $_POST["company_name"], $_POST["position"], $_POST["description"], $_POST["job_content"], $_POST['job_type'], $_POST['major'], $_POST['date'],$_POST["visit"]) ) {
 				echo "<h2 align=center>Your job has successfully modified</h2>";
 				echo "<h3 align=center><a href='homepage.php' class='btn'>My homepage</a></h3>";
 		}
@@ -102,7 +136,7 @@
 			echo "<h2 align=center>Something went wrong... Please try again</h2>";
 			echo "<h3 align=center><a  href='homepage.php' class='btn'>My homepage</a></h3>";
 		}
-	}
+	}*/
   }
 
   include("footer.php");
@@ -142,10 +176,20 @@ function edit_page($postid) {
 	echo '<div class="col-md-6 col-xs-10"><input id="InDea" class="form-control" name=date type=date></div>';
 	echo '</div>';
 
+	echo '<div class="row">';
+	echo '<div align="right" class="col-md-4 col-xs-2">URL<span style="font-size:120%; color:red;"></span>:</div>';
+	echo '<div class="col-md-6 col-xs-10"><input id="InDea" class="form-control" name=url type=text value = '.$row["url"].'></div>';
+	echo '</div>';
+
+	echo '<div class="row">';
+	echo '<div align="right" class="col-md-4 col-xs-2">Location<span style="font-size:120%; color:red;"></span>:</div>';
+	echo '<div class="col-md-6 col-xs-10"><input id="InDea" class="form-control" name=location type=text></div>';
+	echo '</div>';
+
 	$content = sql_get_post_content_byID($postid);
 	echo '<div class="row">';
 	echo '<div align="right" class="col-md-4 col-xs-2">Please input detail here<span style="font-size:120%; color:red;">*</span>:<br>(URL, Qualification...)</div>';
-	echo '<div class="col-md-6 col-xs-10"><textarea id="InInf" class="form-control" name=job_content style="margin: 0px; width: 100%; height: 140px;" required value=>'.$content[0]["content"].'</textarea></div>';
+	echo '<div class="col-md-6 col-xs-10"><textarea id="InInf" class="form-control" name=job_content style="margin: 0px; width: 100%; height: 140px;" required >'.$content[0]["content"].'</textarea></div>';
 	echo '</div>';
 
 ?>
@@ -181,6 +225,25 @@ function edit_page($postid) {
 				<option value="6">PM</option>
 				<option value="7">Other</option>
 			</select>
+		</div>
+	</div>
+	<div class="row">
+		<div align="right" class="col-md-4 col-xs-2">
+			Visa Sponsorship<span style="font-size:120%; color:red;">*</span>:
+		</div>
+		<div class="col-md-6 col-xs-10">	
+			<select name="visa" class="form-control">
+				<option value="0">No Visa Sponsorship</option>
+				<option value="1">Visa Sponsorship will be provided</option>
+			</select>
+		</div>
+	</div>
+	<div class="row">
+		<div align="right" class="col-md-4 col-xs-2">
+			<lable for = "file"> File Upload: </lable>
+		</div>
+		<div class="col-md-6 col-xs-10">
+		    <input name = "file" type = "file" class = "form-control">				
 		</div>
 	</div>
 	<input type = "hidden" name="visit" value=<?php echo $row["visit"];?>>

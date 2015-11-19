@@ -162,11 +162,11 @@ function sql_add_post($useremail,$email, $company_name, $position, $description,
     return 1;
 }
 
-function update_post($postid,$useremail,$email, $company_name, $position, $description, $job_content, $job_type, $major, $job_year,$visit)
+function update_post($postid,$useremail,$email, $company_name, $position, $description, $job_content, $job_type, $major, $job_year,$url,$visa,$visit)
 {
     $conn = getconn();
 
-    $stmt = $conn->prepare("update post_info set user_email=:useremail,email=:email, company=:company, position=:position, title=:title, time=now(), visit=:visit where postid=:postid");
+    $stmt = $conn->prepare("update post_info set user_email=:useremail,email=:email, company=:company, position=:position, title=:title, time=now(), visit=:visit,url=:url, visa=:visa where postid=:postid");
 
     $stmt->bindParam(':postid',$postid);
     $stmt->bindParam(':useremail',$useremail);
@@ -175,6 +175,8 @@ function update_post($postid,$useremail,$email, $company_name, $position, $descr
     $stmt->bindParam(':position', $position);
     $stmt->bindParam(':title', $description);
     $stmt->bindParam(':visit',$visit);
+    $stmt->bindParam(':url', $url);
+    $stmt->bindParam(':visa', $visa);
     
     $result = $stmt->execute();
 
@@ -183,7 +185,7 @@ function update_post($postid,$useremail,$email, $company_name, $position, $descr
 
     $stmt = $conn->prepare("update post_content set content=:content where postid=:postid");
 
-    $stmt->bindParam(':postid', $post_id);
+    $stmt->bindParam(':postid', $postid);
     $stmt->bindParam(':content', $job_content);
 
     $result = $stmt->execute();
@@ -193,7 +195,7 @@ function update_post($postid,$useremail,$email, $company_name, $position, $descr
     
     $stmt = $conn->prepare("update post_tags set job_year=:jy, major_class=:mc, company=:company, job_type=:jt where postid=:postid");
 
-    $stmt->bindParam(':postid', $post_id);
+    $stmt->bindParam(':postid', $postid);
     $stmt->bindParam(':jy', substr($job_year, 0, 4));
     $stmt->bindParam(':mc', $major);
     $stmt->bindParam(':company', $company_name);
@@ -499,7 +501,7 @@ function Print_Fav_Post($post_row,$email,$page,$fav_row)
     $favs = array();
     //print_r($fav_row);
     //print_r($row2['postid']);
-    echo '<br><br>';
+    //echo '<br><br>';
     foreach ($fav_row as $row2)
     {
         //print_r($row2['postid']);
@@ -542,7 +544,7 @@ function Print_Fav_Post($post_row,$email,$page,$fav_row)
         else
             echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
         echo '<a href="show-article.php?postid='.$row["postid"].'">'.$row["title"].'</a>';
-        echo '<span class = "badge pull-right">'.$row["visit"].' view>';
+        echo '<span class = "badge pull-right">'.$row["visit"].' view';
         echo '</span>';
         //echo $row["postid"];
         if(in_array($row["postid"], $favs)) 
@@ -561,8 +563,8 @@ function Print_Fav_Post($post_row,$email,$page,$fav_row)
         $index = $index + 1;
         echo '</div>';
         echo '<div style="padding:5px">';
-        echo '<span class="label label-info pull-left">'.$row["company"].'</span>';
-        echo '<span class="label label-info pull-left">'.$row["position"].'</span>';
+        echo '<span class="label label-info pull-left" style ="margin:1px">'.$row["company"].'</span>';
+        echo '<span class="label label-info pull-left" style ="margin:1px">'.$row["position"].'</span>';
         echo '<small class = "pull-right" style="text-color:gray">Post by: '.$row["user_email"].'</small>';
         echo '</div>';
         echo '</li>';
