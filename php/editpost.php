@@ -86,16 +86,17 @@
 		return;
 	}
 
-  if (!isset($_POST["mode"])) {
-  	write_add_new_page();
+  if (isset($_POST["edit"])) {
+  	$postid = $_POST["edit"];
+  	edit_page($postid);
   }
-  else {
+  else if(isset($_POST["mode"])){
 	$mode = $_POST["mode"];
 
 	if ($mode == "submit") {	
-		if (sql_add_post($myemail,$_POST["email"], $_POST["company_name"], $_POST["position"], $_POST["description"], $_POST["job_content"], $_POST['job_type'], $_POST['major'], $_POST['date'], $_POST['url'], $_POST['visa']) == 1) {
+		if (update_post($_POST["postid"],$myemail,$_POST["email"], $_POST["company_name"], $_POST["position"], $_POST["description"], $_POST["job_content"], $_POST['job_type'], $_POST['major'], $_POST['date'],$_POST["visit"]) == 1) {
 				echo "<h2 align=center>Your job posting is successful</h2>";
-				echo "<h3 align=center><a  href='homepage.php' class='btn'>My homepage</a></h3>";
+				echo "<h3 align=center><a href='homepage.php' class='btn'>My homepage</a></h3>";
 		}
 		else {
 			echo "<h2 align=center>Something went wrong... Please try again</h2>";
@@ -106,31 +107,34 @@
 
   include("footer.php");
 
-function write_add_new_page() {
+function edit_page($postid) {
+	$idlist = "(".$postid.")";
+	$result = sql_get_post_by_ids($idlist);
+	$row = $result[0];
 	echo "<div class=\"jobpostform center\">";
 	echo "<h2 align=\"center\">Post a new job</h2>";
 
-	echo "<form method=post action=postjob.php id=\"frm1\">";
+	echo "<form method=post action=editpost.php id=\"frm1\">";
 	echo "<input type=hidden name=mode value=submit>";
 	
 	echo '<div class="row">';
 	echo '<div align="right" class="col-md-4 col-xs-2">Short Description<span style="font-size:120%; color:red;">*</span>: </div>';
-	echo '<div class="col-md-6 col-xs-10"><input id="InDes" class="form-control" name=description type=text size=40 required></div>';
+	echo '<div class="col-md-6 col-xs-10"><input id="InDes" class="form-control" name=description type=text size=40 required value = '.$row["title"].'></div>';
 	echo '</div>';
 
 	echo '<div class="row">';
 	echo '<div align="right" class="col-md-4 col-xs-2">Email<span style="font-size:120%; color:red;">*</span>:</div>';
-	echo '<div class="col-md-6 col-xs-10"><input id="InEma" class="form-control" name=email type=text size=40 required></div>';
+	echo '<div class="col-md-6 col-xs-10"><input id="InEma" class="form-control" name=email type=text size=40 required value='.$row["email"].'></div>';
 	echo '</div>';
 
 	echo '<div class="row">';
 	echo '<div align="right" class="col-md-4 col-xs-2">Company Name<span style="font-size:120%; color:red;">*</span>:</div>';
-	echo '<div class="col-md-6 col-xs-10"><input id="InCom" class="form-control"  name=company_name type=text size=40 required></div>';
+	echo '<div class="col-md-6 col-xs-10"><input id="InCom" class="form-control"  name=company_name type=text size=40 required value='.$row["company"].'></div>';
 	echo '</div>';
 
 	echo '<div class="row">';
 	echo '<div align="right" class="col-md-4 col-xs-2">Position Title<span style="font-size:120%; color:red;">*</span>:</div>';
-	echo '<div class="col-md-6 col-xs-10"><input id="InPos" class="form-control"  name=position type=text size=40 required></div>';
+	echo '<div class="col-md-6 col-xs-10"><input id="InPos" class="form-control"  name=position type=text size=40 required value = '.$row["position"].'></div>';
 	echo '</div>';
 
 	echo '<div class="row">';
@@ -138,21 +142,11 @@ function write_add_new_page() {
 	echo '<div class="col-md-6 col-xs-10"><input id="InDea" class="form-control" name=date type=date></div>';
 	echo '</div>';
 
+	$content = sql_get_post_content_byID($postid);
 	echo '<div class="row">';
-	echo '<div align="right" class="col-md-4 col-xs-2">URL<span style="font-size:120%; color:red;"></span>:</div>';
-	echo '<div class="col-md-6 col-xs-10"><input id="InDea" class="form-control" name=url type=text></div>';
+	echo '<div align="right" class="col-md-4 col-xs-2">Please input detail here<span style="font-size:120%; color:red;">*</span>:<br>(URL, Qualification...)</div>';
+	echo '<div class="col-md-6 col-xs-10"><textarea id="InInf" class="form-control" name=job_content style="margin: 0px; width: 100%; height: 140px;" required value=>'.$content[0]["content"].'</textarea></div>';
 	echo '</div>';
-
-	echo '<div class="row">';
-	echo '<div align="right" class="col-md-4 col-xs-2">Location<span style="font-size:120%; color:red;"></span>:</div>';
-	echo '<div class="col-md-6 col-xs-10"><input id="InDea" class="form-control" name=location type=text></div>';
-	echo '</div>';
-
-	echo '<div class="row">';
-	echo '<div align="right" class="col-md-4 col-xs-2">Please input detail here<span style="font-size:120%; color:red;">*</span>:<br>(Qualification...)</div>';
-	echo '<div class="col-md-6 col-xs-10"><textarea id="InInf" class="form-control" name=job_content style="margin: 0px; width: 100%; height: 140px;" required></textarea></div>';
-	echo '</div>';
-
 
 ?>
 	<div class="row">
@@ -189,18 +183,8 @@ function write_add_new_page() {
 			</select>
 		</div>
 	</div>
-
-	<div class="row">
-		<div align="right" class="col-md-4 col-xs-2">
-			Visa Sponsorship<span style="font-size:120%; color:red;">*</span>:
-		</div>
-		<div class="col-md-6 col-xs-10">	
-			<select name="visa" class="form-control">
-				<option value="0">No Visa Sponsorship</option>
-				<option value="1">Visa Sponsorship will be provided</option>
-			</select>
-		</div>
-	</div>
+	<input type = "hidden" name="visit" value=<?php echo $row["visit"];?>>
+	<input type = "hidden" name="postid" value=<?php echo $row["postid"];?>>
 <!-- 
 	<div class="row">
 		<div align="right" class="col-md-4 col-xs-2">
@@ -269,10 +253,12 @@ function write_add_new_page() {
 	echo '<h4 id="JiaEma"></h5>';
 	echo '<h4 id="JiaDea"></h5>';
 	echo '<h6 id="view"></h6>';
-	echo '<h6>This job has been viewed 0 times</h6>';
+	echo '<h6>This job has been viewed '.$row["visit"].' times</h6>';
 	echo '<div class="panel panel-primary">';
 	echo '<div class="panel-heading" style="font-size:100%">Detailed Information</div>';
 	echo '<div id="JiaInf" class="panel-body">xxx</div></div>';
+
+
 
 	echo '<br>';
 

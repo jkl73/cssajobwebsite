@@ -110,6 +110,8 @@ body {
 }
 .navbar{
   background-color:#980000;
+  border:0px;
+  border-radius: 0px;
 }
 
 .navbar-default .navbar-brand {
