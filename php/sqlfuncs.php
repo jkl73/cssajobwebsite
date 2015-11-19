@@ -546,6 +546,7 @@ function Print_Fav_Post($post_row,$email,$page,$fav_row)
         echo '<a href="show-article.php?postid='.$row["postid"].'">'.$row["title"].'</a>';
         echo '<span class = "badge pull-right">'.$row["visit"].' view';
         echo '</span>';
+        echo '<span>';
         //echo $row["postid"];
         if(in_array($row["postid"], $favs)) 
         {
@@ -553,12 +554,13 @@ function Print_Fav_Post($post_row,$email,$page,$fav_row)
             //echo '<br>';
             //print_r($favs);
             //print_r($row2);
-            echo '<button class = "glyphicon glyphicon-star" style="color:#FFCC00" id="myImage'. $index .'" type=submit name="deleteFav" value ='.$row["postid"].' alt="STAR" width="34" height="26">';
+            echo '<button class = "glyphicon glyphicon-star pull-right" style="color:#FFCC00; margin:5px" id="myImage'. $index .'" type=submit name="deleteFav" value ='.$row["postid"].' alt="STAR" width="34" height="26">';
         }
         else
         {
-            echo '<button class = "glyphicon glyphicon-star-empty" style="color:#FFCC00" id="myImage'. $index .'" type=submit name="addFav" value ='.$row["postid"].' alt="STAR" width="34" height="26">';
+            echo '<button class = "glyphicon glyphicon-star-empty pull-right" style="color:#FFCC00; margin:5px" id="myImage'. $index .'" type=submit name="addFav" value ='.$row["postid"].' alt="STAR" width="34" height="26">';
         }
+        echo '</span>';
         //echo '<img id="myImage'. $index .'" type=submit name="deleteFav" value ='.$row["postid"].' onclick="changeImage(\'myImage'. $index .'\');document.forms[1].submit()" src="../pictures/jiaStaron.png" alt="STAR" width="34" height="26">';
         $index = $index + 1;
         echo '</div>';
