@@ -393,6 +393,7 @@ function Print_Post($post_row,$email,$page)
     echo '<ul class="list-group">';
 
     $total = 0;
+    $index = 0;
 
     foreach ($post_row as $row)
     {
@@ -426,7 +427,7 @@ function Print_Post($post_row,$email,$page)
             echo '<button class="btn btn-danger" type=submit name="deletePost[]" value ='.$row["postid"].'>&times;</button>';
         else
             echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
-        echo '<a href="show-article.php?postid='.$row["postid"].'">'.$row["tags"].'</a>';
+        echo '<a href="show-article.php?postid='.$row["postid"].'">'.$row["title"].'</a>';
         echo '<span class = "badge pull-right">'.$row["visit"].' view>';
         echo '</span>';
         echo '<img id="myImage'. $index .'" onclick="changeImage(\'myImage'. $index .'\')" src="../pictures/off.png" alt="STAR" width="34" height="26">';
