@@ -150,6 +150,14 @@
 <div class="col-xs-12 col-sm-6 col-md-8" style = "overflow:scroll; height:450px">
 	<form action ="homepage.php" method = POST>
 <?php
+
+	$conn = getconn();
+	if(isset($_POST["deleteFav"]))
+	{
+		echo "dffsf".$_POST["deleteFav"];
+		$stmt = $conn->prepare("INSERT into user_fav VALUES ('".$myemail."', ".$_POST["deleteFav"].");");
+		$stmt->execute();
+	}
 	//$server = mysql_connect("localhost","root","1qaz-pl,");
 	/*$server = mysql_connect("cssadbinstance.ccmgeu2ghiy1.us-east-1.rds.amazonaws.com", "cssaadmin", "cssaadmin123"); 
 	if (!$server) { 

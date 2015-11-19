@@ -430,8 +430,7 @@ function Print_Post($post_row,$email,$page)
         echo '<a href="show-article.php?postid='.$row["postid"].'">'.$row["title"].'</a>';
         echo '<span class = "badge pull-right">'.$row["visit"].' view>';
         echo '</span>';
-        echo '<img id="myImage'. $index .'" onclick="changeImage(\'myImage'. $index .'\')" src="../pictures/off.png" alt="STAR" width="34" height="26">';
-        $index = $index + 1;
+echo '<button class = "starButtonOff" id="myImage'. $index .'" type=submit name="deleteFav" value ='.$row["postid"].' alt="STAR" width="34" height="26">';        $index = $index + 1;
         echo '</div>';
         echo '<div style="padding:5px">';
         echo '<span class="label label-info pull-left">'.$row["company"].'</span>';
@@ -501,7 +500,8 @@ function Print_Fav_Post($post_row,$email,$page)
         echo '<a href="show-article.php?postid='.$row["postid"].'">'.$row["title"].'</a>';
         echo '<span class = "badge pull-right">'.$row["visit"].' view>';
         echo '</span>';
-        echo '<img id="myImage'. $index .'" onclick="changeImage(\'myImage'. $index .'\')" src="../pictures/off.png" alt="STAR" width="34" height="26">';
+        echo '<button class = "starButtonOn" id="myImage'. $index .'" type=submit name="deleteFav" value ='.$row["postid"].' alt="STAR" width="34" height="26">';
+        //echo '<img id="myImage'. $index .'" type=submit name="deleteFav" value ='.$row["postid"].' onclick="changeImage(\'myImage'. $index .'\');document.forms[1].submit()" src="../pictures/jiaStaron.png" alt="STAR" width="34" height="26">';
         $index = $index + 1;
         echo '</div>';
         echo '<div style="padding:5px">';

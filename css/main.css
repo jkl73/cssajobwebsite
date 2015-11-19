@@ -248,4 +248,16 @@ margin-top: 9px}
   margin-right: 30px
 }
 
+.starButtonOn {
+  background-image:  url("../pictures/jiaStaron.png");
+  background-size: 30px 20px;
+  width:34px;
+  height:26px;
+}
 
+.starButtonOff {
+  background-image:  url("../pictures/jiaStaroff.png");
+  background-size: 30px 20px;
+  width:34px;
+  height:26px;
+}

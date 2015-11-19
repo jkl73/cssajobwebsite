@@ -16,9 +16,21 @@
 	function changeImage(elementId) {
 	    var image = document.getElementById(elementId);
 	    if (image.src.match("jiaStaron")) {
-	        image.src = "../pictures/jiaStaroff.png";
+	    	var r = confirm("Are you sure to remove the post from your favourate?");
+		    if(r == true){
+		    	image.src = "../pictures/jiaStaroff.png";
+		        return true;
+		      }else {
+		        return false;
+		      }
 	    } else {
-	        image.src = "../pictures/jiaStaron.png";
+	    	var r = confirm("Are you sure to add the post to your favourate?");
+		    if(r == true){
+					image.src = "../pictures/jiaStaron.png";
+				return true;
+			}else {
+				return false;
+		    }
 	    }
 	}
 </script>
@@ -52,8 +64,20 @@
 <div class="row" >
 	<h2>My Favourate Jobs</h2>
 <div class="col-xs-12 col-sm-6 col-md-8" style = "overflow:scroll; height:450px">
+	<form action = "myfavourate.php" method=post id="favForm">
 <?php
-	if(isset($_GET["srch-term"]))
+
+
+	$conn = getconn();
+	if(isset($_POST["deleteFav"]))
+	{
+		echo "dffsf".$_POST["deleteFav"];
+		$stmt = $conn->prepare("DELETE FROM user_fav WHERE email='".$myemail."' and postid =".$_POST["deleteFav"]." ");
+		$stmt->execute();
+	}
+
+
+	/*if(isset($_GET["srch-term"]))
 	{
 		$res = print_text_search($_GET["srch-term"]);
 		$targetstring = "(";
@@ -91,10 +115,11 @@
 		}
 	}
 	else
-	{
+	{*/
 		Display_all_query($myemail);
-  	}
+  	//}
 ?>
+</form>
 </div>
 <div class="col-xs-6 col-md-4">
   	<ul class="list-group">
@@ -108,7 +133,7 @@
 	$result = $stmt->execute();
 	if (!$result)
     {
-        echo "What the fuck?";
+		echo "What the fuck?";
         pdo_die($stmt);
     }
         
@@ -166,6 +191,17 @@ function Display_all_query($myemail)
         pdo_die($stmt);
     }
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    Print_Post($result,$myemail,0);
+
+
+    $conn = getconn();
+	$stmt = $conn->prepare("select * from user_fav as F WHERE F.email = '".$myemail."' order by F.postid;");
+	$result2 = $stmt->execute();
+	if (!$result2)
+    {
+        echo "What the fuck?";
+        pdo_die($stmt);
+    }
+	$result2 = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    Print_Fav_Post($result,$myemail,0, $result2);
 }
 ?>
