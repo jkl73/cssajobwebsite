@@ -91,6 +91,9 @@ function changeDisplay(id)
     echo '<h4>Job position: '. $rset[0]['position'] .'</h4>';
     echo '<h4>Email: '. $rset[0]['email'] .'</h4>';
     echo '<h4>Time:'.$rset[0]['time'].'</h4>';
+    if($rset[0]['filename'] != NULL){
+        echo '<h5><a href='.$rset[0]['file_url'].'>File:'.$rset[0]['filename'].'</h5>';
+    }
 
     echo '<h6>This job has been viewed '. $rset[0]['visit'] .' times</h6>';
 

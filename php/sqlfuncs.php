@@ -575,4 +575,18 @@ function Print_Fav_Post($post_row,$email,$page,$fav_row)
     echo '</div>';
     echo '</div>';
 }
+function update_post_file($postid, $fileurl, $filename){
+    $conn = getconn();
+    $stmt = $conn->prepare("update post_info set file_url=:fileurl, filename=:filename where postid=:postid");
+    
+    $stmt->bindParam(':postid',$postid);
+    $stmt->bindParam(':fileurl',$fileurl);
+    $stmt->bindParam(':filename',$filename);
+
+    $result = $stmt->execute();
+    if (!$result)
+        pdo_die($stmt);
+    return 1;
+
+}
 ?>

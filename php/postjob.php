@@ -93,7 +93,24 @@
 	$mode = $_POST["mode"];
 
 	if ($mode == "submit") {	
-		if (sql_add_post($myemail,$_POST["email"], $_POST["company_name"], $_POST["position"], $_POST["description"], $_POST["job_content"], $_POST['job_type'], $_POST['major'], $_POST['date'], $_POST['url'], $_POST['visa']) == 1) {
+		$post_id = sql_add_post($myemail,$_POST["email"], $_POST["company_name"], $_POST["position"], $_POST["description"], $_POST["job_content"], $_POST['job_type'], $_POST['major'], $_POST['date'], $_POST['url'], $_POST['visa']);
+		if ($post_id >= 0) {
+    			if($_FILES["file"]["error"] > 0){
+    				if($_FILES["file"]["error"] != 4){
+    					echo "Error:" . $_FILES["file"]["error"] ."</br/>";
+    				}
+    			}
+    			//  改了sql函数的返回文件
+    			if($_FILES["file"]["name"] != NULL){
+    				$filename = (string)$post_id . "-" .(string)$_FILES["file"]["name"];
+    				$path = "../upload-file/post/". $filename;
+    				//$newfile = "../upload-file/post";
+    				
+    				move_uploaded_file($_FILES["file"]["tmp_name"], $path);
+					update_post_file($post_id, $path, $_FILES["file"]["name"]);
+    				
+				}
+
 				echo "<h2 align=center>Your job posting is successful</h2>";
 				echo "<h3 align=center><a  href='homepage.php' class='btn'>My homepage</a></h3>";
 		}
@@ -110,7 +127,7 @@ function write_add_new_page() {
 	echo "<div class=\"jobpostform center\">";
 	echo "<h2 align=\"center\">Post a new job</h2>";
 
-	echo "<form method=post action=postjob.php id=\"frm1\">";
+	echo "<form enctype = multipart/form-data method=post action=postjob.php id=\"frm1\">";
 	echo "<input type=hidden name=mode value=submit>";
 	
 	echo '<div class="row">';
@@ -199,6 +216,14 @@ function write_add_new_page() {
 				<option value="0">No Visa Sponsorship</option>
 				<option value="1">Visa Sponsorship will be provided</option>
 			</select>
+		</div>
+	</div>
+	<div class="row">
+		<div align="right" class="col-md-4 col-xs-2">
+			<lable for = "file"> File Upload: </lable>
+		</div>
+		<div class="col-md-6 col-xs-10">
+		    <input name = "file" type = "file" class = "form-control">				
 		</div>
 	</div>
 <!-- 

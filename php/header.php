@@ -21,6 +21,7 @@
     echo '<span class="caret"></span></button>';
     echo '<ul class="dropdown-menu">';
     echo '<li><a href="settings.php">Settings</a></li>';
+    echo '<li><a href="notification-center.php">Notification Center</a></li>';
     echo '<li><a href="logout.php">Logout</a></li>';
     echo '</ul>';
     echo "</div>";
