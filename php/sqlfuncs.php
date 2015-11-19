@@ -258,6 +258,21 @@ function sql_get_reply($post_id)
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $result;
 }
+function sql_get_userInfo_byEmail($email)
+{
+    $conn = getconn();
+    $stmt = $conn->prepare("select * from user where email = :email");
+    $stmt->bindParam(':email', $email);
+
+    $result = $stmt->execute();
+    if (!$result)
+    {
+        echo "What the fuck?";
+        pdo_die($stmt);
+    }
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $result;
+}
 
 function sql_get_stuInfo_byEmail($email)
 {
@@ -308,6 +323,23 @@ function admin_byEmail($email)
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     if(count($result)>0)return true;
     return false;
+}
+
+function sql_insert_userInfo($email,$username,$password,$type)
+{
+    $conn = getconn();
+    $stmt = $conn->prepare("insert into user(email,verify,name,password,type) values(:email,0,:name,:password,".$type.")");
+    //echo "insert into user(email,verify,password,type) values(:email,0,:password".$type.")";
+    $stmt->bindParam(':email', $email);
+    $stmt->bindParam(':password', $password);
+    $stmt->bindParam(':name',$username);
+
+    $result = $stmt->execute();
+    if (!$result)
+    {
+        echo "What the fuck?";
+        pdo_die($stmt);
+    }
 }
 function sql_insert_stuInfo($email,$username,$hash,$password)
 {
