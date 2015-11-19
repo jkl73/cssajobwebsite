@@ -158,7 +158,7 @@
 function Display_all_query($myemail)
 {
 	$conn = getconn();
-	$stmt = $conn->prepare("select * from post_info order by time DESC;");
+	$stmt = $conn->prepare("select * from post_info P, user_fav F WHERE P.postid = F.postid and F.email = '".$myemail."' order by time DESC;");
 	$result = $stmt->execute();
 	if (!$result)
     {
