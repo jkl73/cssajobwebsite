@@ -189,6 +189,13 @@
 			header('Location: homepage-alu.php');
 			exit;
 		}
+		 <ul class="pagination">
+  <li><a href="#">1</a></li>
+  <li><a href="#">2</a></li>
+  <li><a href="#">3</a></li>
+  <li><a href="#">4</a></li>
+  <li><a href="#">5</a></li>
+</ul>
 	}*/
 	if(isset($_POST["deletePost"]))
           {
@@ -210,7 +217,7 @@
 			$targetstring[strlen($targetstring) - 1] = ')';
 			//echo $targetstring;
 			$res_data = sql_get_post_by_ids($targetstring);
-			Print_Post($res_data,$myemail);
+			Print_Post($res_data,$myemail,0);
 		}
 	}
 	else if (isset($_GET["mode"]))
@@ -228,14 +235,41 @@
 			else {
 				$targetstring[strlen($targetstring) - 1] = ')';
 				$res_data = sql_get_post_by_ids($targetstring);
-				Print_Post($res_data,$myemail);
+				Print_Post($res_data,$myemail,0);
 			}			
 		}
 	}
 	else
 	{
-		Display_all_query($myemail);
-  	}
+		$conn = getconn();
+		$stmt = $conn->prepare("select * from post_info where time<now() order by time DESC;");
+		$result = $stmt->execute();
+		if (!$result)
+	    {
+	        echo "What the fuck?";
+	        pdo_die($stmt);
+	    }
+	    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	    $num_res = count($result);
+		$PageDisplay = 0;
+		if(isset($_GET["page"]))$PageDisplay = $_GET["page"];
+		$numPerPage = 30;
+		$max_page = (int)($num_res/$numPerPage);
+		if($PageDisplay>$max_page)$PageDisplay = $max_page;
+		else if($PageDisplay<0)$PageDisplay = 0;
+	    Print_Post($result,$myemail,$PageDisplay);
+	    if($max_page>0)
+		{
+			echo '<ul class="pagination">';
+			for($i = 0;$i<=$max_page;$i++)
+			{
+				if($i == $PageDisplay)echo '<li class = "active">';
+				else echo '<li>';
+				echo '<a href="homepage.php?page='.$i.'">'.($i*$numPerPage+1).'-'.(($i+1)*$numPerPage).'</a>';
+			}
+			echo '</ul>';
+		}
+	}
 ?>
 </form>
 </div>
@@ -412,17 +446,4 @@ function searchPost($tag_array) {
 	return $result;
 }
 
-function Display_all_query($myemail)
-{
-	$conn = getconn();
-	$stmt = $conn->prepare("select * from post_info order by time DESC;");
-	$result = $stmt->execute();
-	if (!$result)
-    {
-        echo "What the fuck?";
-        pdo_die($stmt);
-    }
-    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    Print_Post($result,$myemail);
-}
 ?>

@@ -95,7 +95,7 @@
 
 	if ($mode == "submit") {	
 		if (update_post($_POST["postid"],$myemail,$_POST["email"], $_POST["company_name"], $_POST["position"], $_POST["description"], $_POST["job_content"], $_POST['job_type'], $_POST['major'], $_POST['date'],$_POST["visit"]) == 1) {
-				echo "<h2 align=center>Your job posting is successful</h2>";
+				echo "<h2 align=center>Your job has successfully modified</h2>";
 				echo "<h3 align=center><a href='homepage.php' class='btn'>My homepage</a></h3>";
 		}
 		else {

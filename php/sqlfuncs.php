@@ -118,23 +118,17 @@ function sql_add_post($useremail,$email, $company_name, $position, $description,
     $conn = getconn();
     $post_id = $conn->lastInsertId();
 
-<<<<<<< HEAD
-    $stmt = $conn->prepare("insert into post_info(user_email, email, company, position, tags, time, visit, fav) values(:useremail,:email, :company, :position, :tags, now(), 0, 0)");
-=======
+
     $stmt = $conn->prepare("insert into post_info(user_email, email, company, position, title, time, visit, fav, url, visa) values(:useremail,:email, :company, :position, :title, now(), 0, 0, :url, :visa)");
->>>>>>> origin/master
 
     $stmt->bindParam(':useremail',$useremail);
     $stmt->bindParam(':email', $email);
     $stmt->bindParam(':company', $company_name);
     $stmt->bindParam(':position', $position);
-<<<<<<< HEAD
-    $stmt->bindParam(':tags', $description);
-=======
+
     $stmt->bindParam(':title', $description);
     $stmt->bindParam(':url', $url);
     $stmt->bindParam(':visa', $visa);
->>>>>>> origin/master
     
     $result = $stmt->execute();
     $post_id = $conn->lastInsertId();
@@ -383,7 +377,7 @@ function getconn()
     $conn = new PDO($dsn, $user, $pw);
     return $conn;
 }
-function Print_Post($post_row,$email)
+function Print_Post($post_row,$email,$page)
 {
     if(count($post_row) == 0)return;
     $flag = 0;
@@ -397,7 +391,9 @@ function Print_Post($post_row,$email)
     echo '</div>';
     echo '<div id="collapse1" class="panel-collapse collapse in">';
     echo '<ul class="list-group">';
-    $index = 0;
+
+    $total = 0;
+
     foreach ($post_row as $row)
     {
         $cnt = $cnt + 1;
@@ -415,10 +411,14 @@ function Print_Post($post_row,$email)
             echo '</h4>';
             echo '</div>';
             $in = "";
-            if($cnt == 1)$in = "in";
+
+            if($total == 0)$in = "in";
+
             echo '<div id="collapse2" class="panel-collapse collapse '.$in.'">';
             echo '<ul class="list-group">';
         }
+        $cnt = $cnt + 1;
+        if($cnt<$page*30)continue;
         if($cnt % 2 == 0) echo '<li class="list-group-item">';
         else echo '<li class="list-group-item list-group-item-info">';
         echo '<div style="padding:5px">';
@@ -438,7 +438,9 @@ function Print_Post($post_row,$email)
         echo '<small class = "pull-right" style="text-color:gray">Post by: '.$row["user_email"].'</small>';
         echo '</div>';
         echo '</li>';
-        if($cnt>100)break;
+
+        $total = $total + 1;
+        if($cnt>($page+1)*30)break;
     }
     echo '</ul>';
     echo '</div>';
