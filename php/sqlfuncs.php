@@ -118,12 +118,14 @@ function sql_add_post($useremail,$email, $company_name, $position, $description,
     $conn = getconn();
     $post_id = $conn->lastInsertId();
 
+
     $stmt = $conn->prepare("insert into post_info(user_email, email, company, position, title, time, visit, fav, url, visa) values(:useremail,:email, :company, :position, :title, now(), 0, 0, :url, :visa)");
 
     $stmt->bindParam(':useremail',$useremail);
     $stmt->bindParam(':email', $email);
     $stmt->bindParam(':company', $company_name);
     $stmt->bindParam(':position', $position);
+
     $stmt->bindParam(':title', $description);
     $stmt->bindParam(':url', $url);
     $stmt->bindParam(':visa', $visa);
@@ -310,7 +312,7 @@ function admin_byEmail($email)
 function sql_insert_stuInfo($email,$username,$hash,$password)
 {
     $conn = getconn();
-    $stmt = $conn->prepare("insert into student(email,name,hash,verified,password) values(:email,:username,:hash,1,:password)");
+    $stmt = $conn->prepare("insert into student(email,name,hash,verified,password) values(:email,:username,:hash,0,:password)");
     $stmt->bindParam(':email', $email);
     $stmt->bindParam(':username', $username);
     $stmt->bindParam(':hash', $hash);
@@ -328,7 +330,7 @@ function sql_insert_stuInfo($email,$username,$hash,$password)
 function sql_insert_empInfo($email,$username,$hash,$password)
 {
     $conn = getconn();
-    $stmt = $conn->prepare("insert into employer(email,name,hash,verified,password) values(:email,:username,:hash,1,:password)");
+    $stmt = $conn->prepare("insert into employer(email,name,hash,verified,password) values(:email,:username,:hash,0,:password)");
     $stmt->bindParam(':email', $email);
     $stmt->bindParam(':username', $username);
     $stmt->bindParam(':hash', $hash);
@@ -375,7 +377,7 @@ function getconn()
     $conn = new PDO($dsn, $user, $pw);
     return $conn;
 }
-function Print_Post($post_row,$email)
+function Print_Post($post_row,$email,$page)
 {
     if(count($post_row) == 0)return;
     $flag = 0;
@@ -389,8 +391,13 @@ function Print_Post($post_row,$email)
     echo '</div>';
     echo '<div id="collapse1" class="panel-collapse collapse in">';
     echo '<ul class="list-group">';
+
+    $total = 0;
+    $index = 0;
+
     foreach ($post_row as $row)
     {
+        $cnt = $cnt + 1;
         if(strtotime($row['time']) > strtotime('now'))continue;
         if( $flag == 0 && strtotime($row['time']) < strtotime('-7 day'))
         {
@@ -405,10 +412,14 @@ function Print_Post($post_row,$email)
             echo '</h4>';
             echo '</div>';
             $in = "";
-            if($cnt == 0)$in = "in";
+
+            if($total == 0)$in = "in";
+
             echo '<div id="collapse2" class="panel-collapse collapse '.$in.'">';
             echo '<ul class="list-group">';
         }
+        $cnt = $cnt + 1;
+        if($cnt<$page*30)continue;
         if($cnt % 2 == 0) echo '<li class="list-group-item">';
         else echo '<li class="list-group-item list-group-item-info">';
         echo '<div style="padding:5px">';
@@ -417,7 +428,10 @@ function Print_Post($post_row,$email)
         else
             echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
         echo '<a href="show-article.php?postid='.$row["postid"].'">'.$row["title"].'</a>';
-        echo '<span class = "badge pull-right">'.$row["visit"].' view</span>';
+        echo '<span class = "badge pull-right">'.$row["visit"].' view>';
+        echo '</span>';
+        echo '<img id="myImage'. $index .'" onclick="changeImage(\'myImage'. $index .'\')" src="../pictures/off.png" alt="STAR" width="34" height="26">';
+        $index = $index + 1;
         echo '</div>';
         echo '<div style="padding:5px">';
         echo '<span class="label label-info pull-left">'.$row["company"].'</span>';
@@ -425,8 +439,9 @@ function Print_Post($post_row,$email)
         echo '<small class = "pull-right" style="text-color:gray">Post by: '.$row["user_email"].'</small>';
         echo '</div>';
         echo '</li>';
-        $cnt = $cnt + 1;
-        if($cnt>100)break;
+
+        $total = $total + 1;
+        if($cnt>($page+1)*30)break;
     }
     echo '</ul>';
     echo '</div>';

@@ -68,7 +68,7 @@
 			$targetstring[strlen($targetstring) - 1] = ')';
 			//echo $targetstring;
 			$res_data = sql_get_post_by_ids($targetstring);
-			Print_Post($res_data,$myemail);
+			Print_Post($res_data,$myemail,0);
 		}
 	}
 	else if (isset($_GET["mode"]))
@@ -86,7 +86,7 @@
 			else {
 				$targetstring[strlen($targetstring) - 1] = ')';
 				$res_data = sql_get_post_by_ids($targetstring);
-				Print_Post($res_data,$myemail);
+				Print_Post($res_data,$myemail,0);
 			}			
 		}
 	}
@@ -166,6 +166,6 @@ function Display_all_query($myemail)
         pdo_die($stmt);
     }
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    Print_Post($result,$myemail);
+    Print_Post($result,$myemail,0);
 }
 ?>

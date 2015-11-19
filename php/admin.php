@@ -13,7 +13,17 @@
 	 <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.0/css/bootstrap-toggle.min.css" rel="stylesheet">
 	 <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.0/js/bootstrap-toggle.min.js"></script>
 	 <script src="js/main.js"></script>
-
+   <script>
+   function delete_alert()
+   {
+    var r = confirm("Are you sure to delete?");
+    if(r == true){
+        return true;
+      }else {
+        return false;
+      }
+   }
+   </script>
 </head>
 
 <body>
@@ -77,7 +87,7 @@
 
           $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
           ?>
-          <form action ="admin.php" method = POST>
+          <form action ="admin.php" onSubmit = "return delete_alert()" method = POST>
             <div class = "row">
             <div class="alert alert-info fade in col-md-4">
               <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -148,7 +158,7 @@
     <div id="menu2" class="tab-pane fade <?php if($active_pos == 2)echo 'in active';?>">
       <div class = "container">
         <div style = "overflow:scroll; height:450px">
-          <form action ="admin.php" method = POST>
+          <form action ="admin.php" onSubmit = "return delete_alert()" method = POST>
       <?php
         if(isset($_POST["deletePost"]))
           {
@@ -156,7 +166,7 @@
             sql_delete_post_byPostId($postid);
           }
         $conn = getconn();
-        $stmt = $conn->prepare("select * from post_info order by time DESC;");
+        $stmt = $conn->prepare("select * from post_info where time<now() order by time DESC;");
         $result = $stmt->execute();
         if (!$result)
           {
@@ -164,7 +174,25 @@
               pdo_die($stmt);
           }
           $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-          Print_Post($result,$adminEamil);
+          $num_res = count($result);
+          $PageDisplay = 0;
+          if(isset($_GET["page"]))$PageDisplay = $_GET["page"];
+          $numPerPage = 30;
+          $max_page = (int)($num_res/$numPerPage);
+          if($PageDisplay>$max_page)$PageDisplay = $max_page;
+          else if($PageDisplay<0)$PageDisplay = 0;
+          Print_Post($result,$adminEamil,$PageDisplay);
+          if($max_page>0)
+          {
+            echo '<ul class="pagination">';
+            for($i = 0;$i<=$max_page;$i++)
+            {
+              if($i == $PageDisplay)echo '<li class = "active">';
+              else echo '<li>';
+              echo '<a href="admin.php?page='.$i.'">'.($i*$numPerPage+1).'-'.(($i+1)*$numPerPage).'</a>';
+            }
+            echo '</ul>';
+          }
       ?>
           </form>
       </div>
