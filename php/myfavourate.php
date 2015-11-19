@@ -13,26 +13,12 @@
   	<style>
   	</style>
   	<script>
-	function changeImage(elementId, postid) {
+	function changeImage(elementId) {
 	    var image = document.getElementById(elementId);
 	    if (image.src.match("jiaStaron")) {
 	        image.src = "../pictures/jiaStaroff.png";
-
-	  //       // Send insert request here
-	  //       <?php
-	  //       $conn = getconn();
-			// $stmt = $conn->prepare("INSERT into user_fav VALUES ('".$myemail."', ".postid.");");
-			// $result = $stmt->execute();
-			// ?>
 	    } else {
 	        image.src = "../pictures/jiaStaron.png";
-
-	  //       // Send Delete request here
-	  //       <?php
-	  //       $conn = getconn();
-			// $stmt = $conn->prepare("DELETE from user_fav WHERE email = '".$myemail."' and postid = ".postid.";");
-			// $result = $stmt->execute();
-			// ?>
 	    }
 	}
 </script>
