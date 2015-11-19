@@ -227,8 +227,7 @@ body {
 }
 
 .searchbox {
- background-color: LightGray;
- border: 1px solid grey;
+ background-color: white;
  border-radius: 5px;
  margin: 5px;
  padding: 0px;

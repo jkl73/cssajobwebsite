@@ -117,7 +117,6 @@ function sql_add_post($useremail,$email, $company_name, $position, $description,
 {
     $conn = getconn();
     $post_id = $conn->lastInsertId();
-    $res = $post_id;
 
     $stmt = $conn->prepare("insert into post_info(user_email, email, company, position, title, time, visit, fav, url, visa) values(:useremail,:email, :company, :position, :title, now(), 0, 0, :url, :visa)");
 
@@ -132,6 +131,7 @@ function sql_add_post($useremail,$email, $company_name, $position, $description,
     
     $result = $stmt->execute();
     $post_id = $conn->lastInsertId();
+    $res = $post_id;
 
     if (!$result)
         pdo_die($stmt);

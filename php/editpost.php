@@ -152,7 +152,7 @@
 			echo "<h3 align=center><a  href='homepage.php' class='btn'>My homepage</a></h3>";
 		}
 	}*/
-  }
+  
 
   include("footer.php");
 
@@ -163,7 +163,7 @@ function edit_page($postid) {
 	echo "<div class=\"jobpostform center\">";
 	echo "<h2 align=\"center\">Post a new job</h2>";
 
-	echo "<form method=post action=editpost.php id=\"frm1\">";
+	echo "<form enctype= multipart/form-data method=post action=editpost.php id=\"frm1\">";
 	echo "<input type=hidden name=mode value=submit>";
 	
 	echo '<div class="row">';
