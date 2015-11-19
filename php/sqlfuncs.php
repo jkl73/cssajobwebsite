@@ -448,5 +448,75 @@ function Print_Post($post_row,$email,$page)
     echo '</div>';
     echo '</div>';
 }
+function Print_Fav_Post($post_row,$email,$page)
+{
+    if(count($post_row) == 0)return;
+    $flag = 0;
+    $cnt = 0;
+    echo '<div class="panel-group">';
+    echo '<div class="panel panel-default">';
+    echo '<div class="panel-heading">';
+    echo '<h4 class="panel-title">';
+    echo '<a data-toggle="collapse" href="#collapse1">This week<i class="glyphicon glyphicon-triangle-bottom"></i></a>';
+    echo '</h4>';
+    echo '</div>';
+    echo '<div id="collapse1" class="panel-collapse collapse in">';
+    echo '<ul class="list-group">';
 
+    $total = 0;
+    $index = 0;
+
+    foreach ($post_row as $row)
+    {
+        $cnt = $cnt + 1;
+        if(strtotime($row['time']) > strtotime('now'))continue;
+        if( $flag == 0 && strtotime($row['time']) < strtotime('-7 day'))
+        {
+            $flag = 1;
+            echo '</ul>';
+            echo '</div>';
+            echo '</div>';
+            echo '<div class="panel panel-default">';
+            echo '<div class="panel-heading">';
+            echo '<h4 class="panel-title">';
+            echo '<a data-toggle="collapse" href="#collapse2">A Week ago<i class="glyphicon glyphicon-triangle-bottom"></i></a>';
+            echo '</h4>';
+            echo '</div>';
+            $in = "";
+
+            if($total == 0)$in = "in";
+
+            echo '<div id="collapse2" class="panel-collapse collapse '.$in.'">';
+            echo '<ul class="list-group">';
+        }
+        $cnt = $cnt + 1;
+        if($cnt<$page*30)continue;
+        if($cnt % 2 == 0) echo '<li class="list-group-item">';
+        else echo '<li class="list-group-item list-group-item-info">';
+        echo '<div style="padding:5px">';
+        if($email == $row["user_email"] || admin_byEmail($email))
+            echo '<button class="btn btn-danger" type=submit name="deletePost[]" value ='.$row["postid"].'>&times;</button>';
+        else
+            echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+        echo '<a href="show-article.php?postid='.$row["postid"].'">'.$row["title"].'</a>';
+        echo '<span class = "badge pull-right">'.$row["visit"].' view>';
+        echo '</span>';
+        echo '<img id="myImage'. $index .'" onclick="changeImage(\'myImage'. $index .'\')" src="../pictures/off.png" alt="STAR" width="34" height="26">';
+        $index = $index + 1;
+        echo '</div>';
+        echo '<div style="padding:5px">';
+        echo '<span class="label label-info pull-left">'.$row["company"].'</span>';
+        echo '<span class="label label-info pull-left">'.$row["position"].'</span>';
+        echo '<small class = "pull-right" style="text-color:gray">Post by: '.$row["user_email"].'</small>';
+        echo '</div>';
+        echo '</li>';
+
+        $total = $total + 1;
+        if($cnt>($page+1)*30)break;
+    }
+    echo '</ul>';
+    echo '</div>';
+    echo '</div>';
+    echo '</div>';
+}
 ?>
