@@ -154,8 +154,14 @@
 	$conn = getconn();
 	if(isset($_POST["deleteFav"]))
 	{
-		echo "dffsf".$_POST["deleteFav"];
-		$stmt = $conn->prepare("INSERT into user_fav VALUES ('".$myemail."', ".$_POST["deleteFav"].");");
+		//echo "dffsf".$_POST["deleteFav"];
+		$stmt = $conn->prepare("DELETE FROM user_fav WHERE email='".$myemail."' and postid =".$_POST["deleteFav"]."");
+		$stmt->execute();
+	}
+	if(isset($_POST["addFav"]))
+	{
+		//echo "dffsf".$_POST["addFav"];
+		$stmt = $conn->prepare("INSERT into user_fav VALUES ('".$myemail."', ".$_POST["addFav"].");");
 		$stmt->execute();
 	}
 	//$server = mysql_connect("localhost","root","1qaz-pl,");
@@ -225,7 +231,21 @@
 			$targetstring[strlen($targetstring) - 1] = ')';
 			//echo $targetstring;
 			$res_data = sql_get_post_by_ids($targetstring);
-			Print_Post($res_data,$myemail,0);
+				
+				//Jia Edit
+				$conn = getconn();
+				$stmt = $conn->prepare("select * from user_fav as F WHERE F.email = '".$myemail."' order by F.postid;");
+				$result2 = $stmt->execute();
+				if (!$result2)
+			    {
+			        echo "What the fuck?";
+			        pdo_die($stmt);
+			    }
+				$result2 = $stmt->fetchAll(PDO::FETCH_ASSOC);
+				//End of Edit
+				//Modified
+				Print_Fav_Post($res_data,$myemail,0,$result2);
+			//Print_Post($res_data,$myemail,0);
 		}
 	}
 	else if (isset($_GET["mode"]))
@@ -243,7 +263,20 @@
 			else {
 				$targetstring[strlen($targetstring) - 1] = ')';
 				$res_data = sql_get_post_by_ids($targetstring);
-				Print_Post($res_data,$myemail,0);
+
+				//Jia Edit
+				$conn = getconn();
+				$stmt = $conn->prepare("select * from user_fav as F WHERE F.email = '".$myemail."' order by F.postid;");
+				$result2 = $stmt->execute();
+				if (!$result2)
+			    {
+			        echo "What the fuck?";
+			        pdo_die($stmt);
+			    }
+				$result2 = $stmt->fetchAll(PDO::FETCH_ASSOC);
+				//End of Edit
+				//Modified
+				Print_Fav_Post($res_data,$myemail,0,$result2);
 			}			
 		}
 	}
@@ -265,7 +298,20 @@
 		$max_page = (int)($num_res/$numPerPage);
 		if($PageDisplay>$max_page)$PageDisplay = $max_page;
 		else if($PageDisplay<0)$PageDisplay = 0;
-	    Print_Post($result,$myemail,$PageDisplay);
+		//Jia Edit
+				$conn = getconn();
+				$stmt = $conn->prepare("select * from user_fav as F WHERE F.email = '".$myemail."' order by F.postid;");
+				$result2 = $stmt->execute();
+				if (!$result2)
+			    {
+			        echo "What the fuck?";
+			        pdo_die($stmt);
+			    }
+				$result2 = $stmt->fetchAll(PDO::FETCH_ASSOC);
+				//End of Edit
+				//Modified
+				Print_Fav_Post($result,$myemail,$PageDisplay,$result2);
+	    //Print_Post($result,$myemail,$PageDisplay);
 	    if($max_page>0)
 		{
 			echo '<ul class="pagination">';

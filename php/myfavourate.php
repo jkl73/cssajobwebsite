@@ -71,7 +71,7 @@
 	$conn = getconn();
 	if(isset($_POST["deleteFav"]))
 	{
-		echo "dffsf".$_POST["deleteFav"];
+		//echo "dffsf".$_POST["deleteFav"];
 		$stmt = $conn->prepare("DELETE FROM user_fav WHERE email='".$myemail."' and postid =".$_POST["deleteFav"]." ");
 		$stmt->execute();
 	}

@@ -462,7 +462,7 @@ function Print_Post($post_row,$email,$page)
         echo '<a href="show-article.php?postid='.$row["postid"].'">'.$row["title"].'</a>';
         echo '<span class = "badge pull-right">'.$row["visit"].' view>';
         echo '</span>';
-echo '<button class = "starButtonOff" id="myImage'. $index .'" type=submit name="deleteFav" value ='.$row["postid"].' alt="STAR" width="34" height="26">';        $index = $index + 1;
+        echo '<button class = "starButtonOff" id="myImage'. $index .'" type=submit name="deleteFav" value ='.$row["postid"].' alt="STAR" width="34" height="26">';        $index = $index + 1;
         echo '</div>';
         echo '<div style="padding:5px">';
         echo '<span class="label label-info pull-left">'.$row["company"].'</span>';
@@ -479,7 +479,7 @@ echo '<button class = "starButtonOff" id="myImage'. $index .'" type=submit name=
     echo '</div>';
     echo '</div>';
 }
-function Print_Fav_Post($post_row,$email,$page)
+function Print_Fav_Post($post_row,$email,$page,$fav_row)
 {
     if(count($post_row) == 0)return;
     $flag = 0;
@@ -496,6 +496,18 @@ function Print_Fav_Post($post_row,$email,$page)
 
     $total = 0;
     $index = 0;
+    $favs = array();
+    //print_r($fav_row);
+    //print_r($row2['postid']);
+    echo '<br><br>';
+    foreach ($fav_row as $row2)
+    {
+        //print_r($row2['postid']);
+        array_push($favs, $row2['postid']);
+        //print_r($favs);
+    }
+    //print_r($favs);
+
 
     foreach ($post_row as $row)
     {
@@ -532,7 +544,19 @@ function Print_Fav_Post($post_row,$email,$page)
         echo '<a href="show-article.php?postid='.$row["postid"].'">'.$row["title"].'</a>';
         echo '<span class = "badge pull-right">'.$row["visit"].' view>';
         echo '</span>';
-        echo '<button class = "starButtonOn" id="myImage'. $index .'" type=submit name="deleteFav" value ='.$row["postid"].' alt="STAR" width="34" height="26">';
+        //echo $row["postid"];
+        if(in_array($row["postid"], $favs)) 
+        {
+            //echo $row["postid"];
+            //echo '<br>';
+            //print_r($favs);
+            //print_r($row2);
+            echo '<button class = "starButtonOn" id="myImage'. $index .'" type=submit name="deleteFav" value ='.$row["postid"].' alt="STAR" width="34" height="26">';
+        }
+        else
+        {
+            echo '<button class = "starButtonOff" id="myImage'. $index .'" type=submit name="addFav" value ='.$row["postid"].' alt="STAR" width="34" height="26">';
+        }
         //echo '<img id="myImage'. $index .'" type=submit name="deleteFav" value ='.$row["postid"].' onclick="changeImage(\'myImage'. $index .'\');document.forms[1].submit()" src="../pictures/jiaStaron.png" alt="STAR" width="34" height="26">';
         $index = $index + 1;
         echo '</div>';
