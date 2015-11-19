@@ -27,7 +27,40 @@
     $email = $_POST['email'];
     $pwd = $_POST['pwd'];
 
-    $stu_row = sql_get_stuInfo_byEmail($email);
+    $user_row = sql_get_userInfo_byEmail($email);
+
+    if(count($user_row) == 0)
+    {
+      echo "<p>Email Invalid!</p><br>";
+      echo "<a href='index.php'>back to homepage</a>";
+    }
+    else if($user_row[0]["password"] != $pwd)
+    {
+      echo "<p>Wrong Password!</p><br>";
+      echo "<a href='index.php'>back to homepage</a>";
+    }
+    else
+    {
+      $_SESSION["email"] = $email;
+      echo "<h1 class = 'text-center'>Hello!</h1><br>";
+      if($user_row[0]["type"] == 2)
+      {
+        $_SESSION["type"] = "stu";
+        header('Location: homepage.php');
+      }
+      else if($user_row[0]["type"] == 1)
+      {
+        $_SESSION["type"] = "emp";
+        header('Location: homepage.php');
+      }
+      else if($user_row[0]["type"] == 0)
+      {
+        $_SESSION["type"] = "admin";
+        header('Location: admin.php');
+      }
+
+    }
+    /*$stu_row = sql_get_stuInfo_byEmail($email);
     $emp_row = sql_get_empInfo_byEmail($email);
     
 
@@ -57,7 +90,7 @@
            echo "<p>Wrong Password!</p><br>";
         }
       }
-    }
+    }*/
     ?>
     
     </div>

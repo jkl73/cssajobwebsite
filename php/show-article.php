@@ -54,7 +54,7 @@ function changeDisplay(id)
     if(isset($_POST["submit"]))
     {
         sql_add_reply($_SESSION["email"],$_POST["reply_content"],$_GET['postid'],$_POST['parentid']);
-        sql_insert_notification($_POST["replyedname"], $_GET['postid'], 0, $_SESSION["email"]);
+        //sql_insert_notification($_POST["replyedname"], $_GET['postid'], 0, $_SESSION["email"]);
     }
 
 	$conn = getconn();

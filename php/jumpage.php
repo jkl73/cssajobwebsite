@@ -104,11 +104,13 @@
 
 
 	if($type == 'emp'){
+		sql_insert_userInfo($email,$name,$pwd,1);
 		sql_insert_empInfo($email,$name,$hash,$pwd);
 		include("alup.php");
 			//$query = "INSERT INTO employer(name, email, hash, verified, password) VALUES('".$name."','".$email. "', '".$hash."', 0, '".$pwd."')";
 	}
 	else if($type == 'stu'){
+		sql_insert_userInfo($email,$name,$pwd,2);
 		sql_insert_stuInfo($email,$name,$hash,$pwd);
 		include("stup.php");
 			//$query = "INSERT INTO student(name, email, hash, verified, password) VALUES('".$name."','".$email. "','".$hash."', 0 ,'".$pwd."')";
