@@ -140,7 +140,7 @@
 		echo '<form class="form-inline" role="form" method="post" action="settings.php">
     		<div class="form-group">
       			<label for="name">Name:</label>
-      			<input name="name" class="form-control" id="name" placeholder="'.$row["name"].'">
+      			<input name="name" class="form-control" id="name" value="'.$row["name"].'">
     		</div>
     	 	<button type="submit" class="btn btn-default" name="submit_name">Edit</button>
   		 </form>';
@@ -148,21 +148,21 @@
   		echo '<form class="form-inline" role="form" method="post" action="settings.php">
     		<div class="form-group">
       			<label for="major">Major:</label>
-      			<input name="major" class="form-control" id="major" placeholder="'.$row["major"].'">
+      			<input name="major" class="form-control" id="major" value="'.$row["major"].'">
     		</div>
     	 	<button type="submit" class="btn btn-default" name="submit_major">Edit</button>
   		 </form>';
   		echo '<form class="form-inline" role="form" method="post" action="settings.php">
     		<div class="form-group">
       			<label for="year">Graduate Year:</label>
-      			<input name="year" class="form-control" id="year" placeholder="'.$row["grad_year"].'">
+      			<input name="year" class="form-control" id="year" value="'.$row["grad_year"].'">
     		</div>
     	 	<button type="submit" class="btn btn-default" name="submit_year">Edit</button>
   		 </form>';
   		echo '<form class="form-inline" role="form" method="post" action="settings.php">
     		<div class="form-group">
       			<label for="degree">Degree:</label>
-      			<input name="degree" class="form-control" id="degree" placeholder="'.$row["degree"].'">
+      			<input name="degree" class="form-control" id="degree" value="'.$row["degree"].'">
     		</div>
     	 	<button type="submit" class="btn btn-default" name="submit_degree">Edit</button>
   		 </form>';
@@ -187,7 +187,7 @@
 		echo '<form class="form-inline" role="form" method="post" action="settings.php">
     		<div class="form-group">
       			<label for="name">Name:</label>
-      			<input name="name" class="form-control" id="name" placeholder="'.$row["name"].'">
+      			<input name="name" class="form-control" id="name" value="'.$row["name"].'">
     		</div>
     	 	<button type="submit" class="btn btn-default" name="submit_name">Edit</button>
   		 </form>';
@@ -195,7 +195,7 @@
   		echo '<form class="form-inline" role="form" method="post" action="settings.php">
     		<div class="form-group">
       			<label for="company">Company:</label>
-      			<input name="company" class="form-control" id="company" placeholder="'.$row["company"].'">
+      			<input name="company" class="form-control" id="company" value="'.$row["company"].'">
     		</div>
     	 	<button type="submit" class="btn btn-default" name="submit_company">Edit</button>
   		 </form>';
@@ -203,21 +203,21 @@
   		echo '<form class="form-inline" role="form" method="post" action="settings.php">
     		<div class="form-group">
       			<label for="position">Position:</label>
-      			<input name="position" class="form-control" id="position" placeholder="'.$row["position"].'"">
+      			<input name="position" class="form-control" id="position" value="'.$row["position"].'"">
     		</div>
     	 	<button type="submit" class="btn btn-default" name="submit_position">Edit</button>
   		 </form>';
   		echo '<form class="form-inline" role="form" method="post" action="settings.php">
     		<div class="form-group">
       			<label for="Linkedin">Linkedin:</label>
-      			<input name="Linkedin" class="form-control" id="Linkedin" placeholder="'.$row["Linkedin"].'"">
+      			<input name="Linkedin" class="form-control" id="Linkedin" value="'.$row["Linkedin"].'"">
     		</div>
     	 	<button type="submit" class="btn btn-default" name="submit_linkedin">Edit</button>
   		 </form>';
   		 echo '<form class="form-inline" role="form" method="post" action="settings.php">
     		<div class="form-group">
       			<label for="year">Graduate Year:</label>
-      			<input name="year" class="form-control" id="year" placeholder="'.$row["grad_year"].'">
+      			<input name="year" class="form-control" id="year" value="'.$row["grad_year"].'">
     		</div>
     	 	<button type="submit" class="btn btn-default" name="submit_year">Edit</button>
   		 </form>';
