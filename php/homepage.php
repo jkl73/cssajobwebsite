@@ -387,7 +387,7 @@ function print_text_search($SRCH)
 		   		continue;
 		   	}
 		   	$query = "select * from post_info 
-		   	where company like '%".$token."%' or position like '%".$token."%' or tags like '%".$token."%' order by time DESC;";
+		   	where company like '%".$token."%' or position like '%".$token."%' or title like '%".$token."%' order by time DESC;";
 			$stmt = $conn->prepare($query);
 			$result = $stmt->execute();
 			if (!$result)
@@ -402,7 +402,7 @@ function print_text_search($SRCH)
 					//reset($row);
 					continue;
 				} 
-				$info = $row["tags"]." ".$row["company"]." ".$row["position"];
+				$info = $row["title"]." ".$row["company"]." ".$row["position"];
 				$info = strtolower($info);
 				$info_token = explode(" ", $info);
 				if (!in_array($token, $info_token) && eregi("[^\x80-\xff]", $token)) {

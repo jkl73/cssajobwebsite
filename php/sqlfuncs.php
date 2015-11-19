@@ -343,11 +343,11 @@ function sql_insert_empInfo($email,$username,$hash,$password)
         pdo_die($stmt);
     }
 }
-function sql_insert_notification($email, $postid, $readtag, $replyername)
+function sql_insert_notification($replyedemail, $postid, $readtag, $replyeremail, $title)
 {
     $conn = getconn();
-    echo "insert into notification(email,postid,readtag,time,replyername) values('".$email."',".$postid.",".$readtag.",now(),'".$replyername."')";
-    $stmt = $conn->prepare("insert into notification(email,postid,readtag,time,replyername) values('".$email."',".$postid.",".$readtag.",now(),'".$replyername."')");
+    //echo "insert into notification(email,postid,readtag,time,replyername) values('".$email."',".$postid.",".$readtag.",now(),'".$replyername."')";
+    $stmt = $conn->prepare("insert into notification(replyedemail,postid,readtag,time,replyeremail,title) values('".$replyedemail."',".$postid.",".$readtag.",now(),'".$replyeremail."','".$title."')");
 
     $result = $stmt->execute();
     if (!$result)

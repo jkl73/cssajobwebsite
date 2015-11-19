@@ -54,11 +54,18 @@ function changeDisplay(id)
     if(isset($_POST["submit"]))
     {
         sql_add_reply($_SESSION["email"],$_POST["reply_content"],$_GET['postid'],$_POST['parentid']);
-        //sql_insert_notification($_POST["replyedname"], $_GET['postid'], 0, $_SESSION["email"]);
+        if ($_POST["replyedemail"] != $_SESSION["email"]) {
+            sql_insert_notification($_POST["replyedemail"], $_GET['postid'], 0, $_SESSION["email"], $_POST["title"]);
+        }
     }
 
 	$conn = getconn();
 
+    $stmt = $conn->prepare("update notification set readtag=1 where replyedemail='".$_SESSION['email']."' and postid=".$_GET['postid']);
+    $result = $stmt->execute();    
+    if (!$result)
+        pdo_die($stmt);
+    
     $stmt = $conn->prepare("select * from post_info where postid=:id");
     $stmt->bindParam(":id", $_GET['postid']);
 
@@ -73,6 +80,10 @@ function changeDisplay(id)
 
     echo '<div class="showarticle">';
     $postEmail = $rset[0]["user_email"];
+    $postTitle = $rset[0]['title'];
+    if ($postTitle == NULL) {
+        $postTitle = "No title";
+    }
     if($myemail == $postEmail || admin_byEmail($myemail))
             echo '<form action = "editpost.php" method = post><button class="btn btn-primary" type=submit name="edit" value ='.$rset[0]["postid"].'>Edit</button></form>';
     echo '<h3>'. $rset[0]['title'] .'</h3>';
@@ -168,7 +179,8 @@ function changeDisplay(id)
 
             echo '<form method=post action=show-article.php?postid='. $_GET["postid"].'>';
             echo '<input type=hidden name="parentid" value='.$replyArr[$i]['id'].'>';
-            echo '<input type=hidden name="replyedname" value='.$replyArr[$i]['email'].'>';
+            echo '<input type=hidden name="replyedemail" value='.$replyArr[$i]['email'].'>';
+            echo '<input type=hidden name="title" value='.$postTitle.'>';
             echo '<div align="right" class="col-md-2 col-xs-2">Reply:</div>';
             echo '<div class="col-md-8 col-xs-10"><textarea class="form-control" name=reply_content style="margin: 0px; width: 100%; height: 140px;" required></textarea>';
             echo '<input id="loginbutton" class="btn btn-primary" type=submit name=submit value=reply>';
@@ -193,7 +205,8 @@ function changeDisplay(id)
     echo "<h3 align=\"center\">Post a reply</h2>";
     echo '<form method=post action=show-article.php?postid='. $_GET["postid"].'>';
     echo '<input type="hidden" name="parentid" value=0>';
-    echo '<input type=hidden name="replyedname" value='.$postEmail.'>';
+    echo '<input type=hidden name="replyedemail" value='.$postEmail.'>';
+    echo '<input type=hidden name="title" value='.$postTitle.'>';
     echo '<div class="row">';
     echo '<div align="right" class="col-md-2 col-xs-2">Reply:</div>';
     echo '<div class="col-md-8 col-xs-10"><textarea class="form-control" name=reply_content style="margin: 0px; width: 100%; height: 140px;" required></textarea>';

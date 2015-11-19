@@ -27,7 +27,7 @@
   <div class="tab-content">
       <?php
           $conn = getconn();
-          $stmt = $conn->prepare("select * from post_info where email=:email order by time DESC");
+          $stmt = $conn->prepare("select * from notification where replyedemail=:email order by time DESC");
           $stmt->bindParam(":email", $_SESSION['email']);
           
           $result = $stmt->execute();
@@ -60,8 +60,8 @@
           echo '</tr>';
           for ($i = 1; $i <= $unreadCnt; $i++) {
             echo '<tr>';
-            echo '<td>'.$unreadArr[$i]['replyername'].'</td>';
-            echo '<td><a href="show-article.php?postid='.$unreadArr[$i]['postid'].'></a></td>';
+            echo '<td>'.$unreadArr[$i]['replyeremail'].'</td>';
+            echo '<td><a href="show-article.php?postid='.$unreadArr[$i]['postid'].'">"'.$unreadArr[$i]['title'].'"</a></td>';
             echo '<td>'.$unreadArr[$i]['time'].'</td>';
             echo '</tr>';
           }
@@ -78,8 +78,8 @@
           echo '</tr>';
           for ($i = 1; $i <= $readCnt; $i++) {
             echo '<tr>';
-            echo '<td>'.$readArr[$i]['replyername'].'</td>';
-            echo '<td><a href="show-article.php?postid='.$readArr[$i]['postid'].'></a></td>';
+            echo '<td>'.$readArr[$i]['replyeremail'].'</td>';
+            echo '<td><a href="show-article.php?postid='.$readArr[$i]['postid'].'">"'.$readArr[$i]['title'].'"</a></td>';
             echo '<td>'.$readArr[$i]['time'].'</td>';
             echo '</tr>';
           }
