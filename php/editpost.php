@@ -97,6 +97,21 @@
 		$post_id = $_POST["postid"];	
 		if(update_post($_POST["postid"],$myemail,$_POST["email"], $_POST["company_name"], $_POST["position"], $_POST["description"], $_POST["job_content"], $_POST['job_type'], $_POST['major'], $_POST['date'], $_POST['url'], $_POST['visa'],$_POST["visit"])== 1)
 		{
+    		if($_FILES["file"]["error"] > 0){
+    			if($_FILES["file"]["error"] != 4){
+    					echo "Error:" . $_FILES["file"]["error"] ."</br/>";
+    			}
+    		}
+    		
+    		if($_FILES["file"]["error"] != 4){
+    				$filename = (string)$post_id . "-" .(string)$_FILES["file"]["name"];
+    				$path = "../upload-file/post/". $filename;
+    				
+    				move_uploaded_file($_FILES["file"]["tmp_name"], $path);
+					update_post_file($post_id, $path, $_FILES["file"]["name"]);
+    				
+				}
+			}
 			//echo $_POST["job_content"];
 			echo "<h2 align=center>Your job has successfully modified</h2>";
 			echo "<h3 align=center><a href='homepage.php' class='btn'>My homepage</a></h3>";
