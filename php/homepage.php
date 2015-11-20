@@ -12,6 +12,29 @@
 	 <script src="js/main.js"></script>
   	<style>
   	</style>
+  	<script>
+  		$(document).ready(function(){
+  			$("a.deletePost").click(function(e){
+	          e.preventDefault();
+	          var thiss = $(this);
+	          var parent = $(this).parent()
+	          var whole_list = parent.parent();
+	          $.ajax({
+	            type: 'post',
+	            url: 'homepage.php',
+	            data: 'deletePost=' + thiss.attr('data-email'),
+	            beforeSend: function() {
+	              whole_list.animate({opacity:'0.5'},50);
+	            },
+	            success: function() {
+	              whole_list.slideUp(50,function() {
+	                whole_list.remove();
+	              });
+	            }
+	          });
+	      });
+  		})
+  	</script>
 </head>
 
 <body>
@@ -26,7 +49,11 @@
 		exit;
 	}
   $myemail = $_SESSION["email"];
-
+  if(admin_byEmail($myemail))
+  {
+    header('Location: admin.php');
+    return;
+  }
 	if (sql_is_verified($myemail, $_SESSION['type'])) {
 
 	} else {
@@ -208,7 +235,7 @@
 	}*/
 	if(isset($_POST["deletePost"]))
 	{
-		$postid = $_POST["deletePost"][0];
+		$postid = $_POST["deletePost"];
 		sql_delete_post_byPostId($postid);
 	}
 	if(isset($_GET["srch-term"]) && $_GET["srch-term"] != "")

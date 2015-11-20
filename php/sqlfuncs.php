@@ -75,6 +75,7 @@ function sql_update_verify($email, $type) {
 }
 
 function sql_is_verified($email, $type){
+    if(admin_byEmail($email))return true;
     $conn = getconn();
    
     if ($type == 'stu') {
@@ -589,10 +590,8 @@ function Print_Fav_Post($post_row,$email,$page,$fav_row)
         if($cnt % 2 == 0) echo '<li class="list-group-item">';
         else echo '<li class="list-group-item list-group-item-info">';
         echo '<div style="padding:5px">';
-        if($email == $row["user_email"] || admin_byEmail($email))
-            echo '<button class="btn btn-danger" type=submit name="deletePost[]" value ='.$row["postid"].'>&times;</button>';
-        else
-            echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+        //else
+        //    echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
         echo '<a href="show-article.php?postid='.$row["postid"].'">'.$row["title"].'</a>';
         echo '<span class = "badge pull-right">'.$row["visit"].' view';
         echo '</span>';
@@ -604,19 +603,21 @@ function Print_Fav_Post($post_row,$email,$page,$fav_row)
             //echo '<br>';
             //print_r($favs);
             //print_r($row2);
-            echo '<button class = "glyphicon glyphicon-star pull-right" style="color:#FFCC00; right:5px" id="myImage'. $index .'" type=submit name="deleteFav" value ='.$row["postid"].' alt="STAR" width="34" height="26">';
+            echo '<button class = "glyphicon glyphicon-star pull-right" style="color:#FFCC00; right:5px padding:5px" id="myImage'. $index .'" type=submit name="deleteFav" value ='.$row["postid"].' alt="STAR" width="34" height="26">';
         }
         else
         {
-            echo '<button class = "glyphicon glyphicon-star-empty pull-right" style="color:#FFCC00; right:5px" id="myImage'. $index .'" type=submit name="addFav" value ='.$row["postid"].' alt="STAR" width="34" height="26">';
+            echo '<button class = "glyphicon glyphicon-star-empty pull-right" style="color:#FFCC00; right:5px padding:5px" id="myImage'. $index .'" type=submit name="addFav" value ='.$row["postid"].' alt="STAR" width="34" height="26">';
         }
-        echo '</span>';
+        echo '</button></span>';
+        if($email == $row["user_email"] || admin_byEmail($email))
+            echo '<a href="#" class="deletePost pull-right" data-email ='.$row["postid"].'>&times;</a>';
         //echo '<img id="myImage'. $index .'" type=submit name="deleteFav" value ='.$row["postid"].' onclick="changeImage(\'myImage'. $index .'\');document.forms[1].submit()" src="../pictures/jiaStaron.png" alt="STAR" width="34" height="26">';
         $index = $index + 1;
         echo '</div>';
-        echo '<div style="padding:5px">';
-        echo '<span class="label label-info pull-left" style ="margin:1px">'.$row["company"].'</span>';
-        echo '<span class="label label-info pull-left" style ="margin:1px">'.$row["position"].'</span>';
+        echo '<div style="padding:15px">';
+        echo '<span class="label label-info pull-left" style ="margin-left:20px">'.$row["company"].'</span>';
+        echo '<span class="label label-info pull-left" style ="margin-left:20px">'.$row["position"].'</span>';
         echo '<small class = "pull-right" style="text-color:gray">Post by: '.$row["user_email"].'</small>';
         echo '</div>';
         echo '</li>';

@@ -24,24 +24,111 @@
       }
    }
    </script>
+   <script>
+      $(document).ready(function(){
+        $("a.deletePost").click(function(e){
+            e.preventDefault();
+            var thiss = $(this);
+            var parent = $(this).parent()
+            var whole_list = parent.parent();
+            $.ajax({
+              type: 'post',
+              url: 'admin.php',
+              data: 'deletePost=' + thiss.attr('data-email'),
+              beforeSend: function() {
+                whole_list.animate({opacity:'0.5'},50);
+              },
+              success: function() {
+                whole_list.slideUp(50,function() {
+                  whole_list.remove();
+                });
+              }
+            });
+        });
+      })
+    </script>
 </head>
 
 <body>
 <?php
   session_start();
-  $adminEamil = "admin@cornell.com";
   include_once("sqlfuncs.php");
   include_once("header.php");
-  $active_pos = 0;
+  if(!isset($_SESSION['email']))
+  {
+    header('Location: index.php');
+    exit;
+  }
+
+  $myemail = $_SESSION["email"];
+  if(!admin_byEmail($myemail))
+  {
+    echo '<h3>You have no authentication to visit admin pages</h3>';
+    return;
+  }
+  /*$active_pos = 0;
   if(isset($_POST["delete"]))
     $active_pos = 1;
   else if(isset($_POST["deletePost"]))
     $active_pos = 2;
   else if(isset($_POST["submit"]))
-    $active_pos = 3;
+    $active_pos = 3;*/
 ?>
 <div class="container">
   <h2>Welcome Admin!!</h2>
+  <h3><a href="adminUsr.php">Manage User</a><h3>
+
+  <?php
+    if(isset($_POST["deletePost"]))
+    {
+      $postid = $_POST["deletePost"];
+      sql_delete_post_byPostId($postid);
+    }
+    $conn = getconn();
+    $stmt = $conn->prepare("select * from post_info where time<now() order by time DESC;");
+    $result = $stmt->execute();
+    if (!$result)
+      {
+          echo "What the fuck?";
+          pdo_die($stmt);
+      }
+      $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+      $num_res = count($result);
+      $PageDisplay = 0;
+      if(isset($_GET["page"]))$PageDisplay = $_GET["page"];
+      $numPerPage = 30;
+      $max_page = (int)($num_res/$numPerPage);
+      if($PageDisplay>$max_page)$PageDisplay = $max_page;
+      else if($PageDisplay<0)$PageDisplay = 0;
+    //Jia Edit
+        $conn = getconn();
+        $stmt = $conn->prepare("select * from user_fav as F WHERE F.email = '".$myemail."' order by F.postid;");
+        $result2 = $stmt->execute();
+        if (!$result2)
+          {
+              echo "What the fuck?";
+              pdo_die($stmt);
+          }
+        $result2 = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        //End of Edit
+        //Modified
+        Print_Fav_Post($result,$myemail,$PageDisplay,$result2);
+      //Print_Post($result,$myemail,$PageDisplay);
+      if($max_page>0)
+      {
+        echo '<ul class="pagination">';
+        for($i = 0;$i<=$max_page;$i++)
+        {
+          if($i == $PageDisplay)echo '<li class = "active">';
+          else echo '<li>';
+          echo '<a href="homepage.php?page='.$i.'">'.($i*$numPerPage+1).'-'.(($i+1)*$numPerPage).'</a>';
+        }
+        echo '</ul>';
+      }
+      echo '</div>';
+      include_once("footer.php");
+      exit;
+  ?>
   <ul class="nav nav-tabs">
     <li <?php if($active_pos == 0)echo 'class = "active"';?>><a data-toggle="tab" href="#home">Home</a></li>
     <li <?php if($active_pos == 1)echo 'class = "active"';?>><a data-toggle="tab" href="#menu1">Manage User</a></li>
