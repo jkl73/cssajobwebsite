@@ -95,7 +95,7 @@
 			</select>
 		</div>
 		<div class="col-xs-3 col-sm-3 col-md-3">
-			<h5>Job Type:</h5>
+			<h5>Major:</h5>
 			<select name="major" id="" class="form-control">
 				<option value="0">Please Select</option>
 				<option value="1">CS</option>
@@ -109,7 +109,7 @@
 			</select>
 		</div>
 		<div class="col-xs-3 col-sm-3 col-md-3">
-			<h5>Job Type:</h5>
+			<h5>Company:</h5>
 			<select name="company" id="" class="form-control">
 				<option value="0">Please Select</option>
 				<option value="1" >Google</option>
