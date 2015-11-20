@@ -1,7 +1,7 @@
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="index.php">Cornell CSSA Jobs Link</a>
+      <a class="navbar-brand" href="three_circles.php">Cornell CSSA Jobs Link</a>
     </div>
     <div>
       <ul class="nav navbar-nav">
@@ -71,7 +71,7 @@
     echo '</div>';
 
     echo '<div class="col-sm-6 col-md-6 pull-left">';
-    echo '<form class="navbar-form" role="search" action = "homepage.php">';
+    echo '<form class="navbar-form" role="search" action = "three_circles.php">';
     echo '<div class="input-group">';
     echo '<input type="text" class="form-control" placeholder="Search Company, or other keywords here..." name="srch-term" id="srch-term">';
     echo '<div class="input-group-btn">';

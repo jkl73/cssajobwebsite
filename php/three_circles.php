@@ -12,11 +12,20 @@
 	 <script src="js/main.js"></script>
 	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<style>
+
+	body {
+		background: url(../pictures/slope.jpg) no-repeat center center fixed;
+		-webkit-background-size: cover;
+		-moz-background-size: cover;
+		-o-background-size: cover;
+		background-size: cover;
+	}
+
 	.jumbo_circle {
 		width: 150px;
 		height: 150px;
 		text-align: center;
-		line-height:150px;
+		line-height:151px;
 		border-radius: 50%;
 		margin: 150px 30px;
 		font-size: 150%;
@@ -63,19 +72,19 @@
 
 <div class="center">
 <a href="refer.php">
-<div id="refer" style="background-color: #3333FF;" class="jumbo_circle">
+<div id="refer" style="background-color: #47C753;" class="jumbo_circle">
 Refer
 </div>
 </a>
 
-<a href="jobs.php">
-<div id="jobs" style="background-color: #006600;" class="jumbo_circle">
+<a href="homepage.php">
+<div id="jobs" style="background-color: #0CABCD;" class="jumbo_circle">
 Jobs
 </div>
 </a>
 
 <a href="tutorial.php">
-<div id="tutorial" style="background-color: #CC00FF;" class="jumbo_circle">
+<div id="tutorial" style="background-color: #8362BD;" class="jumbo_circle">
 Tutorial
 </div>
 </a>
@@ -88,28 +97,22 @@ Tutorial
 <script>
 	$(document).ready(function(){
 		$("#refer").hover(function(){
-			$("body").css("background-color", "#3366FF");
-			$(".center").before("<h1 style='color:white;' id='slogan'>Find an Insider</h1>");
+			$(".center").before("<h1 style='color:black;' id='slogan'>Find an Insider</h1>");
 
 			}, function(){
 			$("#slogan").remove();
-			$("body").css("background-color", "white");
 		});
 		$("#jobs").hover(function(){
-			$("body").css("background-color", "#009900");
-			$(".center").before("<h1 style='color:white;' id='slogan'>Fullfill Your Dream</h1>");
+			$(".center").before("<h1 style='color:black;' id='slogan'>Fullfill Your Dream</h1>");
 
 			}, function(){
 			$("#slogan").remove();
-			$("body").css("background-color", "white");
 		});
 		$("#tutorial").hover(function(){
-			$("body").css("background-color", "#CC66FF");
-			$(".center").before("<h1 style='color:white;' id='slogan'>Learn the Magic</h1>");
+			$(".center").before("<h1 style='color:black;' id='slogan'>Learn the Magic</h1>");
 
 			}, function(){
 			$("#slogan").remove();
-			$("body").css("background-color", "white");
 		});
 	});
 </script>

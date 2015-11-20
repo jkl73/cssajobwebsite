@@ -1,6 +1,6 @@
 	<div class="profile">
 		<div class="container">
-			<form class="form" role="form" action = "getconnected.php" method = "POST">
+			<form class="form" role="form" action = "three_circles.php" method = "POST">
 				<label for="company">Your company:</label>
 				<div class="form-group">
 					<input name = "company" type="company" class="form-control" id="company" placeholder = "Google">

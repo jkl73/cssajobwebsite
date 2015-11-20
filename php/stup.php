@@ -1,6 +1,6 @@
 	<div class="profile">
 		<div class="container">
-			<form class="form" role="form" action = "getconnected.php" method = "POST">
+			<form class="form" role="form" action = "three_circles.php" method = "POST">
 				<label for="major">Your major:</label>
 		  		<div class="form-group">
 		    		<select name="major" id="major" class="form-control">

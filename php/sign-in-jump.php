@@ -32,12 +32,12 @@
     if(count($user_row) == 0)
     {
       echo "<p>Email Invalid!</p><br>";
-      echo "<a href='index.php'>back to homepage</a>";
+      echo "<a href='index.php'>back to login page</a>";
     }
     else if($user_row[0]["password"] != $pwd)
     {
       echo "<p>Wrong Password!</p><br>";
-      echo "<a href='index.php'>back to homepage</a>";
+      echo "<a href='index.php'>back to login page</a>";
     }
     else
     {
@@ -46,12 +46,12 @@
       if($user_row[0]["type"] == 2)
       {
         $_SESSION["type"] = "stu";
-        header('Location: homepage.php');
+        header('Location: three_circles.php');
       }
       else if($user_row[0]["type"] == 1)
       {
         $_SESSION["type"] = "emp";
-        header('Location: homepage.php');
+        header('Location: three_circles.php');
       }
       else if($user_row[0]["type"] == 0)
       {
