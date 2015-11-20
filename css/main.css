@@ -275,7 +275,7 @@ margin-top: 9px}
 
 .dropdown{
   min-width: 180px; /* Set width of the dropdown */
-  background: #f2f2f2;
+  background: #D8D8D8;
   display: none;
   position: absolute;
   z-index: 999;
@@ -312,8 +312,8 @@ margin-top: 9px}
   background: #939393;
 }
 
-.badge {
-  background: #FF0000;
+.dropdown .badge {
+  background: #FF1F1F;
 }
 
 .glyphicon-envelope.hasNotify:after {
@@ -322,7 +322,7 @@ margin-top: 9px}
   width:10px;
   height:10px;
   border-radius: 5px;
-  background-color: red;
+  background-color: #FF1F1F;
   position: absolute;
   top: 10px;
   left:25px;
