@@ -1,4 +1,54 @@
 <?php
+
+function update_tutorial($tutorial_id, $fileurl, $filename){
+    $conn = getconn();
+    $stmt = $conn->prepare("update tutorial set file_url=:fileurl, filename=:filename where id=:tutorial_id");
+    
+    $stmt->bindParam(':tutorial_id', $tutorial_id);
+    $stmt->bindParam(':fileurl', $fileurl);
+    $stmt->bindParam(':filename', $filename);
+
+    $result = $stmt->execute();
+    if (!$result)
+        pdo_die($stmt);
+    return 1;
+}
+
+// return insert id
+function sql_add_tutoial($name, $admin_id) {
+    $conn = getconn();
+
+    $stmt = $conn->prepare("insert into tutorial(name, admin_id, time) values(:name, :admin_id, now())");
+    $stmt->bindParam(":name", $name);
+    $stmt->bindParam(":admin_id", $admin_id);
+    $result = $stmt->execute();
+
+    if (!$result)
+    {
+        echo "DataBase Error";
+        pdo_die($stmt);
+    }
+
+    $insert_id = $conn->lastInsertId();
+
+    return $insert_id;
+}
+
+
+function sql_get_all_tutorial() {
+    $conn = getconn();
+
+    $stmt =$conn->prepare("select * from user_student.tutorial");
+
+    $result = $stmt->execute();
+    if (!$result)
+        pdo_die($stmt);
+
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $result;
+}
+
+
 function sql_update_verify($email, $type) {
     $conn = getconn();
 
@@ -314,7 +364,7 @@ function sql_get_empInfo_byEmail($email)
 function admin_byEmail($email)
 {
     $conn = getconn();
-    $stmt = $conn->prepare("select * from admin where email = :email");
+    $stmt = $conn->prepare("select * from user where type=0 and email = :email");
     $stmt->bindParam(':email', $email);
     $result = $stmt->execute();
     if (!$result)
