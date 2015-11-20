@@ -42,7 +42,7 @@ html {
   background-color: #980000;
 
   height: 50px;
-  color:yellow;
+  color: white;
   text-decoration: none;
   width: 40px;
   line-height:49px;
@@ -146,6 +146,10 @@ body {
 
 .navbarpic{
   position:relative;
+}
+
+.navbarpic:hover{
+   background-color: #7A0000;
 }
 
 .navbarpic img{
@@ -263,7 +267,7 @@ body {
 
 #notficenter{
   height: 50px;
-  color:yellow;
+  color: white;
   text-decoration: none;
   width: 40px;
   line-height:49px;
@@ -346,3 +350,7 @@ body {
   text-align:right;
 }
 
+
+.notes table tr td b {
+  font-weight: 900;
+}

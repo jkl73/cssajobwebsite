@@ -50,32 +50,24 @@
               $readArr[$readCnt] = $row;
             }
           }
-          // first print unread notes ordered by time
-          echo '<div class="unread_notes">';
+          
+          echo '<div class="notes">';
           echo '<table class="table table-striped">';
           echo '<tr>';
           echo '<th>Replyer</th>';
-          echo '<th>Unread Message</th>';
+          echo '<th>Message</th>';
           echo '<th>Time</th>';
           echo '</tr>';
+          // first print unread notes ordered by time
           for ($i = 1; $i <= $unreadCnt; $i++) {
             echo '<tr>';
-            echo '<td>'.$unreadArr[$i]['replyeremail'].'</td>';
-            echo '<td><a href="show-article.php?postid='.$unreadArr[$i]['postid'].'">"'.$unreadArr[$i]['title'].'"</a></td>';
-            echo '<td>'.$unreadArr[$i]['time'].'</td>';
+            echo '<td><b>'.$unreadArr[$i]['replyeremail'].'</b></td>';
+            echo '<td><b><a href="show-article.php?postid='.$unreadArr[$i]['postid'].'">"'.$unreadArr[$i]['title'].'"</a></b></td>';
+            echo '<td><b>'.$unreadArr[$i]['time'].'</b></td>';
             echo '</tr>';
           }
-          echo '</table>';
-          echo '</div>';
 
           // second print read notes ordered by time
-          echo '<div class="read_notes">';
-          echo '<table class="table table-striped">';
-          echo '<tr>';
-          echo '<th>Replyer</th>';
-          echo '<th>Read Message</th>';
-          echo '<th>Time</th>';
-          echo '</tr>';
           for ($i = 1; $i <= $readCnt; $i++) {
             echo '<tr>';
             echo '<td>'.$readArr[$i]['replyeremail'].'</td>';
