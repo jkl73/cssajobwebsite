@@ -121,7 +121,7 @@
         {
           if($i == $PageDisplay)echo '<li class = "active">';
           else echo '<li>';
-          echo '<a href="homepage.php?page='.$i.'">'.($i*$numPerPage+1).'-'.(($i+1)*$numPerPage).'</a>';
+          echo '<a href="admin.php?page='.$i.'">'.($i*$numPerPage+1).'-'.(($i+1)*$numPerPage).'</a>';
         }
         echo '</ul>';
       }
