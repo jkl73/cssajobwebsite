@@ -168,8 +168,8 @@ function changeDisplay(id)
             echo '<a href="#">'.$replyArr[$i]['email'].'</a>:'.$replyArr[$i]['content'];
             echo '<div>';
             echo '<small>Time:'.$replyArr[$i]['time'].'</small>';
-            echo '<a href="#subreply'.$i.'" id="show'.$i.'" class="btn btn-info pull-right" data-toggle="collapse" style="display: inline; width:150px;" onclick="changeDisplay('.$i.')">Replies&nbsp&nbsp&nbsp<i class="glyphicon glyphicon-triangle-bottom"></i></a>';
-            echo '<a href="#subreply'.$i.'" id="packup'.$i.'" class="btn btn-info pull-right" data-toggle="collapse" style="display: none; width:150px;" onclick="changeDisplay('.$i.')">Pack up Replies&nbsp&nbsp<i class="glyphicon glyphicon-triangle-top"></i></a>';
+            echo '<a href="#subreply'.$i.'" id="show'.$i.'" class="btn btn-info pull-right" data-toggle="collapse" style="display: inline; width:120px;" onclick="changeDisplay('.$i.')">Replies&nbsp('.count($subreplyMat[$replyArr[$i]['id']]).')</a>';
+            echo '<a href="#subreply'.$i.'" id="packup'.$i.'" class="btn btn-info pull-right" data-toggle="collapse" style="display: none; width:120px;" onclick="changeDisplay('.$i.')">Packup Replies</a>';
             echo '</div>';
 
             echo '<div id="subreply'.$i.'" class="collapse">';
