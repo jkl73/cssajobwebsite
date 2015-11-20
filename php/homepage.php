@@ -169,7 +169,7 @@
 
 </div>
 <div class="row" >
-<div class="col-xs-12 col-sm-6 col-md-8" style = "overflow:scroll; height:450px">
+<div class="col-xs-12 col-sm-6 col-md-8">
 	<form action ="homepage.php" method = POST>
 <?php
 

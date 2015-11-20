@@ -616,7 +616,7 @@ function Print_Fav_Post($post_row,$email,$page,$fav_row)
         $index = $index + 1;
         echo '</div>';
         echo '<div style="padding:15px">';
-        echo '<span class="label label-info pull-left" style ="margin-left:20px">'.$row["company"].'</span>';
+        echo '<span class="label label-info pull-left" style ="margin-left:5px">'.$row["company"].'</span>';
         echo '<span class="label label-info pull-left" style ="margin-left:20px">'.$row["position"].'</span>';
         echo '<small class = "pull-right" style="text-color:gray">Post by: '.$row["user_email"].'</small>';
         echo '</div>';
