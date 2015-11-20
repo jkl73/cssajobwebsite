@@ -281,7 +281,7 @@ function write_add_new_page() {
 	echo '<div class="row">';
 	echo '<div align="right" class="col-md-4 col-xs-4"></div>';
 	echo '<div class="col-md-6">';
-	echo "<a id=\"loginbutton\" class=\"btn\" href=\"homepage-alu.php\" >Cancel</a>";
+	echo "<a id=\"loginbutton\" class=\"btn\" href=\"homepage.php\" >Cancel</a>";
 	echo "<a id=\"login\" class=\"btn\" onclick = \"showPreview()\">Preview</a>";
 	echo '<input class="btn" type="submit" value="Submit">';
 	echo '</div>';

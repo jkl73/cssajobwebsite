@@ -1,5 +1,4 @@
 <footer class="footer">
-  <div class="container">
-    <p class="text-muted">&copy; Cornell CSSA, Developed by Super SE TEAM, a 2015 free labor project.</p>
-  </div>
+    <p style="text-align: center" class="text-muted">&copy; Cornell CSSA, Contact</p>
+    <p style="text-align: center" class="text-muted">Developed by Super SE TEAM, Contact superseteam@gmail.com</p>
 </footer>

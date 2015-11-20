@@ -27,6 +27,11 @@ html {
     margin-bottom: 5px;
 }
 
+.dropdown-toggle:hover {
+  cursor:pointer;
+  color: white;
+}
+
 .nav .dropdown-toggle {
   color: white;
   border: 0px;
@@ -35,6 +40,14 @@ html {
   width: 30px;
   margin-left: 0px;
   background-color: #980000;
+
+  height: 50px;
+  color:yellow;
+  text-decoration: none;
+  width: 40px;
+  line-height:49px;
+  text-align: center;
+
 }
 
 #loginbutton {
@@ -143,13 +156,16 @@ body {
 }
 .footer {
   position: absolute;
-  padding: 10px;
+  padding-top: 10px;
   bottom: 0;
   width: 100%;
   /* Set the fixed height of the footer here */
-  height: 80px;
-  background-color: #CCC;
-}
+  height: 70px;
+  background: -webkit-linear-gradient(white, #A0A0A0 ); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(white, #ccc); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(white, #ccc); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(white, #A0A0A0  ); /* Standard syntax */}
+
 .container{
   padding:10px;
 }
@@ -228,23 +244,7 @@ body {
 
 .searchbox {
  background-color: white;
- border-radius: 5px;
- margin: 5px;
- padding: 0px;
- margin: 0px;
-}
-.searchbox div {
-  margin-bottom: 4px;
-  margin-top: 4px;
-}
-
-.searchbox #btndiv {
-margin-top: 9px}
-
-.searchbox button {
-  float: right;
-  height: 100%;
-  margin-right: 30px
+ margin-bottom: 10px;
 }
 
 .starButtonOn {
@@ -262,10 +262,11 @@ margin-top: 9px}
 }
 
 #notficenter{
+  height: 50px;
   color:yellow;
   text-decoration: none;
-  width:40px;
-  line-height:50px;
+  width: 40px;
+  line-height:49px;
   text-align: center;
 }
 #notficenter:hover{
@@ -330,3 +331,18 @@ margin-top: 9px}
 .glyphicon-envelope:before {
     font-size: 20px;
 }
+
+.navbar-right .dropdown-menu {
+    right: 5px;
+}
+
+
+.setting-row {
+  margin-bottom: 5px;
+}
+
+
+.setting-item {
+  text-align:right;
+}
+

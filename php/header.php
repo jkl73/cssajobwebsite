@@ -17,19 +17,32 @@
   if (isset($_SESSION['email'])) {
 
     echo '<div class="nav navbar-nav navbar-right">';
-    echo '<button class="dropdown-toggle" type="button" data-toggle="dropdown">';
-    echo '<span class="caret"></span></button>';
+    
+
+    echo '<a class="dropdown-toggle" type="button" data-toggle="dropdown">';
+    echo $_SESSION["email"];
+
+    echo '&nbsp<span class="caret"></span></a>';
+
+
     echo '<ul class="dropdown-menu">';
-    echo '<li><a href="settings.php">Settings</a></li>';
+    echo '<li><a href="settings.php">Preferences Setting</a></li>';
+    echo '<li><a href="setpwd.php">Set Password</a></li>';
+
+    echo '<li class="divider"></li>';
+
+    echo '<li><a href="print-history.php">My Post History</a></li>';
+    echo '<li><a href="myfavourate.php">My Favourite</a></li>';
     echo '<li><a href="notification-center.php">Notification Center</a></li>';
-    echo '<li><a href="print-history.php">Post History</a></li>';
+
+    echo '<li class="divider"></li>';
+
     echo '<li><a href="logout.php">Logout</a></li>';
     echo '</ul>';
     echo "</div>";
 
     echo '<div class="usrlogininfo nav navbar-nav navbar-right">';
     echo "<div>";
-    echo $_SESSION["email"];
     echo "</div>";
 
     echo "</div>";
@@ -57,10 +70,10 @@
 
     echo '</div>';
 
-    echo '<div class="col-sm-3 col-md-6 pull-left">';
+    echo '<div class="col-sm-6 col-md-6 pull-left">';
     echo '<form class="navbar-form" role="search" action = "homepage.php">';
     echo '<div class="input-group">';
-    echo '<input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">';
+    echo '<input type="text" class="form-control" placeholder="Search Company, or other keywords here..." name="srch-term" id="srch-term">';
     echo '<div class="input-group-btn">';
     echo '<button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>';
     echo '</div>';

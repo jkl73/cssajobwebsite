@@ -36,17 +36,6 @@
 
 
 	echo '<div class = "container">';
-	if($_SESSION["type"] == "stu");
-	else
-	{
-		echo '<div class="row" >';
-			echo '<div class = "row">';
-			echo '<div class="addpostbtn col-xs-12 col-sm-6 col-md-8">';
-				echo '<a class = "btn btn-warning" href="postjob.php">Post New Job!</a> ';
-			echo '</div>';
-		echo '</div>';
-		
-	}
 ?>
 <div class = "row">
 <div class="searchbox col-xs-12 col-sm-6 col-md-8">
@@ -67,8 +56,8 @@
 				<option value="2011">2011</option>				
 			</select>
 		</div> -->
-		<div class="col-xs-3 col-sm-2 col-md-3">
-			Job Type:
+		<div class="col-xs-3 col-sm-3 col-md-3">
+			<h5>Job Type:</h5>
 			<select name="job_type" id="" class="form-control">
 				<option value="0">Please Select</option>
 				<option value="1">Full-time</option>
@@ -78,8 +67,8 @@
 				<option value="5">Other</option>
 			</select>
 		</div>
-		<div class="col-xs-3 col-sm-2 col-md-3">
-			Major:
+		<div class="col-xs-3 col-sm-3 col-md-3">
+			<h5>Job Type:</h5>
 			<select name="major" id="" class="form-control">
 				<option value="0">Please Select</option>
 				<option value="1">CS</option>
@@ -92,8 +81,8 @@
 				<option value="7">Other</option>
 			</select>
 		</div>
-		<div class="col-xs-3 col-sm-2 col-md-3">
-			Company:
+		<div class="col-xs-3 col-sm-3 col-md-3">
+			<h5>Job Type:</h5>
 			<select name="company" id="" class="form-control">
 				<option value="0">Please Select</option>
 				<option value="1" >Google</option>
@@ -138,15 +127,21 @@
 				<option value="200" ></option>
 			</select>
 		</div>
-		<div id="btndiv" class="col-xs-3 col-sm-2 col-md-3">
-			<button type="submit" class="btn btn-default btn-lg" >Search!</button>
+
+		<div style="float:right" class="col-xs-3 col-sm-3 col-md-3">
+			<h5>&nbsp</h5>
+			<button style="width:100%" type="submit" class="btn btn-info" >Search!</button>
 		</div>
+<!-- 		<div class="row">
+			<div style="float:right" class="col-xs-4 col-sm-4 col-md-4">
+				<button style="margin: 5px 0px; width:100%" type="submit" class="btn btn-info" >Search!</button>
+			</div>
+		</div> -->
 	</form>
 </div>
 
 </div>
 <div class="row" >
-	<h2>Job Posts</h2>
 <div class="col-xs-12 col-sm-6 col-md-8" style = "overflow:scroll; height:450px">
 	<form action ="homepage.php" method = POST>
 <?php
@@ -212,11 +207,11 @@
 </ul>
 	}*/
 	if(isset($_POST["deletePost"]))
-          {
-            $postid = $_POST["deletePost"][0];
-            sql_delete_post_byPostId($postid);
-          }
-	if(isset($_GET["srch-term"]))
+	{
+		$postid = $_POST["deletePost"][0];
+		sql_delete_post_byPostId($postid);
+	}
+	if(isset($_GET["srch-term"]) && $_GET["srch-term"] != "")
 	{
 		$res = print_text_search($_GET["srch-term"]);
 		$targetstring = "(";
@@ -376,14 +371,15 @@
 		echo '<li class="list-group-item">Linkedin Homepage: '.$row["Linkedin"].'</li>';
 	}
 	echo "</ul>";
-	// Jia Test, SHoud be removed
-		echo '<div class="row" >';
-			echo '<div class = "row">';
-			echo '<div class="addpostbtn col-xs-12 col-sm-6 col-md-8">';
-				echo '<a class = "btn btn-warning" href="myfavourate.php">Go to my Favourates!</a> ';
-			echo '</div>';
+
+	if($_SESSION["type"] == "stu");
+	else
+	{
+		echo '<div style=>';
+		echo '<a style="width:100%;" class="btn btn-warning" href="postjob.php">Post New Job!</a> ';
 		echo '</div>';
-		echo '</div>';
+	}
+
 	echo '</div>';
 	echo '</div>';
 	echo '</div>';
