@@ -71,7 +71,7 @@
     echo '</div>';
 
     echo '<div class="col-sm-6 col-md-6 pull-left">';
-    echo '<form class="navbar-form" role="search" action = "three_circles.php">';
+    echo '<form class="navbar-form" role="search" action = "homepage.php">';
     echo '<div class="input-group">';
     echo '<input type="text" class="form-control" placeholder="Search Company, or other keywords here..." name="srch-term" id="srch-term">';
     echo '<div class="input-group-btn">';
