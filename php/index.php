@@ -23,7 +23,7 @@
 
 <body>
 <?php
-  include("./header.php");
+  include_once("./header.php");
 ?>
 
 <!--
@@ -118,6 +118,6 @@ $(document).ready(function() {
    </script>
 
 <?php
-  include("./footer.php");
+  include_once("./footer.php");
 ?>
 </body>

@@ -16,7 +16,7 @@
 </head>
 
 <body>
-  <?php include("header.php");?>
+  <?php include_once("header.php");?>
   <div class = "container">
     <?php
     //$server = mysql_connect("localhost", "root", "1qaz-pl,"); 
@@ -48,7 +48,7 @@
 
 
 <?php
-  include("footer.php");
+  include_once("footer.php");
 ?>
 </body>
 </html>

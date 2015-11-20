@@ -18,7 +18,7 @@
 <body>
 
 	<?php
-	include("sqlfuncs.php");
+	include_once("sqlfuncs.php");
 	$type = $_POST["employer"];
 	$name = $_POST["username"];
 	$email = $_POST["email"];
@@ -33,7 +33,7 @@
 		$_SESSION["type"] = "stu";
 	}
 
-	include("header.php");
+	include_once("header.php");
 
 	$stu_res = sql_get_stuInfo_byEmail($email);
 	$emp_res = sql_get_empInfo_byEmail($email);
@@ -106,13 +106,13 @@
 	if($type == 'emp'){
 		sql_insert_userInfo($email,$name,$pwd,1);
 		sql_insert_empInfo($email,$name,$hash,$pwd);
-		include("alup.php");
+		include_once("alup.php");
 			//$query = "INSERT INTO employer(name, email, hash, verified, password) VALUES('".$name."','".$email. "', '".$hash."', 0, '".$pwd."')";
 	}
 	else if($type == 'stu'){
 		sql_insert_userInfo($email,$name,$pwd,2);
 		sql_insert_stuInfo($email,$name,$hash,$pwd);
-		include("stup.php");
+		include_once("stup.php");
 			//$query = "INSERT INTO student(name, email, hash, verified, password) VALUES('".$name."','".$email. "','".$hash."', 0 ,'".$pwd."')";
 	}
 	
@@ -144,7 +144,7 @@
 
 
 <?php
-  include("footer.php");
+  include_once("footer.php");
 ?>
 
 </body>

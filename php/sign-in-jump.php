@@ -18,8 +18,8 @@
 <body>
   <?php
     session_start();
-    include("header.php");
-    include("sqlfuncs.php");
+    include_once("header.php");
+    include_once("sqlfuncs.php");
   ?>
   <div class = "container">
     <?php
@@ -97,7 +97,7 @@
 
 
 <?php
-  include("footer.php");
+  include_once("footer.php");
 ?>
 </body>
 </html>

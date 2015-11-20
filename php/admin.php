@@ -30,8 +30,8 @@
 <?php
   session_start();
   $adminEamil = "admin@cornell.com";
-  include("sqlfuncs.php");
-  include("header.php");
+  include_once("sqlfuncs.php");
+  include_once("header.php");
   $active_pos = 0;
   if(isset($_POST["delete"]))
     $active_pos = 1;
@@ -227,6 +227,6 @@
     </div>
   </div>
 </div>
-<?php include("footer.php");?>
+<?php include_once("footer.php");?>
 </body>
 </html>

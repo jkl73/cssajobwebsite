@@ -13,7 +13,7 @@
       </ul>
 <?php
  // session_start();
-
+  include_once("./sqlfuncs.php");
   if (isset($_SESSION['email'])) {
 
     echo '<div class="nav navbar-nav navbar-right">';
@@ -34,7 +34,27 @@
 
     echo "</div>";
     echo '<div class="navbarpic nav navbar-nav navbar-right">';
-    echo '<img src="../pictures/shuai.jpg">';
+
+    $conn = getconn();
+    $stmt = $conn->prepare("select count(*) as num from notification where replyedemail='".$_SESSION['email']."' and readtag=0");
+    $result = $stmt->execute();
+    if (!$result)
+        pdo_die($stmt);
+    $rset = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $cnt = $rset[0]["num"];
+    if ($cnt > 0) {
+      echo '<a id="notficenter" href="notification-center.php" class="glyphicon hasNotify glyphicon-envelope"></a>';
+      echo '<ul class="dropdown">';
+      echo '<li><a href="notification-center.php">Notification Center<span class="badge" style="float:right">'.$cnt.'</span></a></li>';  
+      echo '</ul>';
+    }
+    else {
+      echo '<a id="notficenter" href="notification-center.php" class="glyphicon glyphicon-envelope"></a>';
+      echo '<ul class="dropdown">';
+      echo '<li><a href="notification-center.php">Notification Center</a></li>';
+      echo '</ul>';
+    }
+
     echo '</div>';
 
     echo '<div class="col-sm-3 col-md-6 pull-left">';

@@ -17,7 +17,7 @@
 
 <body>
 <?php
-  include("header.php");
+  include_once("header.php");
 ?>
 	<div class = "container col-sm-offset-3 col-sm-6 col-sm-offset-3" >
 		<div class = "text-center">
@@ -80,7 +80,7 @@
     }
    </script>
 <?php
-  include("footer.php");
+  include_once("footer.php");
 ?>
 
 </body>

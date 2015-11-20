@@ -132,7 +132,7 @@ body {
 }
 
 .navbarpic{
-
+  position:relative;
 }
 
 .navbarpic img{
@@ -259,4 +259,74 @@ margin-top: 9px}
   background-size: 30px 20px;
   width:34px;
   height:26px;
+}
+
+#notficenter{
+  color:yellow;
+  text-decoration: none;
+  width:40px;
+  line-height:50px;
+  text-align: center;
+}
+#notficenter:hover{
+  color: white;
+  /*background: #939393;*/
+}
+
+.dropdown{
+  min-width: 180px; /* Set width of the dropdown */
+  background: #f2f2f2;
+  display: none;
+  position: absolute;
+  z-index: 999;
+  left: 0;
+  padding:0px;
+}
+
+#notficenter:hover + .dropdown{
+  display: block; /* Display the dropdown */
+}
+.dropdown:hover{
+  display: block; /* Display the dropdown */
+}
+
+.dropdown li{
+  list-style: none;
+}
+.dropdown a{
+  display: block;
+  width:100%;
+  padding:10px;
+  cursor:pointer;
+  text-decoration: none;
+  color: black;
+}
+.dropdown a:hover{
+  text-decoration: none;
+}
+
+.dropdown li:hover a{
+  color: white;
+}
+.dropdown li:hover{
+  background: #939393;
+}
+
+.badge {
+  background: #FF0000;
+}
+
+.glyphicon-envelope.hasNotify:after {
+  content : " ";
+  display:block;
+  width:10px;
+  height:10px;
+  border-radius: 5px;
+  background-color: red;
+  position: absolute;
+  top: 10px;
+  left:25px;
+}
+.glyphicon-envelope:before {
+    font-size: 20px;
 }

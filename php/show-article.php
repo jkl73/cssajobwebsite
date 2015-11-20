@@ -31,8 +31,8 @@ function changeDisplay(id)
 <body>
 <?php
   session_start();
-  include("./header.php");
-	include("./sqlfuncs.php");
+  include_once("./header.php");
+	include_once("./sqlfuncs.php");
     if(!isset($_SESSION['email']))
     {
         header('Location: index.php');
@@ -224,6 +224,6 @@ function changeDisplay(id)
 
 ?>
 <?php
-  include("./footer.php");
+  include_once("./footer.php");
 ?>
 </body>

@@ -1,5 +1,5 @@
 <?php
-	include("./sqlfuncs.php");
+	include_once("./sqlfuncs.php");
 
 	if (!isset($_GET['email']) || !isset($_GET['hash']) || !isset($_GET['type'])) {
 		header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found");

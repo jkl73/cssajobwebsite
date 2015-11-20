@@ -70,8 +70,8 @@
 
 <?php
   session_start();
-  include("sqlfuncs.php");
-  include("header.php");
+  include_once("sqlfuncs.php");
+  include_once("header.php");
   if(!isset($_SESSION['email']))
 	{
 		header('Location: index.php');
@@ -154,7 +154,7 @@
 	}*/
   
 
-  include("footer.php");
+  include_once("footer.php");
 
 function edit_page($postid) {
 	$idlist = "(".$postid.")";

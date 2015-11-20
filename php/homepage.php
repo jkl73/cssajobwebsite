@@ -18,8 +18,8 @@
 <?php
   session_start();
 
-  include("header.php");
-  include("sqlfuncs.php");
+  include_once("header.php");
+  include_once("sqlfuncs.php");
   if(!isset($_SESSION['email']))
 	{
 		header('Location: index.php');
@@ -388,7 +388,7 @@
 	echo '</div>';
 	echo '</div>';
 	echo '</div>';
-  	include("footer.php");
+  	include_once("footer.php");
 ?>
 
 </body>

@@ -19,8 +19,8 @@
 <body>
 <?php
   session_start();
-  include("sqlfuncs.php");
-  include("header.php");
+  include_once("sqlfuncs.php");
+  include_once("header.php");
 ?>
 <div class="container">
   <h2>Notification Center</h2>
@@ -88,6 +88,6 @@
       ?>         
   </div>
 </div>
-<?php include("footer.php");?>
+<?php include_once("footer.php");?>
 </body>
 </html>

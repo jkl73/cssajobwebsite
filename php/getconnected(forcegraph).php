@@ -36,7 +36,7 @@
 
 <body>
 <?php
-  include("./header.php");
+  include_once("./header.php");
 ?>
 
 <script>
@@ -113,6 +113,6 @@ d3.json("../data/miserables.json", function(error, json) {
 
 
 <?php
-  include("./footer.php");
+  include_once("./footer.php");
 ?>
 </body>

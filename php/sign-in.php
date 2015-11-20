@@ -16,7 +16,7 @@
 
 <body>
 <?php
-  include("header.php");
+  include_once("header.php");
 ?>
 
 	<div class = "container" >
@@ -72,7 +72,7 @@
    </script>
 
 <?php
-  include("footer.php");
+  include_once("footer.php");
 ?>
 </body>
 </html>
