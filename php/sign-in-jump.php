@@ -56,7 +56,7 @@
       else if($user_row[0]["type"] == 0)
       {
         $_SESSION["type"] = "admin";
-        header('Location: admin.php');
+        header('Location: three_circles.php');
       }
 
     }

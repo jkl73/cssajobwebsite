@@ -49,19 +49,13 @@
 		exit;
 	}
   $myemail = $_SESSION["email"];
-  if(admin_byEmail($myemail))
-  {
-    header('Location: admin.php');
-    return;
-  }
+  
 	if (sql_is_verified($myemail, $_SESSION['type'])) {
 
 	} else {
 		echo "<h3>Please verify your email</h3>";
 		return;
 	}
-
-
 	echo '<div class = "container">';
 ?>
 <div class = "row">
@@ -350,9 +344,8 @@
 </form>
 </div>
 <div class="col-xs-6 col-md-4">
-  	<ul class="list-group">
 <?	
-	$conn = getconn();
+	/*$conn = getconn();
 	if($_SESSION["type"]=="stu")
 		$stmt = $conn->prepare("select * from student where email = :myemail;");
 	else
@@ -409,6 +402,18 @@
 
 	echo '</div>';
 	echo '</div>';
+	echo '</div>';
+	echo '</div>';*/
+	if(admin_byEmail($myemail))
+	{
+	  echo '<h2>Welcome Admin</h2>';
+	  echo '<h3><a href="adminUsr.php">Manage User</a></h3>';
+	}
+	$myuid = sql_get_uid_byEmail($myemail);
+	display_profile($myuid);
+	echo '<div style=>';
+		echo '<a style="width:100%;" class="btn btn-warning" href="postjob.php">Post New Job!</a> ';
+		echo '</div>';
 	echo '</div>';
 	echo '</div>';
   	include_once("footer.php");

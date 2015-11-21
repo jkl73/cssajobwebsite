@@ -77,7 +77,6 @@ function sql_update_verify($email, $type) {
 function sql_is_verified($email, $type){
     if(admin_byEmail($email))return true;
     $conn = getconn();
-   
     if ($type == 'stu') {
         $stmt = $conn->prepare("select verified from student where email=:email");
     } else {
@@ -593,10 +592,12 @@ function Print_Fav_Post($post_row,$email,$page,$fav_row)
         //else
         //    echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
         echo '<a href="show-article.php?postid='.$row["postid"].'">'.$row["title"].'</a>';
-        echo '<span class = "badge pull-right">'.$row["visit"].' view';
-        echo '</span>';
         echo '<span>';
         //echo $row["postid"];
+        if($email == $row["user_email"] || admin_byEmail($email))
+            echo '<a href="#" class="deletePost pull-right" data-email ='.$row["postid"].'>&times;</a>';
+        else
+            echo '<div class = "pull-right">&nbsp;&nbsp;</div>';
         if(in_array($row["postid"], $favs)) 
         {
             //echo $row["postid"];
@@ -610,14 +611,14 @@ function Print_Fav_Post($post_row,$email,$page,$fav_row)
             echo '<button class = "glyphicon glyphicon-star-empty pull-right" style="color:#FFCC00; right:5px padding:5px" id="myImage'. $index .'" type=submit name="addFav" value ='.$row["postid"].' alt="STAR" width="34" height="26">';
         }
         echo '</button></span>';
-        if($email == $row["user_email"] || admin_byEmail($email))
-            echo '<a href="#" class="deletePost pull-right" data-email ='.$row["postid"].'>&times;</a>';
         //echo '<img id="myImage'. $index .'" type=submit name="deleteFav" value ='.$row["postid"].' onclick="changeImage(\'myImage'. $index .'\');document.forms[1].submit()" src="../pictures/jiaStaron.png" alt="STAR" width="34" height="26">';
         $index = $index + 1;
+        echo '<span class = "badge pull-right">'.$row["visit"].' view';
+        echo '</span>';
         echo '</div>';
         echo '<div style="padding:15px">';
-        echo '<span class="label label-info pull-left" style ="margin-left:5px">'.$row["company"].'</span>';
-        echo '<span class="label label-info pull-left" style ="margin-left:20px">'.$row["position"].'</span>';
+        echo '<span class="label label-info pull-left">'.$row["company"].'</span>';
+        echo '<span class="label label-info pull-left" style ="margin-left:10px">'.$row["position"].'</span>';
         echo '<small class = "pull-right" style="text-color:gray">Post by: '.$row["user_email"].'</small>';
         echo '</div>';
         echo '</li>';
@@ -644,4 +645,112 @@ function update_post_file($postid, $fileurl, $filename){
     return 1;
 
 }
+
+//New functin for profile and uid by Ziyang
+    function display_profile($uid)
+    {
+      $result = sql_get_profile_byID($uid);
+      if(count($result)==0)
+      {
+        echo '<h2><b>No such user!!</b></h2>';
+        return;
+      }
+      if($result[0]['type'] == 0)
+      {
+        echo '<h2><b>Admin don\'t have a profile!!!</b></h2>';
+        return;
+      }
+      else if($result[0]['type'] == 2)
+      {
+        $res = sql_get_stuInfo_byEmail($result[0]['email']);
+        Display_stu($res);
+      }
+      else if($result[0]['type'] == 1)
+      {
+        $res = sql_get_empInfo_byEmail($result[0]['email']);
+        Display_emp($res);
+      }
+    }
+
+    function sql_get_profile_byID($uid)
+    {
+      $conn = getconn();
+      $stmt = $conn->prepare("select * from user where uid = ".$uid);
+
+      $result = $stmt->execute();
+      if (!$result)
+          pdo_die($stmt);
+      $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+      return $result;
+    }
+
+    function sql_get_uid_byEmail($email)
+    {
+      $conn = getconn();
+      $stmt = $conn->prepare("select uid from user where email = :email");
+      $stmt->bindParam(':email', $email);
+
+      $result = $stmt->execute();
+      if (!$result)
+          pdo_die($stmt);
+      $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+      return $result[0]['uid'];
+    }
+
+    function Display_stu($res)
+    {
+      $row = $res[0];
+      $code = decode_public($res[0]['code']);
+      $isAdmin = admin_byEmail($_SESSION['email']);
+      $myEmail = ($res[0]['email']==$_SESSION['email']);
+      echo '<ul class="list-group">';
+      echo '<li class="list-group-item"><b>Name</b>: '.$row["first_name"].' '.$row["last_name"].'</li>';
+      echo '<li class="list-group-item"><b>Username</b>: '.$row["name"].'</li>';
+      if($myEmail || $isAdmin || $code[0]==1)echo '<li class="list-group-item"><b>Phone number</b>: '.$row["phone_number"].'</li>';
+      if($myEmail || $isAdmin || $code[1]==1)echo '<li class="list-group-item"><b>Address</b>: '.$row["address"].'</li>';
+      if($myEmail || $isAdmin || $code[2]==1)echo '<li class="list-group-item"><b>LinkedIn hompage</b>: '.$row["Linkedin"].'</li>';
+      if($myEmail || $isAdmin || $code[3]==1)echo '<li class="list-group-item"><b>Expected Graduation Year</b>: '.substr($row["grad_year"], 0, 7).'</li>';
+      if($myEmail || $isAdmin || $code[4]==1)echo '<li class="list-group-item"><b>Major</b>: '.$row["major"].'</li>';
+      echo '</ul>';
+    }
+
+    function Display_emp($res)
+    {
+      $row = $res[0];
+      $code = decode_public($res[0]['code']);
+      $isAdmin = admin_byEmail($_SESSION['email']);
+      $myEmail = ($res[0]['email']==$_SESSION['email']);
+      echo '<ul class="list-group">';
+      echo '<li class="list-group-item"><b>Name</b>: '.$row["first_name"].' '.$row["last_name"].'</li>';
+      echo '<li class="list-group-item"><b>Username</b>: '.$row["name"].'</li>';
+      if($myEmail || $isAdmin || $code[0]==1)echo '<li class="list-group-item"><b>Phone number</b>: '.$row["phone_number"].'</li>';
+      if($myEmail || $isAdmin || $code[1]==1)echo '<li class="list-group-item"><b>Address</b>: '.$row["address"].'</li>';
+      if($myEmail || $isAdmin || $code[2]==1)echo '<li class="list-group-item"><b>LinkedIn hompage</b>: '.$row["Linkedin"].'</li>';
+      if($myEmail || $isAdmin || $code[3]==1)echo '<li class="list-group-item"><b>Company Name</b>: '.$row["company"].'</li>';
+      if($myEmail || $isAdmin || $code[4]==1)echo '<li class="list-group-item"><b>Position</b>: '.$row["position"].'</li>';
+      echo '</ul>';
+    }
+
+    function encode_public($array)
+    {
+      $num = 5;//count($array);
+      $res = 0;
+      for($i=0;i<$num;$i++)
+      {
+        $res = ($res<<1)&$array[$i];
+      }
+      return $res;
+    }
+
+    function decode_public($code)
+    {
+      $num = 5;
+      $array = array();
+      for($i=0;$i<$num;$i++)
+      {
+        $array[$num-1-$i] = $code & 1;
+        $code >>= 1;
+      }
+      return $array;
+    }
 ?>
