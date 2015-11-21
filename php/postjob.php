@@ -57,7 +57,7 @@
 		width: 80%;
 		height: 80%;
 		padding: 20px;
-		border: 15px solid #ff4d4d;
+		border: 10px solid #ad3939;
 		border-radius: 30px;
 		background-color: white;
 		z-index:1002;
@@ -214,8 +214,9 @@ function write_add_new_page() {
 		</div>
 		<div class="col-md-6 col-xs-10">	
 			<select name="visa" class="form-control">
-				<option value="0">No Visa Sponsorship</option>
-				<option value="1">Visa Sponsorship will be provided</option>
+				<option value="0">Not Specified</option>
+				<option value="1">No Visa Sponsorship</option>
+				<option value="2">Visa Sponsorship will be provided</option>
 			</select>
 		</div>
 	</div>
