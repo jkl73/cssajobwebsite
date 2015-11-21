@@ -57,7 +57,7 @@
 		width: 80%;
 		height: 80%;
 		padding: 20px;
-		border: 22px solid #980000;
+		border: 15px solid #ff4d4d;
 		border-radius: 30px;
 		background-color: white;
 		z-index:1002;
