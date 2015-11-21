@@ -137,7 +137,7 @@ function write_add_new_page() {
 	echo '</div>';
 
 	echo '<div class="row">';
-	echo '<div align="right" class="col-md-4 col-xs-2"><strong>Email</strong><span style="font-size:120%; color:red;">*</span>:</div>';
+	echo '<div align="right" class="col-md-4 col-xs-2"><strong>Contact</strong><span style="font-size:120%; color:red;">*</span>:</div>';
 	echo '<div class="col-md-6 col-xs-10"><input id="InEma" class="form-control" name=email type=text size=40 required></div>';
 	echo '</div>';
 
