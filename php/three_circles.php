@@ -74,6 +74,42 @@
 		echo "<h3>Please verify your email</h3>";
 		return;
 	}
+	if(isset($_POST['submit']))
+	{
+		  $conn = getconn();
+
+		  $type = $_POST["type"];
+		  $email = $_POST["email"];
+		  $month = $_POST["month"];
+		  $year = $_POST["year"];
+
+
+		  if($type == "stu"){
+		    $major = $_POST["major"];
+		    $job_type = $_POST["job-type"];
+
+
+		    $sql = "UPDATE student SET grad_year=\"".$year."-".$month."-"."00\",major='".$major."',job_type = '".$job_type."' WHERE email='".$email."'";
+		    
+		    $stmt = $conn->prepare($sql);
+		    $result = $stmt->execute();
+		    if(!$result){
+		      pdo_die($stmt);  
+		    }
+		  }
+		  else{
+		    $position = $_POST["position"];
+		    $company = $_POST["company"];
+		    $Linkedin = $_POST["Linkedin"];
+		    $sql = " UPDATE employer SET grad_year=\"".$year."-".$month."-"."00\",company='".$company."',Linkedin = '".$Linkedin."',position ='". $position ."' WHERE email='".$email."' ";
+		    $stmt = $conn->prepare($sql);
+		    $result = $stmt->execute();
+		    if(!$result){
+		      pdo_die($stmt);  
+		    }
+		  }
+
+	}
 ?>
 
 <div class="center">
