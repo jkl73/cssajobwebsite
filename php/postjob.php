@@ -58,6 +58,7 @@
 		height: 80%;
 		padding: 20px;
 		border: 22px solid #980000;
+		border-radius: 30px;
 		background-color: white;
 		z-index:1002;
 		overflow: auto;
@@ -131,42 +132,42 @@ function write_add_new_page() {
 	echo "<input type=hidden name=mode value=submit>";
 	
 	echo '<div class="row">';
-	echo '<div align="right" class="col-md-4 col-xs-2">Short Description<span style="font-size:120%; color:red;">*</span>: </div>';
+	echo '<div align="right" class="col-md-4 col-xs-2"><strong>Short Description</strong><span style="font-size:120%; color:red;">*</span>: </div>';
 	echo '<div class="col-md-6 col-xs-10"><input id="InDes" class="form-control" name=description type=text size=40 required></div>';
 	echo '</div>';
 
 	echo '<div class="row">';
-	echo '<div align="right" class="col-md-4 col-xs-2">Email<span style="font-size:120%; color:red;">*</span>:</div>';
+	echo '<div align="right" class="col-md-4 col-xs-2"><strong>Email</strong><span style="font-size:120%; color:red;">*</span>:</div>';
 	echo '<div class="col-md-6 col-xs-10"><input id="InEma" class="form-control" name=email type=text size=40 required></div>';
 	echo '</div>';
 
 	echo '<div class="row">';
-	echo '<div align="right" class="col-md-4 col-xs-2">Company Name<span style="font-size:120%; color:red;">*</span>:</div>';
+	echo '<div align="right" class="col-md-4 col-xs-2"><strong>Company Name</strong><span style="font-size:120%; color:red;">*</span>:</div>';
 	echo '<div class="col-md-6 col-xs-10"><input id="InCom" class="form-control"  name=company_name type=text size=40 required></div>';
 	echo '</div>';
 
 	echo '<div class="row">';
-	echo '<div align="right" class="col-md-4 col-xs-2">Position Title<span style="font-size:120%; color:red;">*</span>:</div>';
+	echo '<div align="right" class="col-md-4 col-xs-2"><strong>Position Title</strong><span style="font-size:120%; color:red;">*</span>:</div>';
 	echo '<div class="col-md-6 col-xs-10"><input id="InPos" class="form-control"  name=position type=text size=40 required></div>';
 	echo '</div>';
 
 	echo '<div class="row">';
-	echo '<div align="right" class="col-md-4 col-xs-2">Deadline<span style="font-size:120%; color:red;"></span>:</div>';
+	echo '<div align="right" class="col-md-4 col-xs-2"><strong>Deadline</strong><span style="font-size:120%; color:red;"></span>:</div>';
 	echo '<div class="col-md-6 col-xs-10"><input id="InDea" class="form-control" name=date type=date></div>';
 	echo '</div>';
 
 	echo '<div class="row">';
-	echo '<div align="right" class="col-md-4 col-xs-2">URL<span style="font-size:120%; color:red;"></span>:</div>';
+	echo '<div align="right" class="col-md-4 col-xs-2"><strong>URL</strong><span style="font-size:120%; color:red;"></span>:</div>';
 	echo '<div class="col-md-6 col-xs-10"><input id="InDea" class="form-control" name=url type=text></div>';
 	echo '</div>';
 
 	echo '<div class="row">';
-	echo '<div align="right" class="col-md-4 col-xs-2">Location<span style="font-size:120%; color:red;"></span>:</div>';
+	echo '<div align="right" class="col-md-4 col-xs-2"><strong>Location</strong><span style="font-size:120%; color:red;"></span>:</div>';
 	echo '<div class="col-md-6 col-xs-10"><input id="InDea" class="form-control" name=location type=text></div>';
 	echo '</div>';
 
 	echo '<div class="row">';
-	echo '<div align="right" class="col-md-4 col-xs-2">Please input detail here<span style="font-size:120%; color:red;">*</span>:<br>(Qualification...)</div>';
+	echo '<div align="right" class="col-md-4 col-xs-2"><strong>Please input detail here</strong><span style="font-size:120%; color:red;">*</span>:<br>(Qualification...)</div>';
 	echo '<div class="col-md-6 col-xs-10"><textarea id="InInf" class="form-control" name=job_content style="margin: 0px; width: 100%; height: 140px;" required></textarea></div>';
 	echo '</div>';
 
@@ -174,7 +175,7 @@ function write_add_new_page() {
 ?>
 	<div class="row">
 		<div align="right" class="col-md-4 col-xs-2">
-			Job Type<span style="font-size:120%; color:red;">*</span>:
+			<strong>Job Type</strong><span style="font-size:120%; color:red;">*</span>:
 		</div>
 		<div class="col-md-6 col-xs-10">
 			<select name="job_type" id="" class="form-control">
@@ -190,7 +191,7 @@ function write_add_new_page() {
 
 	<div class="row">
 		<div align="right" class="col-md-4 col-xs-2">
-			Major<span style="font-size:120%; color:red;">*</span>:
+			<strong>Major</strong><span style="font-size:120%; color:red;">*</span>:
 		</div>
 		<div class="col-md-6 col-xs-10">	
 			<select name="major" id="" class="form-control">
@@ -209,7 +210,7 @@ function write_add_new_page() {
 
 	<div class="row">
 		<div align="right" class="col-md-4 col-xs-2">
-			Visa Sponsorship<span style="font-size:120%; color:red;">*</span>:
+			<strong>Visa Sponsorship</strong><span style="font-size:120%; color:red;">*</span>:
 		</div>
 		<div class="col-md-6 col-xs-10">	
 			<select name="visa" class="form-control">
@@ -220,7 +221,7 @@ function write_add_new_page() {
 	</div>
 	<div class="row">
 		<div align="right" class="col-md-4 col-xs-2">
-			<lable for = "file"> File Upload: </lable>
+			<lable for = "file"> <strong>File Upload: </strong></lable>
 		</div>
 		<div class="col-md-6 col-xs-10">
 		    <input name = "file" type = "file" class = "form-control">				
