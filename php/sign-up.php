@@ -36,10 +36,11 @@
 			    <label for="pwd">Password</label>
 			    <input name = "pwd" type="password" class="form-control" id="pwd">
 			  </div>
-			  <label for="Employer">Are you an Employer or Student/Alumni?</label>
+			  <label for="Employer">Are you an Employer, Student or Alumni?</label>
 			  <select class="form-control" id="sel1" name="employer">
-				<option value = "emp">Employer</option>
-				<option value = "stu">Student/Alumni</option>
+				<option value = "emp">Employer/recruiter/other</option>
+				<option value = "stu">Student</option>
+				<option value = "alu">alumni</option>
 			  </select>
 			  <br></br>
 			  <div class = "col-sm-offset-10 col-sm-2">

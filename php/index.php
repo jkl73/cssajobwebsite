@@ -78,6 +78,7 @@ $(document).ready(function() {
           <select class="form-control" id="sel1" name="employer">
             <option value = "emp">I am an Employer</option>
             <option value = "stu">I am a Student</option>
+            <option value = "alu">I am an Alumni</option>
           </select>
         </div>
           <div class="form-group">
