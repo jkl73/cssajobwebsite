@@ -46,7 +46,7 @@
 			$filename = (string)$tutorial_id  . "-" .(string)$_FILES["file"]["name"];
 			$path = "../upload-file/tutorial/". $filename;  				
 			move_uploaded_file($_FILES["file"]["tmp_name"], $path);
-			update_tutorial($tutorial_id, $path, $filename);	
+			update_tutorial($tutorial_id, $path, $_FILES["file"]["name"］);	
 		}
 	}
 ?>
@@ -67,7 +67,7 @@
 
 		echo '<p>'.$entry['descriptions'].'</p>';
 		if ($entry['filename'] != NULL) {
-			echo '<a target=something href='.'../upload-file/tutorial/'.rawurlencode($entry['filename']).'>'.'View Attachment'.'</a>';
+			echo '<a target=something href='.'../upload-file/tutorial/'.$entry['id'].'-'.rawurlencode($entry["filename"]).'>'.'View Attachment'.'</a>';
 		}
 
 		echo "&nbsp";
