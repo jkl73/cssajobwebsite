@@ -21,16 +21,52 @@
 		background-size: cover;
 	}
 
-	.jumbo_circle {
+	.jumbo_circle:before {
+		content:" ";
 		width: 150px;
 		height: 150px;
-		text-align: center;
-		line-height:151px;
 		border-radius: 50%;
+		display:inline-block;
+		z-index: 1;
+		position: absolute;
+		left: 0px;
+		top:0px;
+
+		-webkit-filter: blur(5px);
+  		-moz-filter: blur(1px);
+  		-o-filter: blur(1px);
+  		-ms-filter: blur(1px);
+  		filter: blur(5px);
+	}
+	#jobs:before{
+		background-color: #0CABCD;
+	}
+	#tutorial:before{
+		background-color: #8362BD;
+	}
+	#refer:before{
+		background-color: #47C753;
+	}
+
+	.jumbo_circle {
+		opacity: 0.8;
+		z-index: 2;
+		text-align: center;
+		width: 150px;
+		height:150px;
+		border-radius: 50%;
+		display: inline-block;
 		margin: 150px 30px;
 		font-size: 150%;
-		display: inline-block;
-		color: white;
+		position: relative;
+	}
+	.jumbo_circle span{
+		position: absolute;
+		line-height: 150px;
+		z-index:5;
+		color:white;
+		width: 150px;
+		left: 0px;	
 	}
 
 	#slogan{
@@ -114,21 +150,22 @@
 ?>
 
 <div class="center">
+
 <a href="homepage.php?module=refer">
-<div id="refer" style="background-color: #47C753;" class="jumbo_circle">
-Refer
+<div id="refer"  class="jumbo_circle">
+	<span>Refer</span>
 </div>
 </a>
 
 <a href="homepage.php?module=job">
-<div id="jobs" style="background-color: #0CABCD;" class="jumbo_circle">
-Jobs
+<div id="jobs" class="jumbo_circle">
+	<span>Jobs</span>
 </div>
 </a>
 
 <a href="tutorial.php">
-<div id="tutorial" style="background-color: #8362BD;" class="jumbo_circle">
-Tutorial
+<div id="tutorial" class="jumbo_circle">
+	<span>Tutorial</span>
 </div>
 </a>
 </div>
