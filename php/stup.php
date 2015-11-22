@@ -67,15 +67,18 @@
 
 	<script language="javascript">
      function checkSubmit() {
+       var t = document.getElementById("text-alert");
        var first_name= document.getElementById("first_name");
        var last_name= document.getElementById("last_name");
        var major= document.getElementById("major");
        var month= document.getElementById("month");
        var year= document.getElementById("year");
 
+
        if(first_name.value == "" || first_name.value == null) 
        {
         t.innerHTML = "Please input first name!";
+        alert('dfsf');
         return false;
        }
        if(last_name.value == "" || last_name.value == null) 
@@ -85,7 +88,7 @@
        }
        if(major.value == "" || major.value == null) 
        {
-        t.innerHTML = "Please input your major";
+        t.innerHTML = "Please input your major!";
         return false;
        }
        if(year.value == "" || year.value == null) 
