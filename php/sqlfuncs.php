@@ -15,12 +15,13 @@ function update_tutorial($tutorial_id, $fileurl, $filename){
 }
 
 // return insert id
-function sql_add_tutoial($name, $admin_id) {
+function sql_add_tutoial($name, $admin_id, $decr) {
     $conn = getconn();
 
-    $stmt = $conn->prepare("insert into tutorial(name, admin_id, time) values(:name, :admin_id, now())");
+    $stmt = $conn->prepare("insert into tutorial(name, admin_id, time, descriptions) values(:name, :admin_id, now(), :description)");
     $stmt->bindParam(":name", $name);
     $stmt->bindParam(":admin_id", $admin_id);
+    $stmt->bindParam(":description", $decr);
     $result = $stmt->execute();
 
     if (!$result)

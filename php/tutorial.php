@@ -11,7 +11,15 @@
 	<link rel="stylesheet" href="../css/profile.css">
 	<script src="js/main.js"></script>
   	<style>
-  	</style>
+  	.tutorial_p {
+	height: 68px;
+    line-height:20px; /* Height / no. of lines to display */
+    overflow:hidden;
+    }
+
+
+
+   	</style>
 </head>
 
 <body>
@@ -37,7 +45,7 @@
 
 	if (isset($_POST["submit"])) {
 
-		$tutorial_id = sql_add_tutoial($_POST["title"], $_SESSION["email"]);
+		$tutorial_id = sql_add_tutoial($_POST["title"], $_SESSION["email"], $_POST["description"]);
 
 		if($_FILES["file"]["error"] > 0){
 			echo "Error:" . $_FILES["file"]["error"] ."</br/>";
@@ -46,7 +54,7 @@
 			$filename = (string)$tutorial_id  . "-" .(string)$_FILES["file"]["name"];
 			$path = "../upload-file/tutorial/". $filename;  				
 			move_uploaded_file($_FILES["file"]["tmp_name"], $path);
-			update_tutorial($tutorial_id, $path, $_FILES["file"]["name"］);	
+			update_tutorial($tutorial_id, $path, $_FILES["file"]["name"]);	
 		}
 	}
 ?>
@@ -54,27 +62,34 @@
 <div class="container">
 
 <div class="row">
-	<h1>Tutorial</h1>
-
 
 	<ul>
+
+	<li style='list-style-type: none;'>
+		<h1  style='width: 70%; margin: auto; list-style-type: none;'>Tutorials</h1>
+	</li>	
 <?php
 	$alltutorial = sql_get_all_tutorial();
 
 	foreach ($alltutorial as $entry) {
-		echo "<li>";
-		echo '<h5>'.$entry['name'].'<br>';
+		echo "<li style='list-style-type: none;'>";
+		echo "<div style='width: 70%; margin: auto; margin-bottom: 8px; border-top: 1px black solid'>";
+		echo '<h3>'.$entry['name'].'</h3>';
+		echo "<h6>Upload time: ".$entry['time']."</h6>";
 
-		echo '<p>'.$entry['descriptions'].'</p>';
+		echo '<p id='.$entry['id'].' onclick=changeDisplay('. $entry['id'] .') class="tutorial_p" style="background-color: rgba(255, 208, 208, 0.47); border-radius: 5px; padding: 5px 8px 5px 8px">'.'<b>Description:</b><br>'.$entry['descriptions'];
+
+		echo '</p>';
+		
+
+
+
 		if ($entry['filename'] != NULL) {
-			echo '<a target=something href='.'../upload-file/tutorial/'.$entry['id'].'-'.rawurlencode($entry["filename"]).'>'.'View Attachment'.'</a>';
+			echo '<a target=something href='.'../upload-file/tutorial/'.$entry['id'].'-'.rawurlencode($entry["filename"]).'>'.'View Document'.'</a>';
 		}
 
 		echo "&nbsp";
-		echo "<br>Upload time: ";
-		echo $entry['time'];
-		echo "</h5>";
-
+		echo "</div>";
 		echo "</li>";
 	}
 ?>
@@ -92,7 +107,7 @@
 		echo "<input type=hidden name='' value=''>";
 
 		echo "Short Descriptions: ";
-		echo "<textarea class='form-control' type=text name='Descriptions'></textarea>";
+		echo "<textarea class='form-control' type=text name=description></textarea>";
 		echo "<input type=hidden name='' value=''>";
 
 		echo "<lable for = 'file'> File Upload: </lable>";
@@ -105,8 +120,21 @@
 </div>
 </div>
 <?php
-  	include_once("footer.php");
+  //	include_once("footer.php");
 ?>
 
 </body>
+<script> 
+
+
+function changeDisplay(id)
+{
+	if ($('#'+id).css('height') == '68px') {
+		$('#'+id).animate({ height: "100%"});
+	} else {
+		$('#'+id).animate({ height: "68px"});
+	}
+}
+
+</script>
 </html>
