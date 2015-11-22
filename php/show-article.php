@@ -165,7 +165,8 @@ function changeDisplay(id)
             echo '<div class="panel panel-info">';
             echo '<div class="panel-heading">Followup '.$i.'</div>';
             echo '<div class="panel-body">';
-            echo '<a href="#">'.$replyArr[$i]['email'].'</a>:'.$replyArr[$i]['content'];
+            $replyUid = sql_get_uid_byEmail($replyArr[$i]['email']);
+            echo '<a href="profile.php?uid='.$replyUid.'">'.sql_get_username_byEmail($replyArr[$i]['email']).'</a>:'.$replyArr[$i]['content'];
             echo '<div>';
             echo '<small>Time:'.$replyArr[$i]['time'].'</small>';
             echo '<a href="#subreply'.$i.'" id="show'.$i.'" class="btn btn-info pull-right" data-toggle="collapse" style="display: inline; width:120px;" onclick="changeDisplay('.$i.')">Replies&nbsp('.count($subreplyMat[$replyArr[$i]['id']]).')</a>';
@@ -174,7 +175,8 @@ function changeDisplay(id)
 
             echo '<div id="subreply'.$i.'" class="collapse">';
             foreach ($subreplyMat[$replyArr[$i]['id']] as $subrow) {
-                echo '<a href="#">'.$subrow['email'].'</a>:'.$subrow['content'];
+                $reppllyUid = sql_get_uid_byEmail($subrow['email']);
+                echo '<a href="profile.php?uid='.$reppllyUid.'">'.sql_get_username_byEmail($subrow['email']).'</a>:'.$subrow['content'];
                 echo '<div>';
                 echo '<small>Time:'.$subrow['time'].'</small>';
                 echo '</div>';

@@ -293,7 +293,6 @@ function sql_add_reply($email, $reply_content, $post_id, $parent)
     $stmt = $conn->prepare("insert into reply(parentid, postid, email, content, time) values(:parentid, :postid, :email, :content, now())");
 
     $stmt->bindParam(':parentid', $parent);
-
     $stmt->bindParam(':postid', $post_id);
     $stmt->bindParam(':content', $reply_content);
     $stmt->bindParam('email', $email);
@@ -628,7 +627,7 @@ function Print_Fav_Post($post_row,$email,$page,$fav_row)
         echo '<span class="label label-info pull-left">'.$row["company"].'</span>';
         echo '<span class="label label-info pull-left" style ="margin-left:10px">'.$row["position"].'</span>';
         $uid = sql_get_uid_byEmail($row["user_email"]);
-        echo '<small class = "pull-right" style="text-color:gray">Post by: <a href = "profile.php?uid='.$uid.'">'.$row["user_name"].'</a></small>';
+        echo '<small class = "pull-right" style="text-color:gray">Post by: <a href = "profile.php?uid='.$uid.'">'.sql_get_username_byEmail($row["user_email"]).'</a></small>';
         echo '</div>';
         echo '</li>';
 
@@ -716,6 +715,19 @@ function update_post_file($postid, $fileurl, $filename){
       $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
       if(count($result)==0)return 0;
       return $result[0]['uid'];
+    }
+    function sql_get_username_byEmail($email)
+    {
+      $conn = getconn();
+      $stmt = $conn->prepare("select name from user where email = :email");
+      $stmt->bindParam(':email', $email);
+
+      $result = $stmt->execute();
+      if (!$result)
+          pdo_die($stmt);
+      $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+      if(count($result)==0)return 0;
+      return $result[0]['name'];
     }
 
     function Display_stu($res)

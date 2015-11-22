@@ -79,7 +79,6 @@
        if(first_name.value == "" || first_name.value == null) 
        {
         t.innerHTML = "Please input first name!";
-        alert('dfsf');
         return false;
        }
        if(last_name.value == "" || last_name.value == null) 
