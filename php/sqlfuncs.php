@@ -163,12 +163,17 @@ function sql_update_visit($postid) {
 //  $stmt = $conn->prepare("update post_info set status=:new_status where id=:order_id");
 }
 
-function sql_add_post($useremail,$email, $company_name, $position, $description, $job_content, $job_type, $major, $job_year, $url, $visa)
+function sql_add_post($useremail,$email, $company_name, $position, $description, $job_content, $job_type, $major, $job_year, $url, $visa, $type)
 {
     $conn = getconn();
     $post_id = $conn->lastInsertId();
 
-    $stmt = $conn->prepare("insert into post_info(user_email, email, company, position, title, time, visit, fav, url, visa) values(:useremail,:email, :company, :position, :title, now(), 0, 0, :url, :visa)");
+    if ($type == 0) {
+        $stmt = $conn->prepare("insert into post_info(user_email, email, company, position, title, time, visit, fav, url, visa, post_type) values(:useremail,:email, :company, :position, :title, now(), 0, 0, :url, :visa, 0)");
+    } else {
+        $stmt = $conn->prepare("insert into post_info(user_email, email, company, position, title, time, visit, fav, url, visa, post_type) values(:useremail,:email, :company, :position, :title, now(), 0, 0, :url, :visa, 1)");
+    }
+
 
     $stmt->bindParam(':useremail',$useremail);
     $stmt->bindParam(':email', $email);
@@ -196,19 +201,20 @@ function sql_add_post($useremail,$email, $company_name, $position, $description,
     if (!$result)
         pdo_die($stmt);
     
-    $stmt = $conn->prepare("insert into post_tags(postid, job_year, major_class, company, job_type) values(:postid, :jy, :mc, :company, :jt)");
+    if ($type == 0) {
+        $stmt = $conn->prepare("insert into post_tags(postid, job_year, major_class, company, job_type) values(:postid, :jy, :mc, :company, :jt)");
+        $stmt->bindParam(':postid', $post_id);
+        $stmt->bindParam(':jy', substr($job_year, 0, 4));
+        $stmt->bindParam(':mc', $major);
+        $stmt->bindParam(':company', $company_name);
+        $stmt->bindParam(':jt', $job_type);
 
-    $stmt->bindParam(':postid', $post_id);
-    $stmt->bindParam(':jy', substr($job_year, 0, 4));
-    $stmt->bindParam(':mc', $major);
-    $stmt->bindParam(':company', $company_name);
-    $stmt->bindParam(':jt', $job_type);
-  
-    $result = $stmt->execute();
-    $post_id = $conn->lastInsertId();
+        $result = $stmt->execute();
+        $post_id = $conn->lastInsertId();
 
-    if (!$result)
-        pdo_die($stmt);
+        if (!$result)
+            pdo_die($stmt);
+    }
     return $res;
 }
 
@@ -634,8 +640,21 @@ function Print_Fav_Post($post_row,$email,$page,$fav_row)
     echo '</div>';
     echo '</div>';
 }
+
 function update_post_file($postid, $fileurl, $filename){
     $conn = getconn();
+    $stmt = $conn->prepare("select file_url from post_info where postid=:postid");
+    $stmt->bindParam(':postid',$postid);
+    $result = $stmt->execute();
+    if (!$result)
+        pdo_die($stmt);
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+    $oldpath = $result[0]['file_url'];
+    if($oldpath != NULL){
+        unlink($oldpath);
+    }
+
     $stmt = $conn->prepare("update post_info set file_url=:fileurl, filename=:filename where postid=:postid");
     
     $stmt->bindParam(':postid',$postid);
@@ -646,9 +665,7 @@ function update_post_file($postid, $fileurl, $filename){
     if (!$result)
         pdo_die($stmt);
     return 1;
-
 }
-
 //New functin for profile and uid by Ziyang
     function display_profile($uid)
     {

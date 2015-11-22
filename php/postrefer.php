@@ -34,8 +34,8 @@
 	</script>
 
 
-  	<style>
-  	.black_overlay{
+		<style>
+		.black_overlay{
 		display: none;
 		position: absolute;
 		top: 0%;
@@ -63,22 +63,22 @@
 		z-index:1002;
 		overflow: auto;
 	}
-  	</style>
+	</style>
 
 </head>
 
 <body>
 
 <?php
-  session_start();
-  include_once("sqlfuncs.php");
-  include_once("header.php");
-  if(!isset($_SESSION['email']))
+	session_start();
+	include_once("sqlfuncs.php");
+	include_once("header.php");
+	if(!isset($_SESSION['email']))
 	{
 		header('Location: index.php');
 		exit;
 	}
-  $myemail = $_SESSION["email"];
+	$myemail = $_SESSION["email"];
 
 	if (sql_is_verified($myemail, $_SESSION['type'])) {
 
@@ -87,51 +87,51 @@
 		return;
 	}
 
-  if (!isset($_POST["mode"])) {
-  	write_add_new_page();
-  }
-  else {
-	$mode = $_POST["mode"];
+	if (!isset($_POST["mode"])) {
+		write_add_new_page();
+	}
+	else {
+		$mode = $_POST["mode"];
 
-	if ($mode == "submit") {	
-	////////////////////////////////////////11.21
-		$post_id = sql_add_post($myemail,$_POST["email"], $_POST["company_name"], $_POST["position"], $_POST["description"], $_POST["job_content"], $_POST['job_type'], $_POST['major'], $_POST['date'], $_POST['url'], $_POST['visa'], 0);
-		if ($post_id >= 0) {
-    			if($_FILES["file"]["error"] > 0){
-    				if($_FILES["file"]["error"] != 4){
-    					echo "<h2 align=center>Something went wrong... Please try again</h2>";
-    					echo "<h2>Error:" . $_FILES["file"]["error"] ."</br/></h2>";
-						echo "<h3 align=center><a  href='homepage.php' class='btn'>My homepage</a></h3>";
-    				}
-    			}
+		if ($mode == "submit") {	
+		////////////////////////////////////////11.21
+			$post_id = sql_add_post($myemail,$_POST["email"], $_POST["company_name"], $_POST["position"], $_POST["description"], $_POST["job_content"], null, null, null, $_POST['url'], null, 1);
+			if ($post_id >= 0) {
+						if($_FILES["file"]["error"] > 0){
+							if($_FILES["file"]["error"] != 4){
+								echo "<h2 align=center>Something went wrong... Please try again</h2>";
+								echo "<h2>Error:" . $_FILES["file"]["error"] ."</br/></h2>";
+							echo "<h3 align=center><a	href='homepage.php?module=refer' class='btn'>My homepage</a></h3>";
+							}
+						}
 
-				if($_FILES["file"]["name"] != NULL){
-    				$filename = (string)$post_id . "-" .$_FILES["file"]["name"];
-    				$path = "../upload-file/post/". $filename;
-    				//$newfile = “../upload-file/post”;
-    				
-    				move_uploaded_file($_FILES["file"]["tmp_name"], $path);
-					update_post_file($post_id, $path, $filename );
-    				
-				}
+					if($_FILES["file"]["name"] != NULL){
+							$filename = (string)$post_id . "-" .$_FILES["file"]["name"];
+							$path = "../upload-file/post/". $filename;
+							//$newfile = “../upload-file/post”;
+							
+							move_uploaded_file($_FILES["file"]["tmp_name"], $path);
+						update_post_file($post_id, $path, $filename );
+							
+					}
 
-				echo "<h2 align=center>Your job posting is successful</h2>";
-				echo "<h3 align=center><a  href='homepage.php' class='btn'>My homepage</a></h3>";
-		}
-		else {
-			echo "<h2 align=center>Something went wrong... Please try again</h2>";
-			echo "<h3 align=center><a  href='homepage.php' class='btn'>My homepage</a></h3>";
+					echo "<h2 align=center>Your job posting is successful</h2>";
+					echo "<h3 align=center><a	href='homepage.php?module=refer' class='btn'>My homepage</a></h3>";
+			}
+			else {
+				echo "<h2 align=center>Something went wrong... Please try again</h2>";
+				echo "<h3 align=center><a	href='homepage.php?module=refer' class='btn'>My homepage</a></h3>";
+			}
 		}
 	}
-  }
 
-  include_once("footer.php");
+	include_once("footer.php");
 
 function write_add_new_page() {
 	echo "<div class=\"jobpostform center\">";
-	echo "<h2 align=\"center\">Post a new job</h2>";
+	echo "<h2 align=\"center\">Post a New Refer</h2>";
 	/////////////11.21
-	echo "<form enctype = multipart/form-data method=post action=postjob.php onSubmit = 'return checkSubmit()' id=\"frm1\">";
+	echo "<form enctype = multipart/form-data method=post action=postrefer.php onSubmit = 'return checkSubmit()' id=\"frm1\">";
 	echo "<input type=hidden name=mode value=submit>";
 	
 	echo '<div class="row">';
@@ -146,17 +146,12 @@ function write_add_new_page() {
 
 	echo '<div class="row">';
 	echo '<div align="right" class="col-md-4 col-xs-2">Company Name<span style="font-size:120%; color:red;">*</span>:</div>';
-	echo '<div class="col-md-6 col-xs-10"><input id="InCom" class="form-control"  name=company_name type=text size=40 required></div>';
+	echo '<div class="col-md-6 col-xs-10"><input id="InCom" class="form-control"	name=company_name type=text size=40 required></div>';
 	echo '</div>';
 
 	echo '<div class="row">';
 	echo '<div align="right" class="col-md-4 col-xs-2">Position Title<span style="font-size:120%; color:red;">*</span>:</div>';
-	echo '<div class="col-md-6 col-xs-10"><input id="InPos" class="form-control"  name=position type=text size=40 required></div>';
-	echo '</div>';
-
-	echo '<div class="row">';
-	echo '<div align="right" class="col-md-4 col-xs-2">Deadline<span style="font-size:120%; color:red;"></span>:</div>';
-	echo '<div class="col-md-6 col-xs-10"><input id="InDea" class="form-control" name=date type=date></div>';
+	echo '<div class="col-md-6 col-xs-10"><input id="InPos" class="form-control"	name=position type=text size=40 required></div>';
 	echo '</div>';
 
 	echo '<div class="row">';
@@ -176,117 +171,18 @@ function write_add_new_page() {
 
 
 ?>
-	<div class="row">
-		<div align="right" class="col-md-4 col-xs-2">
-			Job Type<span style="font-size:120%; color:red;">*</span>:
-		</div>
-		<div class="col-md-6 col-xs-10">
-			<select name="job_type" id="" class="form-control">
-				<option value="0">Not Specified</option>
-				<option value="1">Full-time</option>
-				<option value="2">Internship</option>
-				<option value="3">Part-time</option>
-				<option value="4">Co-op</option>
-				<option value="5">Other</option>
-			</select>
-		</div>
-	</div>
-
-	<div class="row">
-		<div align="right" class="col-md-4 col-xs-2">
-			Major<span style="font-size:120%; color:red;">*</span>:
-		</div>
-		<div class="col-md-6 col-xs-10">	
-			<select name="major" id="" class="form-control">
-				<option value="0">Not Specified</option>
-				<option value="1">CS</option>
-				<option value="2">EE</option>
-				<option value="3">Statistic</option>
-				<option value="3">Analysis/Data Science</option>
-				<option value="4" >MFE</option>
-				<option value="5">Engineer</option>
-				<option value="6">PM</option>
-				<option value="7">Other</option>
-			</select>
-		</div>
-	</div>
-
-	<div class="row">
-		<div align="right" class="col-md-4 col-xs-2">
-			Visa Sponsorship<span style="font-size:120%; color:red;">*</span>:
-		</div>
-		<div class="col-md-6 col-xs-10">	
-			<select name="visa" class="form-control">
-				<option value="0">Not Specified</option>
-				<option value="1">No Visa Sponsorship</option>
-				<option value="2">Visa Sponsorship will be provided</option>
-			</select>
-		</div>
-	</div>
 	<!-- 11.21 -->
 	<div class="row">
 		<div align="right" class="col-md-4 col-xs-2">
 			<lable for = "file"> File Upload: </lable>
 		</div>
 		<div class="col-md-6 col-xs-10">
-		    <input name = "file" type = "file" id = "file" class = "form-control">
-		    (Max Size: 1MB, File Type: pdf,docx,doc,txt)
-		    <p style = "color:red" id = "text-alert"></p>
+				<input name = "file" type = "file" id = "file" class = "form-control">
+				(Max Size: 1MB, File Type: pdf,docs,txt)
+				<p style = "color:red" id = "text-alert"></p>
 		</div>
 	</div>
-
-<!-- 
-	<div class="row">
-		<div align="right" class="col-md-4 col-xs-2">
-			Company<span style="font-size:120%; color:red;">*</span>:
-		</div>
-		<div class="col-md-6 col-xs-10">
-				<select name="company" id="" class="form-control">
-				<option value="0">Not Specified</option>
-				<option value="1" >Google</option>
-				<option value="2" >Facebook</option>
-				<option value="3" >Microsoft</option>
-				<option value="4" >Apple</option>
-				<option value="5" >Amazon</option>
-				<option value="6" >Linkedin</option>
-				<option value="7" >Oracle</option>
-				<option value="8" >Nvidia</option>
-				<option value="9" >Intel</option>
-				<option value="10" >Qualcomm</option>
-				<option value="11" >Zynga</option>
-				<option value="12" >EMC</option>
-				<option value="13" >Big Four</option>
-				<option value="14" >Bloomberg</option>
-				<option value="15" >NetApp</option>
-				<option value="16" >eBay</option>
-				<option value="17" >SalesForce</option>
-				<option value="18" >Yahoo</option>
-				<option value="19" >Epic</option>
-				<option value="20" >Twitter</option>
-				<option value="21" >Snapchat</option>
-				<option value="22" >Uber</option>
-				<option value="23" >Expedia</option>
-				<option value="24" >Quora</option>
-				<option value="25" >Dropbox</option>
-				<option value="26" >Indeed</option>
-				<option value="27" >Cisco</option>
-				<option value="28" >LiveRamp</option>
-				<option value="29" >Marvell</option>
-				<option value="30" >Factset</option>
-				<option value="31" >Zillow</option>
-				<option value="32" >Palantir</option>
-				<option value="33" >Pinterest</option>
-				<option value="34" >TwoSigma</option>
-				<option value="35" >TripAdvisor</option>
-				<option value="36" >Yelp</option>
-				<option value="37" >Airbnb</option>
-				<option value="38" >Medallia</option>
-				<option value="39" >PoketGem</option>
-			</select>
-		</div>
-	</div> -->
 <?php
-
 	echo '<div class="row">';
 	echo '<div align="right" class="col-md-4 col-xs-4"></div>';
 	echo '<div class="col-md-6">';
@@ -343,7 +239,7 @@ function write_add_new_page() {
 
 		if(filepath.lastIndexOf(".") != -1){
 			var filetype = (filepath.substring(filepath.lastIndexOf(".")+1,filepath.length)).toLowerCase();
-			if(filetype != 'pdf' && filetype != 'txt' && filetype != 'docx' && filetype != 'doc'){
+			if(filetype != 'pdf' && filetype != 'txt' && filetype != 'docs'){
 				t.innerHTML = "File Type Is Not Supported";
 				return false;
 			}

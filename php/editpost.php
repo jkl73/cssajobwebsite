@@ -12,7 +12,7 @@
 
 	 <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.0/css/bootstrap-toggle.min.css" rel="stylesheet">
 	 <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.0/js/bootstrap-toggle.min.js"></script>
-	 <script src="js/main.js"></script>
+	 <script src="../js/main.js"></script>
 	 <script>
 		function showPreview() {
 			// document.getElementById("inForm").submit();
@@ -99,16 +99,20 @@
 		{
     		if($_FILES["file"]["error"] > 0){
     			if($_FILES["file"]["error"] != 4){
-    					echo "Error:" . $_FILES["file"]["error"] ."</br/>";
+    				echo "<h2 align=center>Something went wrong... Please try again</h2>";
+    				echo "<h2>Error:" . $_FILES["file"]["error"] ."</h2>";
+					echo "<h3 align=center><a  href='homepage.php' class='btn'>My homepage</a></h3>";
+    				
     			}
     		}
     		
-    		if($_FILES["file"]["error"] != 4){
-    				$filename = (string)$post_id . "-" .(string)$_FILES["file"]["name"];
+    		if($_FILES["file"]["name"] != NULL){
+    				$filename = (string)$post_id . "-" .$_FILES["file"]["name"];
     				$path = "../upload-file/post/". $filename;
+    				//$newfile = "../upload-file/post";
     				
     				move_uploaded_file($_FILES["file"]["tmp_name"], $path);
-					update_post_file($post_id, $path, $_FILES["file"]["name"]);
+					update_post_file($post_id, $path, $filename);
     				
 				}
 			}
@@ -120,26 +124,6 @@
 			echo "<h2 align=center>Something went wrong... Please try again</h2>";
 			echo "<h3 align=center><a  href='homepage.php' class='btn'>My homepage</a></h3>";
 		}
-		/*if ($post_id >= 0) {
-    			if($_FILES["file"]["error"] > 0){
-    				if($_FILES["file"]["error"] != 4){
-    					echo "Error:" . $_FILES["file"]["error"] ."</br/>";
-    				}
-    			}
-    			//  改了sql函数的返回文件
-    			if($_FILES["file"]["name"] != NULL){
-    				$filename = (string)$post_id . "-" .(string)$_FILES["file"]["name"];
-    				$path = "../upload-file/post/". $filename;
-    				//$newfile = "../upload-file/post";
-    				
-    				move_uploaded_file($_FILES["file"]["tmp_name"], $path);
-					update_post_file($post_id, $path, $_FILES["file"]["name"]);
-    				
-				}
-
-				echo "<h2 align=center>Your job posting is successful</h2>";
-				echo "<h3 align=center><a  href='homepage.php' class='btn'>My homepage</a></h3>";
-		}*/
 		
 	}
 	/*if ($mode == "submit") {	
@@ -163,7 +147,7 @@ function edit_page($postid) {
 	echo "<div class=\"jobpostform center\">";
 	echo "<h2 align=\"center\">Post a new job</h2>";
 
-	echo "<form enctype= multipart/form-data method=post action=editpost.php id=\"frm1\">";
+	echo "<form enctype= multipart/form-data method=post action=editpost.php onSubmit = 'return checkSubmit()' id=\"frm1\">";
 	echo "<input type=hidden name=mode value=submit>";
 	
 	echo '<div class="row">';
@@ -258,7 +242,9 @@ function edit_page($postid) {
 			<lable for = "file"> File Upload: </lable>
 		</div>
 		<div class="col-md-6 col-xs-10">
-		    <input name = "file" type = "file" class = "form-control">				
+		    <input name = "file" type = "file" id = "file" class = "form-control">
+		    (Max Size: 1MB, File Type: pdf,docx,doc,txt)
+		    <p style = "color:red" id = "text-alert"></p>
 		</div>
 	</div>
 	<input type = "hidden" name="visit" value=<?php echo $row["visit"];?>>
@@ -355,6 +341,35 @@ function edit_page($postid) {
 
 }
 ?>
+<script language = "javascript">
+	function checkSubmit(){
+//////////////////////////////11.21
+		var t = document.getElementById("text-alert");
+		var target = document.getElementById("file");
+		var filepath = target.value;
+
+		var filesize = target.files[0].size;
+		var size = filesize / 1024 / 1024;
+
+		if(size > 1){
+			t.innerHTML = "File Size Is Greater Than Limitation";
+			return false;
+		} 
+
+		if(filepath.lastIndexOf(".") != -1){
+			var filetype = (filepath.substring(filepath.lastIndexOf(".")+1,filepath.length)).toLowerCase();
+			if(filetype != 'pdf' && filetype != 'txt' && filetype != 'docx' && filetype != 'doc'){
+				t.innerHTML = "File Type Is Not Supported";
+				return false;
+			}
+		}
+		else{
+			t.innerHTML = "File Type Is Not Supported";
+			return false;
+		}
+		return true;
+	}
+</script>
 
 </body>
 </html>

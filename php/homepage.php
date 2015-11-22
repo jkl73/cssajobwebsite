@@ -58,34 +58,19 @@
 	}
 	echo '<div class = "container">';
 
+
+
 	if (isset($_GET['module']) && $_GET['module'] == 'refer') {
 		echo "<h2>Refer Board</h2>";
+		echo '<div class = "row">';
 	} else {
 		echo "<h2>Job Borad</h2>";
-	}
-
-
-
+		echo '<div class = "row">';
 ?>
-<div class = "row">
+
 <div class="searchbox col-xs-12 col-sm-6 col-md-8">
 	<form action='homepage.php' method='get'>
 		<input type='hidden' name='mode' value='search'></input>
-<!-- 		<div class="col-xs-3 col-sm-2 col-md-3">
-			<select name="year" id="" class="form-control">
-				<option value="0">Please Select</option>
-				<option value="2020">2020</option>
-				<option value="2019">2019</option>
-				<option value="2018">2018</option>
-				<option value="2017">2017</option>
-				<option value="2016">2016</option>
-				<option value="2015">2015</option>
-				<option value="2014">2014</option>
-				<option value="2013">2013</option>
-				<option value="2012">2012</option>
-				<option value="2011">2011</option>				
-			</select>
-		</div> -->
 		<div class="col-xs-3 col-sm-3 col-md-3">
 			<h5>Job Type:</h5>
 			<select name="job_type" id="" class="form-control">
@@ -162,13 +147,15 @@
 			<h5>&nbsp</h5>
 			<button style="width:100%" type="submit" class="btn btn-info" >Search!</button>
 		</div>
-<!-- 		<div class="row">
-			<div style="float:right" class="col-xs-4 col-sm-4 col-md-4">
-				<button style="margin: 5px 0px; width:100%" type="submit" class="btn btn-info" >Search!</button>
-			</div>
-		</div> -->
 	</form>
 </div>
+
+
+<?php
+}
+?>
+
+
 
 </div>
 <div class="row" >
@@ -310,9 +297,9 @@
 		$conn = getconn();
 
 		if (isset($_GET['module']) && $_GET['module'] == 'refer') {
-			$stmt = $conn->prepare("select * from post_info where post_type = 1;");
+			$stmt = $conn->prepare("select * from post_info where post_type = 1 and time<now() order by time DESC;");
 		} else {
-			$stmt = $conn->prepare("select * from post_info where time<now() order by time DESC;");
+			$stmt = $conn->prepare("select * from post_info where post_type = 0 and time<now() order by time DESC;");
 		}
 
 		$result = $stmt->execute();
@@ -426,12 +413,24 @@
 	}
 	$myuid = sql_get_uid_byEmail($myemail);
 	display_profile($myuid);
-	echo '<div style=>';
+
+
+
+	echo '<div>';
+
+	if (isset($_GET['module']) && $_GET['module'] == 'refer') {
+		echo '<a style="width:100%;" class="btn btn-warning" href="postrefer.php">Post New Refer!</a> ';
+	} else {
 		echo '<a style="width:100%;" class="btn btn-warning" href="postjob.php">Post New Job!</a> ';
-		echo '</div>';
+	}
+
+	echo '</div>';
+
+
 	echo '</div>';
 	echo '</div>';
-	echo '</div>';
+  	echo '</div>';
+
   	include_once("footer.php");
 ?>
 
