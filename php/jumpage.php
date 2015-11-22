@@ -23,11 +23,8 @@
 	$name = $_POST["username"];
 	$email = $_POST["email"];
 	$pwd = $_POST["pwd"];
-	session_start();
-	$_SESSION["email"] = $email;
-
-	$_SESSION["type"] = $type;
-
+	
+	
 	include_once("header.php");
 
 	$stu_res = sql_get_stuInfo_byEmail($email);
@@ -37,7 +34,10 @@
 		print "Email used";
 		exit;
 	}
+	session_start();
+	$_SESSION["email"] = $email;
 
+	$_SESSION["type"] = $type;
 	$hash = md5(rand(0,1000));
 
 

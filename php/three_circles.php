@@ -62,11 +62,6 @@
 
 	$myemail = $_SESSION["email"];
 	
-	if(admin_byEmail($myemail))
-	{
-	  	header('Location: admin.php');
-	    return;
-	}
 
 	if (sql_is_verified($myemail, $_SESSION['type'])) {
 

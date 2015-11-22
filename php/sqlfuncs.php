@@ -463,7 +463,7 @@ function getconn()
     $conn = new PDO($dsn, $user, $pw);
     return $conn;
 }
-function Print_Post($post_row,$email,$page)
+/*function Print_Post($post_row,$email,$page)
 {
     if(count($post_row) == 0)return;
     $flag = 0;
@@ -532,7 +532,7 @@ function Print_Post($post_row,$email,$page)
     echo '</div>';
     echo '</div>';
     echo '</div>';
-}
+}*/
 function Print_Fav_Post($post_row,$email,$page,$fav_row)
 {
     if(count($post_row) == 0)return;

@@ -33,6 +33,7 @@
 				<button type="submit" class="btn">Update</button>
 				<input type = "hidden" name="type" value="emp">
 			</form>
+			<p style = "color: red" id="text-alert"></p>
 		</div>
 	</div>
 
