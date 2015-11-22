@@ -619,7 +619,8 @@ function Print_Fav_Post($post_row,$email,$page,$fav_row)
         echo '<div style="padding:15px">';
         echo '<span class="label label-info pull-left">'.$row["company"].'</span>';
         echo '<span class="label label-info pull-left" style ="margin-left:10px">'.$row["position"].'</span>';
-        echo '<small class = "pull-right" style="text-color:gray">Post by: '.$row["user_email"].'</small>';
+        $uid = sql_get_uid_byEmail($row["user_email"]);
+        echo '<small class = "pull-right" style="text-color:gray">Post by: <a href = "profile.php?uid='.$uid.'">'.$row["user_name"].'</a></small>';
         echo '</div>';
         echo '</li>';
 
@@ -694,6 +695,7 @@ function update_post_file($postid, $fileurl, $filename){
       if (!$result)
           pdo_die($stmt);
       $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+      if(count($result)==0)return 0;
       return $result[0]['uid'];
     }
 

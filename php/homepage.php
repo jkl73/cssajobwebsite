@@ -431,6 +431,7 @@
 		echo '</div>';
 	echo '</div>';
 	echo '</div>';
+	echo '</div>';
   	include_once("footer.php");
 ?>
 
