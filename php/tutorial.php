@@ -46,7 +46,7 @@
 			$filename = (string)$tutorial_id  . "-" .(string)$_FILES["file"]["name"];
 			$path = "../upload-file/tutorial/". $filename;  				
 			move_uploaded_file($_FILES["file"]["tmp_name"], $path);
-			update_tutorial($tutorial_id, $path, $_FILES["file"]["name"]);	
+			update_tutorial($tutorial_id, $path, $filename);	
 		}
 	}
 ?>
@@ -64,21 +64,23 @@
 	foreach ($alltutorial as $entry) {
 		echo "<li>";
 		echo '<h5>'.$entry['name'].'<br>';
-		echo '<a href='.$entry['file_url'].'>'.$entry['filename'].'</a>';
+
+		echo '<p>'.$entry['descriptions'].'</p>';
+		if ($entry['filename'] != NULL) {
+			echo '<a target=something href='.'../upload-file/tutorial/'.rawurlencode($entry['filename']).'>'.'View Attachment'.'</a>';
+		}
+
 		echo "&nbsp";
 		echo "<br>Upload time: ";
 		echo $entry['time'];
-		echo "</h5><br>";
+		echo "</h5>";
+
 		echo "</li>";
 	}
-
 ?>
-
 	</ul>
 
 </div>
-
-
 
 <?php
 	if (admin_byEmail($_SESSION["email"]) == true) {
@@ -89,21 +91,19 @@
 		echo "<input class='form-control' type=text name='title'>";
 		echo "<input type=hidden name='' value=''>";
 
+		echo "Short Descriptions: ";
+		echo "<textarea class='form-control' type=text name='Descriptions'></textarea>";
+		echo "<input type=hidden name='' value=''>";
+
 		echo "<lable for = 'file'> File Upload: </lable>";
 		echo "<input name='file' type='file' class='form-control'>";
-
 
 		echo "<input type=submit name=submit value=submit>";
 		echo "</form>";
 	}	
 ?>
-
-
-
 </div>
-
 </div>
-
 <?php
   	include_once("footer.php");
 ?>
