@@ -1,7 +1,7 @@
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="three_circles.php"><img src="../pictures/CSSALogo.png" height="40" width="80">Cornell CSSA Jobs Link</a>
+      <a class="navbar-brand" href="three_circles.php"><!--<img src="../pictures/CSSALogo.png" height="40" width="80">-->Cornell CSSA Jobs Link</a>
     </div>
     <div>
       <ul class="nav navbar-nav">
