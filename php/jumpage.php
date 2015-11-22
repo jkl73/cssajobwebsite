@@ -101,7 +101,7 @@
 		$mail->Host       = 'smtp.gmail.com';
 
 		$mail->Username   = 'superseteam@gmail.com';
-		$mail->Password   = 'M2V-kSc-FBT-eDE';
+		$mail->Password   = '';
 
 		$mail->SetFrom('me.sender@gmail.com', 'no-reply');
 
