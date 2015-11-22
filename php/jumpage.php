@@ -48,7 +48,11 @@
 	$to = $email; // Send email to our user
 
 	require('./PHPMailer/PHPMailerAutoload.php');
+	require_once('./PHPMailer/class.smtp.php');
+	
 	$mail=new PHPMailer();
+	$mail->IsSMTP();
+
 	$mail->CharSet = 'UTF-8';
 
 	$body = 'Hello ' . $name . ',<br><br>
@@ -63,9 +67,34 @@
 	// http://54.164.107.204/cssajobwebsite/php/verify.php?email='.$email.'&hash='.$hash.'&type='.$type.'    <br><br>
 	// --CSSA team';
 
+
+
+// try {
+//  // SMTP server
+//   $mail->SMTPDebug  = 1;                     // enables SMTP debug information (for testing)
+//   $mail->SMTPAuth   = true;                  // enable SMTP authentication
+//   $mail->SMTPSecure = "tls";                 // sets the prefix to the servier
+//   $mail->Host       = "smtp.gmail.com";      // sets GMAIL as the SMTP server
+//   $mail->Port       = 587;                   // set the SMTP port for the GMAIL server
+//   $mail->Username   = "superseteam@gmail.com";  // GMAIL username
+//   $mail->Password   = "M2V-kSc-FBT-eDEvvv";            // GMAIL password
+//   $mail->AddReplyTo('superseteam@gmail.com', 'First Last');
+//   $mail->AddAddress("jl3387@cornell.edu");
+//   $mail->SetFrom('superseteam@gmail.com', 'First Last');
+//   $mail->AddReplyTo('superseteam@gmail.com', 'First Last');
+//   $mail->Subject = 'PHPMailer Test Subject via mail(), advanced';
+//   $mail->AltBody = 'To view the message, please use an HTML compatible email viewer!'; // optional - MsgHTML will create an alternate automatically
+//   $mail->Send();
+//   echo "Message Sent OK22<p></p>\n";
+// } catch (phpmailerException $e) {
+//   echo $e->errorMessage(); //Pretty error messages from PHPMailer
+// } catch (Exception $e) {
+//   echo $e->getMessage(); //Boring error messages from anything else!
+// }
+
+
+
 	try {
-		$mail->IsSMTP();
-		$mail->Host       = 'smtp.ecloudpanel.com';
 
 		// now its unsecure
 		$mail->SMTPSecure = 'tls';
@@ -73,9 +102,10 @@
 		$mail->Port       = 587;
 		$mail->SMTPDebug  = 1;
 		$mail->SMTPAuth   = true;
+		$mail->Host       = 'smtp.gmail.com';
 
-		$mail->Username   = 'no-reply@jiankun.lu';
-		$mail->Password   = 'charles309226';
+		$mail->Username   = 'superseteam@gmail.com';
+		$mail->Password   = 'M2V-kSc-FBT-eDE';
 
 		$mail->SetFrom('me.sender@gmail.com', 'no-reply');
 
@@ -83,8 +113,8 @@
 		$mail->Subject    = 'Verifiy your Email';
 
 		$mail->MsgHTML($body);
-		$mail->SMTPDebug = false;
-		$mail->AddAddress($to, 'title1');
+		// $mail->SMTPDebug = false;
+		$mail->AddAddress("jl3387@cornell.edu", 'title1');
 
 		//$mail->AddAttachment($fileName);
 		$mail->send();
