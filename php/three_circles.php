@@ -61,6 +61,12 @@
 	}
 
 	$myemail = $_SESSION["email"];
+	
+	if(admin_byEmail($myemail))
+	{
+	  	header('Location: admin.php');
+	    return;
+	}
 
 	if (sql_is_verified($myemail, $_SESSION['type'])) {
 
@@ -74,16 +80,20 @@
 
 		  $type = $_POST["type"];
 		  $email = $_POST["email"];
-		  $month = $_POST["month"];
-		  $year = $_POST["year"];
+		  $first_name = $_POST["first_name"];
+		  $middle_name = $_POST["middle_name"];
+		  $last_name = $_POST["last_name"];
+		  $phone = $_POST["phone"];
+		  $address = $_POST["address"];
+		  $linkedin = $_POST["linkedin"];
 
-
-		  if($type == "stu"){
+		  if ($type == "stu" || $type == "alu") {
 		    $major = $_POST["major"];
-		    $job_type = $_POST["job-type"];
+		  	$month = $_POST["month"];
+		  	$year = $_POST["year"];
 
-
-		    $sql = "UPDATE student SET grad_year=\"".$year."-".$month."-"."00\",major='".$major."',job_type = '".$job_type."' WHERE email='".$email."'";
+		    $sql = "UPDATE student SET grad_year=\"".$year."-".$month."-"."00\",major='".$major."',first_name='".$first_name."',middle_name='".$middle_name."',last_name='".$last_name.
+		    "',phone_number='".$phone."',address='".$address."',Linkedin='".$linkedin." WHERE email='".$email."'";
 		    
 		    $stmt = $conn->prepare($sql);
 		    $result = $stmt->execute();
@@ -91,17 +101,19 @@
 		      pdo_die($stmt);  
 		    }
 		  }
-		  else{
+		  else if ($type == "emp") {
 		    $position = $_POST["position"];
 		    $company = $_POST["company"];
-		    $Linkedin = $_POST["Linkedin"];
-		    $sql = " UPDATE employer SET grad_year=\"".$year."-".$month."-"."00\",company='".$company."',Linkedin = '".$Linkedin."',position ='". $position ."' WHERE email='".$email."' ";
+
+		    $sql = "UPDATE student SET company='".$company."',position='".$position.",'first_name='".$first_name."',middle_name='".$middle_name."',last_name='".$last_name.
+		    "',phone_number='".$phone."',address='".$address."',Linkedin='".$linkedin." WHERE email='".$email."'";
+
 		    $stmt = $conn->prepare($sql);
 		    $result = $stmt->execute();
 		    if(!$result){
 		      pdo_die($stmt);  
 		    }
-		  }
+		  } else echo "user_type error";
 
 	}
 ?>

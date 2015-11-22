@@ -1,17 +1,23 @@
 	<div class="profile">
 		<div class="container">
 			<form class="form" role="form" action = "three_circles.php" method = "POST">
+				<label for="name">Your Name:</label>
+			  	<div class="form-group">
+				  	<input type="first_name" class="form-control input-lg" id="first_name" placeholder = "First Name" name="first_name">
+			  	</div>	
+			  	<div class="form-group">
+	            	<input type="middle_name" class="form-control input-lg" id="middle_name" placeholder = "middle Name(optional) " name="middle_name">
+	            </div>	
+	            <div class="form-group">
+	            	<input type="last_name" class="form-control input-lg" id="last_name" placeholder = "Last Name" name="last_name">
+			  	</div>	
 				<label for="company">Your company:</label>
 				<div class="form-group">
-					<input name = "company" type="company" class="form-control" id="company" placeholder = "Google">
-				</div>
-				<div class="form-group">
-					<label for="company">Your Linkedin url: <br><small>(Optional)</small></label>
-					<input name = "Linkedin" type="Linkedin" class="form-control" id="company" placeholder = "LinkedinUrl">
+					<input name = "company" type="company" class="form-control input-lg" id="company" placeholder = "Google">
 				</div>
 				<div class="form-group">
 					<label for="company">Your Position:</label>
-					<input name = "position" type="Linkedin" class="form-control" id="company" placeholder = "Manager">
+					<input name = "position" type="Linkedin" class="form-control input-lg" id="company" placeholder = "Manager">
 				</div>
 				<label for="graduation-year">Graduation Year: <br><small>(For current student or alumni)</small></label>
 				<div class="form-group">
@@ -64,6 +70,16 @@
 						</select>
 					</div>
 				</div>
+				<label for="contact-info">Contact Information</label>
+			  	<div class="form-group">
+	            	<input type="linkedin" class="form-control input-lg" id="linkedin" placeholder = "LinkedIn" name="linkedin">
+			  	</div>
+			  	<div class="form-group">
+	            	<input type="phone" class="form-control input-lg" id="phone" placeholder = "Phone Number" name="phone">
+			  	</div>
+			  	<div class="form-group">
+	            	<input type="address" class="form-control input-lg" id="address" placeholder = "Address" name="address">
+			  	</div>
 				<button type="reset" class="btn">Reset</button>
 				<button type="submit" class="btn">Update</button>
 				<input type = "hidden" name="type" value="emp">

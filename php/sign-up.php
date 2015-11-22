@@ -37,10 +37,10 @@
 			    <input name = "pwd" type="password" class="form-control" id="pwd">
 			  </div>
 			  <label for="Employer">Are you an Employer, Student or Alumni?</label>
-			  <select class="form-control" id="sel1" name="employer">
-				<option value = "emp">Employer/recruiter/other</option>
+			  <select class="form-control" id="sel1" name="user_type">
 				<option value = "stu">Student</option>
-				<option value = "alu">alumni</option>
+				<option value = "alu">Alumni</option>
+				<option value = "emp">Employer/Recruiter/Other</option>
 			  </select>
 			  <br></br>
 			  <div class = "col-sm-offset-10 col-sm-2">

@@ -393,15 +393,17 @@ function sql_insert_userInfo($email,$username,$password,$type)
         pdo_die($stmt);
     }
 }
-function sql_insert_stuInfo($email,$username,$hash,$password)
+function sql_insert_stuInfo($email,$username,$hash,$password,$type)
 {
     $conn = getconn();
-    $stmt = $conn->prepare("insert into student(email,name,hash,verified,password) values(:email,:username,:hash,0,:password)");
+    if ($type == 'stu')
+        $stmt = $conn->prepare("insert into student(email,name,hash,verified,password,isalumni) values(:email,:username,:hash,0,:password,0)");
+    else if ($type == 'alu')
+        $stmt = $conn->prepare("insert into student(email,name,hash,verified,password,isalumni) values(:email,:username,:hash,0,:password,1)");
     $stmt->bindParam(':email', $email);
     $stmt->bindParam(':username', $username);
     $stmt->bindParam(':hash', $hash);
     $stmt->bindParam(':password', $password);
-
 
     $result = $stmt->execute();
     if (!$result)

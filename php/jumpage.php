@@ -26,15 +26,7 @@
 	session_start();
 	$_SESSION["email"] = $email;
 
-	$_SESSION = $type;
-	/*if ($type == 'emp') {
-		$_SESSION["type"] = "emp";
-	}
-	else if ($type == 'stu') {
-		$_SESSION["type"] = "stu";
-	} else if ($type == 'alu') {
-		$_SESSION["type"] = "alu";
-	}*/
+	$_SESSION["type"] = $type;
 
 	include_once("header.php");
 
@@ -97,7 +89,7 @@
 		//$mail->AddAttachment($fileName);
 		$mail->send();
 		echo "<div class='container'>Verification email sent! Please check your mailbox</div>";
-	} catch (phpmailerException $e) {
+	}catch (phpmailerException $e) {
 		echo $e->errorMessage(); //Pretty error messages from PHPMailer
 	} catch (Exception $e) {
 		echo $e->getMessage(); //Boring error messages from anything else!
@@ -112,7 +104,7 @@
 		include_once("empp.php");
 			//$query = "INSERT INTO employer(name, email, hash, verified, password) VALUES('".$name."','".$email. "', '".$hash."', 0, '".$pwd."')";
 	}
-	else if($type == 'stu' || $type == 'alu'){
+	else if($type == 'stu'){
 		sql_insert_userInfo($email,$name,$pwd,2);
 		sql_insert_stuInfo($email,$name,$hash,$pwd,$type);
 		include_once("stup.php");
