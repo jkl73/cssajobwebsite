@@ -9,6 +9,9 @@
 	 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
 	 <link rel="stylesheet" href="../css/main.css">
 	 <link rel="stylesheet" href="../css/profile.css">
+
+   <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.0/css/bootstrap-toggle.min.css" rel="stylesheet">
+   <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.0/js/bootstrap-toggle.min.js"></script>
 	 <script src="js/main.js"></script>
   	<style>
   	</style>
@@ -34,83 +37,51 @@
 		return;
 	}
 	echo '<div style="width:700px; margin:auto" class = "container">';
+?>
+
+	
+<?php
 
 	if(isset($_POST['submit']))
 	{
-   		display();
-	} 
-?>
-
-	<div class="row">
-		<h2 class="col-xs-4 col-sm-4 col-md-4 setting-item">Settings</h2>
-	</div>
-<?php
-	function update($key, $val, $email)
-	{
-		
-    	$conn = getconn();
-
-    	if ($_SESSION["type"]=="stu") {
-    		if ($key == "name")
-    			$stmt = $conn->prepare("update user, student set user.name='".$val."', student.name='".$val."' where user.email=:myemail and user.email=student.email");
-        	else 
-        		$stmt = $conn->prepare("update student set ".$key."='".$val."' where email=:myemail");
-    	} else {
-    		if ($key == "name")
-    			$stmt = $conn->prepare("update user, employer set user.name='".$val."', employer.name='".$val."' where user.email=:myemail and user.email=employer.email");
-    		else
-        		$stmt = $conn->prepare("update employer set ".$key."='".$val."' where email=:myemail");
-    	}
-
-    	$stmt->bindParam(":myemail",$email);
-
-    	$result = $stmt->execute();
-    	if (!$result)
-        	pdo_die($stmt);
-
-	}
-
-	if(isset($_POST['submit_name']))
-	{
-		if ($_POST['name'] != "") 
-		{
-   			update("name", $_POST['name'], $myemail);
-   		}
-	} else if(isset($_POST['submit_major'])) {
-		if ($_POST['major'] != "")
-		{
-			update("major", $_POST['major'], $myemail);
-		}
-	} else if(isset($_POST['submit_year'])) {
-		if ($_POST['year'] != "")
-		{
-			update("grad_year", $_POST['year'], $myemail);
-		}
-	} else if(isset($_POST['submit_degree'])) {
-		if ($_POST['degree'] != "")
-		{
-			update("degree", $_POST['degree'], $myemail);
-		}
-	} else if(isset($_POST['submit_job'])) {
-		if ($_POST['job'] != "")
-		{
-			update("job_type", $_POST['job'], $myemail);
-		}
-	} else if(isset($_POST['submit_company'])) {
-		if ($_POST['company'] != "")
-		{
-			update("company", $_POST['company'], $myemail);
-		}
-	} else if(isset($_POST['submit_position'])) {
-		if ($_POST['position'] != "")
-		{
-			update("position", $_POST['position'], $myemail);
-		}
-	} else if(isset($_POST['submit_linkedin'])) {
-		if ($_POST['Linkedin'] != "")
-		{
-			update("Linkedin", $_POST['Linkedin'], $myemail);
-		}
+    
+		if ($_SESSION["type"]=="stu") {
+      
+        $conn = getconn();
+        $code = "0";
+        if (isset($_POST['check1']) || isset($_POST['check2'])) {
+          $code = "31";
+        }
+        $stmt = $conn->prepare("update student as s, user as u set u.name='".$_POST['name']."', s.name='".$_POST['name']."', first_name='".$_POST['first_name']."' ,
+          last_name='".$_POST['last_name']."', middle_name='".$_POST['middle_name']."', phone_number='".$_POST['phone_number']."', 
+          address='".$_POST['address']."', grad_year='".$_POST['year']."-".$_POST['month']."-00"."', major='".$_POST['major']."', 
+          degree='".$_POST['degree']."', Linkedin='".$_POST['Linkedin']."', code='".$code."' where s.email=:myemail and u.email=:myemail");
+      
+        $stmt->bindParam(":myemail",$myemail);
+        $result = $stmt->execute();
+        if (!$result) {
+          echo "what the hell2!";
+          pdo_die($stmt);
+        }
+      }
+      else {
+        $conn = getconn();
+        $code = "0";
+        if (isset($_POST['check1']) || isset($_POST['check2'])) {
+          $code = "31";
+        }
+        $stmt = $conn->prepare("update employer as s, user as u set u.name='".$_POST['name']."', s.name='".$_POST['name']."', first_name='".$_POST['first_name']."' ,
+          last_name='".$_POST['last_name']."', middle_name='".$_POST['middle_name']."', phone_number='".$_POST['phone_number']."', 
+          address='".$_POST['address']."', position='".$_POST['position']."', 
+          company='".$_POST['company']."', Linkedin='".$_POST['Linkedin']."', code='".$code."' where s.email=:myemail and u.email=:myemail");
+      
+        $stmt->bindParam(":myemail",$myemail);
+        $result = $stmt->execute();
+        if (!$result) {
+          echo "what the hell2!";
+          pdo_die($stmt);
+        }
+      }
 	} 
 ?>
 
@@ -133,106 +104,153 @@
 	$row = $result[0];
 	if ($_SESSION["type"]=="stu") {
 		echo '<div>';
+    echo '<div class="profile">
+            <div class="container">';
+    echo '<form class="form " role="form" method="post" action="settings.php">
+        <div class="form-group">
+            <label for="checkbox">Do you want to set your profile public to others?</label>
+            <label class="checkbox" name="check1" value="value1">';
+    if($row['code'] > 0) {
+        echo '<input checked data-toggle="toggle" data-on="Yes" data-off="No" type="checkbox" name="check1" value="value1">';
+    } else {
+        echo '<input data-toggle="toggle" data-on="Yes" data-off="No" type="checkbox" name="check2" value="value2">';
+    }
+    echo        '</label>
+        </div>
+        <div class="form-group">
+            <label for="name">User Name:</label>
+            <input name="name" value="'.$row["name"].'" class="form-control" id="name">
+        </div>
+        <div class="form-group">
+            <label for="first_name">First Name:</label>
+            <input name="first_name" value="'.$row["first_name"].'" class="form-control" id="first_name">
+        </div>
+        <div class="form-group">
+            <label for="middle_name">Middle Name:</label>
+            <input name="middle_name" value="'.$row["middle_name"].'" class="form-control" id="middle_name">
+        </div>
+        <div class="form-group">
+            <label for="last_name">Last Name:</label>
+            <input name="last_name" value="'.$row["last_name"].'" class="form-control" id="last_name">
+        </div>
+        <div class="form-group ">
+            <label for="phone_number">Phone Number:</label>
+            <input name="phone_number" value="'.$row["phone_number"].'" class="form-control" id="phone_number">
+        </div>
+        <div class="form-group">
+            <label for="address">Address:</label>
+            <input name="address" value="'.$row["address"].'" class="form-control" id="address">
+        </div>
+        
+        <label for="graduation-year">Graduation Year: </label>
+          <div class="form-group">
+            <div class="col-sm-6 month">
+              <select name="month" id="month" class="form-control">
+                <option value="">---Month---</option>
+                <option value="01">January</option>
+                <option value="02">February</option>
+                <option value="03">March</option>
+                <option value="04">April</option>
+                <option value="05">May</option>
+                <option value="06">June</option>
+                <option value="07">July</option>
+                <option value="08">August</option>
+                <option value="09">September</option>
+                <option value="10">October</option>
+                <option value="11">November</option>
+                <option value="12">December</option>
+                      </select>
+                </div>
+                <div class="col-sm-6 year">
+              <select name="year" id="year" class="form-control">
+                <option value="">---Year---</option>
+                          <option value="2015">2015</option>
+                          <option value="2016">2016</option>
+                          <option value="2017">2017</option>
+                      </select>
+                </div>
+          </div>
+        <div class="form-group">
+            <label for="major">Major:</label>
+            <input name="major" value="'.$row["major"].'" class="form-control" id="major">
+        </div>
+        <div class="form-group">
+            <label for="degree">Degree:</label>
+            <input name="degree" value="'.$row["degree"].'" class="form-control" id="degree">
+        </div>
+        <div class="form-group">
+            <label for="Linkedin">Linkedin URL:</label>
+            <input name="Linkedin" value="'.$row["Linkedin"].'" class="form-control" id="Linkedin">
+        </div>
+         
+        <button type="submit" class="btn btn-default" name="submit">Update</button>
+       </form>';
+       echo '</div>
+          </div>';
 
-		echo '<div class="row setting-row"><form class="form-inline" role="form" method="post" action="settings.php">
-
-			<div class="col-xs-4 col-sm-4 col-md-4 setting-item"><h5>Name:</h5></div>
-
-    		<div class="col-xs-4 col-sm-4 col-md-4 form-group">
-      			<input name="name" class="form-control" id="name" value="'.$row["name"].'">
-    		</div>
-    	 	<button type="submit" class="btn btn-default" name="submit_name">Edit</button>
-  		 </form></div>';
-
-  		echo '<div class="row setting-row"><form class="form-inline" role="form" method="post" action="settings.php">
-  					<div class="col-xs-4 col-sm-4 col-md-4 setting-item"><h5>Major:</h5></div>
-
-    		<div class="col-xs-4 col-sm-4 col-md-4 form-group">
-      			<input name="major" class="form-control" id="major" value="'.$row["major"].'">
-    		</div>
-    	 	<button type="submit" class="btn btn-default" name="submit_major">Edit</button>
-  		 </form></div>';
-
-  		echo '<div class="row setting-row"><form class="form-inline" role="form" method="post" action="settings.php">
-  					<div class="col-xs-4 col-sm-4 col-md-4 setting-item"><h5>Graduate Year:</h5></div>
-
-    		<div class="col-xs-4 col-sm-4 col-md-4 form-group">
-      			<input name="year" class="form-control" id="year" value="'.$row["grad_year"].'">
-    		</div>
-    	 	<button type="submit" class="btn btn-default" name="submit_year">Edit</button>
-  		 </form></div>';
-
-  		echo '<div class="row setting-row"><form class="form-inline" role="form" method="post" action="settings.php">
-  					<div class="col-xs-4 col-sm-4 col-md-4 setting-item"><h5>Degree:</h5></div>
-
-    		<div class="col-xs-4 col-sm-4 col-md-4 form-group">
-      			<input name="degree" class="form-control" id="degree" value="'.$row["degree"].'">
-    		</div>
-    	 	<button type="submit" class="btn btn-default" name="submit_degree">Edit</button>
-  		 </form></div>';
-
-  		echo '<div class="row setting-row"><form class="form-inline" role="form" method="post" action="settings.php">
-  					<div class="col-xs-4 col-sm-4 col-md-4 setting-item"><h5>Searching Job:</h5></div>
-
-    		<div class="col-xs-4 col-sm-4 col-md-4 form-group">
-      			<select name="job" id="job" class="form-control">
-	                    <option value="">---Please select---</option>
-	                    <option value="1">Full-time job</option>
-	                    <option value="2">Part-time job</option>
-	                    <option value="3">Internship</option>
-	            </select>
-    		</div>
-    	 	<button type="submit" class="btn btn-default" name="submit_job">Edit</button>
-  		 </form></div>';
   	}
+    
   	else
   	{
   		echo '<div>';
 
-		echo '<div class="row setting-row"><form class="form-inline" role="form" method="post" action="settings.php">
-			<div class="col-xs-4 col-sm-4 col-md-4 setting-item"><h5>Name:</h5></div>
-
-    		<div class="col-xs-4 col-sm-4 col-md-4 form-group">
-      			<input name="name" class="form-control" id="name" value="'.$row["name"].'">
-    		</div>
-    	 	<button type="submit" class="btn btn-default" name="submit_name">Edit</button>
-  		 </form></div>';
-
-  		echo '<div class="row setting-row"><form class="form-inline" role="form" method="post" action="settings.php">
-  					<div class="col-xs-4 col-sm-4 col-md-4 setting-item"><h5>Company:</h5></div>
-
-    		<div class="col-xs-4 col-sm-4 col-md-4 form-group">
-      			<input name="company" class="form-control" id="company" value="'.$row["company"].'">
-    		</div>
-    	 	<button type="submit" class="btn btn-default" name="submit_company">Edit</button>
-  		 </form></div>';
-  		
-  		echo '<div class="row setting-row"><form class="form-inline" role="form" method="post" action="settings.php">
-  					<div class="col-xs-4 col-sm-4 col-md-4 setting-item"><h5>Position:</h5></div>
-
-    		<div class="col-xs-4 col-sm-4 col-md-4 form-group">
-      			<input name="position" class="form-control" id="position" value="'.$row["position"].'"">
-    		</div>
-    	 	<button type="submit" class="btn btn-default" name="submit_position">Edit</button>
-  		 </form></div>';
-
-  		echo '<div class="row setting-row"><form class="form-inline" role="form" method="post" action="settings.php">
-  					<div class="col-xs-4 col-sm-4 col-md-4 setting-item"><h5>Linkedin:</h5></div>
-
-    		<div class="col-xs-4 col-sm-4 col-md-4 form-group">
-      			<input name="Linkedin" class="form-control" id="Linkedin" value="'.$row["Linkedin"].'"">
-    		</div>
-    	 	<button type="submit" class="btn btn-default" name="submit_linkedin">Edit</button>
-  		 </form></div>';
-
-  		 echo '<div class="row setting-row"><form class="form-inline" role="form" method="post" action="settings.php">
-  		 			<div class="col-xs-4 col-sm-4 col-md-4 setting-item"><h5>Graduate Year:</h5></div>
-
-    		<div class="col-xs-4 col-sm-4 col-md-4 form-group">
-      			<input name="year" class="form-control" id="year" value="'.$row["grad_year"].'">
-    		</div>
-    	 	<button type="submit" class="btn btn-default" name="submit_year">Edit</button>
-  		 </form></div>';
+		  echo '<div>';
+    echo '<div class="profile">
+            <div class="container">';
+    echo '<form class="form " role="form" method="post" action="settings.php">
+        <div class="form-group">
+            <label for="checkbox">Do you want to set your profile public to others?</label>
+            <label class="checkbox" name="check1" value="value1">';
+    if($row['code'] > 0) {
+        echo '<input checked data-toggle="toggle" data-on="Yes" data-off="No" type="checkbox" name="check1" value="value1">';
+    } else {
+        echo '<input data-toggle="toggle" data-on="Yes" data-off="No" type="checkbox" name="check2" value="value2">';
+    }
+    echo        '</label>
+        </div>
+        <div class="form-group">
+            <label for="name">User Name:</label>
+            <input name="name" value="'.$row["name"].'" class="form-control" id="name">
+        </div>
+        <div class="form-group">
+            <label for="first_name">First Name:</label>
+            <input name="first_name" value="'.$row["first_name"].'" class="form-control" id="first_name">
+        </div>
+        <div class="form-group">
+            <label for="middle_name">Middle Name:</label>
+            <input name="middle_name" value="'.$row["middle_name"].'" class="form-control" id="middle_name">
+        </div>
+        <div class="form-group">
+            <label for="last_name">Last Name:</label>
+            <input name="last_name" value="'.$row["last_name"].'" class="form-control" id="last_name">
+        </div>
+        <div class="form-group ">
+            <label for="phone_number">Phone Number:</label>
+            <input name="phone_number" value="'.$row["phone_number"].'" class="form-control" id="phone_number">
+        </div>
+        <div class="form-group">
+            <label for="address">Address:</label>
+            <input name="address" value="'.$row["address"].'" class="form-control" id="address">
+        </div>
+        
+        
+        <div class="form-group">
+            <label for="company">Company:</label>
+            <input name="company" value="'.$row["company"].'" class="form-control" id="company">
+        </div>
+        <div class="form-group">
+            <label for="position">Position:</label>
+            <input name="position" value="'.$row["position"].'" class="form-control" id="position">
+        </div>
+        <div class="form-group">
+            <label for="Linkedin">Linkedin URL:</label>
+            <input name="Linkedin" value="'.$row["Linkedin"].'" class="form-control" id="Linkedin">
+        </div>
+         
+        <button type="submit" class="btn btn-default" name="submit">Update</button>
+       </form>';
+       echo '</div>
+          </div>';
   	}
   	
 ?>
