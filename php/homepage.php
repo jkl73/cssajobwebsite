@@ -57,6 +57,15 @@
 		return;
 	}
 	echo '<div class = "container">';
+
+	if (isset($_GET['module']) && $_GET['module'] == 'refer') {
+		echo "<h2>Refer Board</h2>";
+	} else {
+		echo "<h2>Job Borad</h2>";
+	}
+
+
+
 ?>
 <div class = "row">
 <div class="searchbox col-xs-12 col-sm-6 col-md-8">
@@ -299,7 +308,13 @@
 	else
 	{
 		$conn = getconn();
-		$stmt = $conn->prepare("select * from post_info where time<now() order by time DESC;");
+
+		if (isset($_GET['module']) && $_GET['module'] == 'refer') {
+			$stmt = $conn->prepare("select * from post_info where post_type = 1;");
+		} else {
+			$stmt = $conn->prepare("select * from post_info where time<now() order by time DESC;");
+		}
+
 		$result = $stmt->execute();
 		if (!$result)
 	    {

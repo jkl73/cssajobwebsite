@@ -12,7 +12,7 @@
 
 	 <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.0/css/bootstrap-toggle.min.css" rel="stylesheet">
 	 <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.0/js/bootstrap-toggle.min.js"></script>
-	 <script src="js/main.js"></script>
+	 <script src="../js/main.js"></script>
 	 <script>
 		function showPreview() {
 			// document.getElementById("inForm").submit();
@@ -57,8 +57,12 @@
 		width: 80%;
 		height: 80%;
 		padding: 20px;
+<<<<<<< Updated upstream
 		border: 10px solid #ad3939;
 		border-radius: 30px;
+=======
+		border: 22px solid #980000;
+>>>>>>> Stashed changes
 		background-color: white;
 		z-index:1002;
 		overflow: auto;
@@ -94,21 +98,24 @@
 	$mode = $_POST["mode"];
 
 	if ($mode == "submit") {	
+	////////////////////////////////////////11.21
 		$post_id = sql_add_post($myemail,$_POST["email"], $_POST["company_name"], $_POST["position"], $_POST["description"], $_POST["job_content"], $_POST['job_type'], $_POST['major'], $_POST['date'], $_POST['url'], $_POST['visa']);
 		if ($post_id >= 0) {
     			if($_FILES["file"]["error"] > 0){
     				if($_FILES["file"]["error"] != 4){
-    					echo "Error:" . $_FILES["file"]["error"] ."</br/>";
+    					echo "<h2 align=center>Something went wrong... Please try again</h2>";
+    					echo "<h2>Error:" . $_FILES["file"]["error"] ."</br/></h2>";
+						echo "<h3 align=center><a  href='homepage.php' class='btn'>My homepage</a></h3>";
     				}
     			}
-    			//  改了sql函数的返回文件
-    			if($_FILES["file"]["name"] != NULL){
-    				$filename = (string)$post_id . "-" .(string)$_FILES["file"]["name"];
+
+				if($_FILES["file"]["name"] != NULL){
+    				$filename = (string)$post_id . "-" .$_FILES["file"]["name"];
     				$path = "../upload-file/post/". $filename;
-    				//$newfile = "../upload-file/post";
+    				//$newfile = “../upload-file/post”;
     				
     				move_uploaded_file($_FILES["file"]["tmp_name"], $path);
-					update_post_file($post_id, $path, $_FILES["file"]["name"]);
+					update_post_file($post_id, $path, $filename );
     				
 				}
 
@@ -127,47 +134,47 @@
 function write_add_new_page() {
 	echo "<div class=\"jobpostform center\">";
 	echo "<h2 align=\"center\">Post a new job</h2>";
-
-	echo "<form enctype = multipart/form-data method=post action=postjob.php id=\"frm1\">";
+	/////////////11.21
+	echo "<form enctype = multipart/form-data method=post action=postjob.php onSubmit = 'return checkSubmit()' id=\"frm1\">";
 	echo "<input type=hidden name=mode value=submit>";
 	
 	echo '<div class="row">';
-	echo '<div align="right" class="col-md-4 col-xs-2"><strong>Short Description</strong><span style="font-size:120%; color:red;">*</span>: </div>';
+	echo '<div align="right" class="col-md-4 col-xs-2">Short Description<span style="font-size:120%; color:red;">*</span>: </div>';
 	echo '<div class="col-md-6 col-xs-10"><input id="InDes" class="form-control" name=description type=text size=40 required></div>';
 	echo '</div>';
 
 	echo '<div class="row">';
-	echo '<div align="right" class="col-md-4 col-xs-2"><strong>Contact</strong><span style="font-size:120%; color:red;">*</span>:</div>';
+	echo '<div align="right" class="col-md-4 col-xs-2">Email<span style="font-size:120%; color:red;">*</span>:</div>';
 	echo '<div class="col-md-6 col-xs-10"><input id="InEma" class="form-control" name=email type=text size=40 required></div>';
 	echo '</div>';
 
 	echo '<div class="row">';
-	echo '<div align="right" class="col-md-4 col-xs-2"><strong>Company Name</strong><span style="font-size:120%; color:red;">*</span>:</div>';
+	echo '<div align="right" class="col-md-4 col-xs-2">Company Name<span style="font-size:120%; color:red;">*</span>:</div>';
 	echo '<div class="col-md-6 col-xs-10"><input id="InCom" class="form-control"  name=company_name type=text size=40 required></div>';
 	echo '</div>';
 
 	echo '<div class="row">';
-	echo '<div align="right" class="col-md-4 col-xs-2"><strong>Position Title</strong><span style="font-size:120%; color:red;">*</span>:</div>';
+	echo '<div align="right" class="col-md-4 col-xs-2">Position Title<span style="font-size:120%; color:red;">*</span>:</div>';
 	echo '<div class="col-md-6 col-xs-10"><input id="InPos" class="form-control"  name=position type=text size=40 required></div>';
 	echo '</div>';
 
 	echo '<div class="row">';
-	echo '<div align="right" class="col-md-4 col-xs-2"><strong>Deadline</strong><span style="font-size:120%; color:red;"></span>:</div>';
+	echo '<div align="right" class="col-md-4 col-xs-2">Deadline<span style="font-size:120%; color:red;"></span>:</div>';
 	echo '<div class="col-md-6 col-xs-10"><input id="InDea" class="form-control" name=date type=date></div>';
 	echo '</div>';
 
 	echo '<div class="row">';
-	echo '<div align="right" class="col-md-4 col-xs-2"><strong>URL</strong><span style="font-size:120%; color:red;"></span>:</div>';
+	echo '<div align="right" class="col-md-4 col-xs-2">URL<span style="font-size:120%; color:red;"></span>:</div>';
 	echo '<div class="col-md-6 col-xs-10"><input id="InDea" class="form-control" name=url type=text></div>';
 	echo '</div>';
 
 	echo '<div class="row">';
-	echo '<div align="right" class="col-md-4 col-xs-2"><strong>Location</strong><span style="font-size:120%; color:red;"></span>:</div>';
+	echo '<div align="right" class="col-md-4 col-xs-2">Location<span style="font-size:120%; color:red;"></span>:</div>';
 	echo '<div class="col-md-6 col-xs-10"><input id="InDea" class="form-control" name=location type=text></div>';
 	echo '</div>';
 
 	echo '<div class="row">';
-	echo '<div align="right" class="col-md-4 col-xs-2"><strong>Please input detail here</strong><span style="font-size:120%; color:red;">*</span>:<br>(Qualification...)</div>';
+	echo '<div align="right" class="col-md-4 col-xs-2">Please input detail here<span style="font-size:120%; color:red;">*</span>:<br>(Qualification...)</div>';
 	echo '<div class="col-md-6 col-xs-10"><textarea id="InInf" class="form-control" name=job_content style="margin: 0px; width: 100%; height: 140px;" required></textarea></div>';
 	echo '</div>';
 
@@ -175,7 +182,7 @@ function write_add_new_page() {
 ?>
 	<div class="row">
 		<div align="right" class="col-md-4 col-xs-2">
-			<strong>Job Type</strong><span style="font-size:120%; color:red;">*</span>:
+			Job Type<span style="font-size:120%; color:red;">*</span>:
 		</div>
 		<div class="col-md-6 col-xs-10">
 			<select name="job_type" id="" class="form-control">
@@ -191,7 +198,7 @@ function write_add_new_page() {
 
 	<div class="row">
 		<div align="right" class="col-md-4 col-xs-2">
-			<strong>Major</strong><span style="font-size:120%; color:red;">*</span>:
+			Major<span style="font-size:120%; color:red;">*</span>:
 		</div>
 		<div class="col-md-6 col-xs-10">	
 			<select name="major" id="" class="form-control">
@@ -210,7 +217,7 @@ function write_add_new_page() {
 
 	<div class="row">
 		<div align="right" class="col-md-4 col-xs-2">
-			<strong>Visa Sponsorship</strong><span style="font-size:120%; color:red;">*</span>:
+			Visa Sponsorship<span style="font-size:120%; color:red;">*</span>:
 		</div>
 		<div class="col-md-6 col-xs-10">	
 			<select name="visa" class="form-control">
@@ -220,14 +227,18 @@ function write_add_new_page() {
 			</select>
 		</div>
 	</div>
+	<!-- 11.21 -->
 	<div class="row">
 		<div align="right" class="col-md-4 col-xs-2">
-			<lable for = "file"> <strong>File Upload: </strong></lable>
+			<lable for = "file"> File Upload: </lable>
 		</div>
 		<div class="col-md-6 col-xs-10">
-		    <input name = "file" type = "file" class = "form-control">				
+		    <input name = "file" type = "file" id = "file" class = "form-control">
+		    (Max Size: 1MB, File Type: pdf,docs,txt)
+		    <p style = "color:red" id = "text-alert"></p>
 		</div>
 	</div>
+
 <!-- 
 	<div class="row">
 		<div align="right" class="col-md-4 col-xs-2">
@@ -318,6 +329,36 @@ function write_add_new_page() {
 
 }
 ?>
+
+<script language = "javascript">
+	function checkSubmit(){
+//////////////////////////////11.21
+		var t = document.getElementById("text-alert");
+		var target = document.getElementById("file");
+		var filepath = target.value;
+
+		var filesize = target.files[0].size;
+		var size = filesize / 1024 / 1024;
+
+		if(size > 1){
+			t.innerHTML = "File Size Is Greater Than Limitation";
+			return false;
+		} 
+
+		if(filepath.lastIndexOf(".") != -1){
+			var filetype = (filepath.substring(filepath.lastIndexOf(".")+1,filepath.length)).toLowerCase();
+			if(filetype != 'pdf' && filetype != 'txt' && filetype != 'docs'){
+				t.innerHTML = "File Type Is Not Supported";
+				return false;
+			}
+		}
+		else{
+			t.innerHTML = "File Type Is Not Supported";
+			return false;
+		}
+		return true;
+	}
+</script>
 
 </body>
 </html>

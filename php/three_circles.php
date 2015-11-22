@@ -107,13 +107,13 @@
 ?>
 
 <div class="center">
-<a href="refer.php">
+<a href="homepage.php?module=refer">
 <div id="refer" style="background-color: #47C753;" class="jumbo_circle">
 Refer
 </div>
 </a>
 
-<a href="homepage.php">
+<a href="homepage.php?module=job">
 <div id="jobs" style="background-color: #0CABCD;" class="jumbo_circle">
 Jobs
 </div>
