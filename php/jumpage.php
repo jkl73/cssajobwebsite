@@ -58,7 +58,7 @@
 	$body = 'Hello ' . $name . ',<br><br>
 	Thank you for sign up CSSA job website!<br>
 	Please Click the link to verfiy your email:<br><br>
-	http://localhost/cssajobwebsite/php/verify.php?email='.$email.'&hash='.$hash.'&type='.$type.'    <br><br>
+	http://localhost/cssajobwebsite/php/verify.php?email='.$email.'&hash='.$hash.'<br><br>
 	--CSSA team';
 
 	// $body = 'Hello ' . $name . ',<br><br>
@@ -91,11 +91,7 @@
 // } catch (Exception $e) {
 //   echo $e->getMessage(); //Boring error messages from anything else!
 // }
-
-
-
 	try {
-
 		// now its unsecure
 		$mail->SMTPSecure = 'tls';
 
@@ -114,7 +110,7 @@
 
 		$mail->MsgHTML($body);
 		// $mail->SMTPDebug = false;
-		$mail->AddAddress("jl3387@cornell.edu", 'title1');
+		$mail->AddAddress($to);
 
 		//$mail->AddAttachment($fileName);
 		$mail->send();
@@ -127,21 +123,18 @@
 	/*=============================*/
 	/*=============================*/
 
-
 	if($type == 'emp'){
-		sql_insert_userInfo($email,$name,$pwd,1);
+		sql_insert_userInfo($email,$name,$pwd,1, $hash);
 		sql_insert_empInfo($email,$name,$hash,$pwd);
 		include_once("empp.php");
 			//$query = "INSERT INTO employer(name, email, hash, verified, password) VALUES('".$name."','".$email. "', '".$hash."', 0, '".$pwd."')";
 	}
 	else if($type == 'stu'){
-		sql_insert_userInfo($email,$name,$pwd,2);
+		sql_insert_userInfo($email,$name,$pwd,2, $hash);
 		sql_insert_stuInfo($email,$name,$hash,$pwd,$type);
 		include_once("stup.php");
 			//$query = "INSERT INTO student(name, email, hash, verified, password) VALUES('".$name."','".$email. "','".$hash."', 0 ,'".$pwd."')";
 	}
-	
-
 	$hidden_form = '<input type="hidden" name="email" value="'.$email.'">';
 	echo $hidden_form;
 	/*

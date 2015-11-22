@@ -50,14 +50,10 @@ function sql_get_all_tutorial() {
 }
 
 
-function sql_update_verify($email, $type) {
+function sql_update_verify($email) {
     $conn = getconn();
 
-    if ($type == 'stu') {
-        $stmt = $conn->prepare("update student set verified=1 where email=:email");
-    } else {
-        $stmt = $conn->prepare("update employer set verified=1 where email=:email");
-    }
+    $stmt = $conn->prepare("update user set verify=1 where email=:email");
 
     $stmt->bindParam(":email", $email);
 
@@ -77,12 +73,9 @@ function sql_update_verify($email, $type) {
 
 function sql_is_verified($email, $type){
     if(admin_byEmail($email))return true;
+    
     $conn = getconn();
-    if ($type == 'stu') {
-        $stmt = $conn->prepare("select verified from student where email=:email");
-    } else {
-        $stmt = $conn->prepare("select verified from employer where email=:email");
-    }
+    $stmt = $conn->prepare("select verify from user where email=:email");
 
     $stmt->bindParam(":email", $email);
     $result = $stmt->execute();
@@ -95,7 +88,7 @@ function sql_is_verified($email, $type){
         return false;
     }
 
-    if ($result[0]['verified'] == 0) {
+    if ($result[0]['verify'] == 0) {
         return false;
     } else {
         return true;
@@ -383,19 +376,20 @@ function admin_byEmail($email)
     return false;
 }
 
-function sql_insert_userInfo($email,$username,$password,$type)
+function sql_insert_userInfo($email,$username,$password,$type,$hash)
 {
     $conn = getconn();
-    $stmt = $conn->prepare("insert into user(email,verify,name,password,type) values(:email,0,:name,:password,".$type.")");
+    $stmt = $conn->prepare("insert into user(email,verify,name,password,type,hash) values(:email,0,:name,:password,".$type.",:hash)");
     //echo "insert into user(email,verify,password,type) values(:email,0,:password".$type.")";
     $stmt->bindParam(':email', $email);
     $stmt->bindParam(':password', $password);
     $stmt->bindParam(':name',$username);
+    $stmt->bindParam(':hash', $hash);
 
     $result = $stmt->execute();
     if (!$result)
     {
-        echo "What the fuck?";
+        echo "insert userinfo failed";
         pdo_die($stmt);
     }
 }
