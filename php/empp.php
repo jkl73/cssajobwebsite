@@ -3,21 +3,21 @@
 			<form class="form" role="form" action = "three_circles.php" onSubmit = "return checkSubmit()" method = "POST">
 				<label for="name">Your Name:</label>
 			  	<div class="form-group">
-				  	<input type="first_name" class="form-control input-lg" id="first_name" placeholder = "First Name" name="first_name"required>
+				  	<input type="first_name" class="form-control input-lg" id="first_name" placeholder = "First Name" name="first_name" required>
 			  	</div>	
 			  	<div class="form-group">
 	            	<input type="middle_name" class="form-control input-lg" id="middle_name" placeholder = "middle Name(optional) " name="middle_name">
 	            </div>	
 	            <div class="form-group">
-	            	<input type="last_name" class="form-control input-lg" id="last_name" placeholder = "Last Name" name="last_name">
+	            	<input type="last_name" class="form-control input-lg" id="last_name" placeholder = "Last Name" name="last_name" required>
 			  	</div>	
 				<label for="company">Your company:</label>
 				<div class="form-group">
-					<input name = "company" type="company" class="form-control input-lg" id="company" placeholder = "Google">
+					<input name = "company" type="company" class="form-control input-lg" id="company" placeholder = "Google" required>
 				</div>
 				<div class="form-group">
 					<label for="company">Your Position:</label>
-					<input name = "position" type="Linkedin" class="form-control input-lg" id="company" placeholder = "Manager">
+					<input name = "position" type="Linkedin" class="form-control input-lg" id="company" placeholder = "Manager" required>
 				</div>
 				<label for="contact-info">Contact Information</label>
 			  	<div class="form-group">

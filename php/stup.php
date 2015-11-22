@@ -3,17 +3,17 @@
 			<form class="form" role="form" action = "three_circles.php" onSubmit = "return checkSubmit()" method = "POST">
 				<label for="name">Your Name:</label>
 			  	<div class="form-group">
-				  	<input type="first_name" class="form-control input-lg" id="first_name" placeholder = "First Name" name="first_name">
+				  	<input type="first_name" class="form-control input-lg" id="first_name" placeholder = "First Name" name="first_name" required>
 			  	</div>	
 			  	<div class="form-group">
 	            	<input type="middle_name" class="form-control input-lg" id="middle_name" placeholder = "middle Name(optional) " name="middle_name">
 	            </div>	
 	            <div class="form-group">
-	            	<input type="last_name" class="form-control input-lg" id="last_name" placeholder = "Last Name" name="last_name">
+	            	<input type="last_name" class="form-control input-lg" id="last_name" placeholder = "Last Name" name="last_name" required>
 			  	</div>	
 				<label for="major">Your major:</label>
 		  		<div class="form-group">
-		    		<select name="major" id="major" class="form-control">
+		    		<select name="major" id="major" class="form-control" required>
 	                    <option value="">---Please select your major---</option>
 	                    <option value="cs">Computer Science</option>
 	                    <option value="ece">Electrical and Computer Engineering</option>
@@ -23,7 +23,7 @@
 		  		<label for="graduation-year">Graduation Year:</label>
 			  	<div class="form-group">
 			  		<div class="col-sm-6 month">
-				  		<select name="month" id="month" class="form-control">
+				  		<select name="month" id="month" class="form-control" required>
 				  			<option value="">---Month---</option>
 	                        <option value="01">January</option>
 						    <option value="02">February</option>
