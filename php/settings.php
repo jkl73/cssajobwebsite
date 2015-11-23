@@ -249,7 +249,7 @@
          
         <button type="submit" class="btn btn-default" name="submit">Update</button>
        </form>';
-       echo '</div>
+       echo '</div></div>
           </div>';
   	}
   	

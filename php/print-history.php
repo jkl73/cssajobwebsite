@@ -37,7 +37,7 @@
 
 <div class = "container">
 <div class="row" >
-	<h2>Job Posts</h2>
+	<h2>Post History</h2>
 <div class="col-xs-12 col-sm-6 col-md-8" style = "overflow:scroll; height:450px">
 	<form action ="homepage.php" method = POST>
 <?php
@@ -54,6 +54,12 @@
 		//echo "dffsf".$_POST["addFav"];
 		$stmt = $conn->prepare("INSERT into user_fav VALUES ('".$myemail."', ".$_POST["addFav"].");");
 		$stmt->execute();
+	}
+	if(isset($_POST["deletePost"]))
+	{
+		$postid = $_POST["deletePost"];
+		sql_delete_post_byPostId($postid);
+		exit;
 	}
 	//$server = mysql_connect("localhost","root","1qaz-pl,");
 	/*$server = mysql_connect("cssadbinstance.ccmgeu2ghiy1.us-east-1.rds.amazonaws.com", "cssaadmin", "cssaadmin123"); 

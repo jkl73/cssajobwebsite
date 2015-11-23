@@ -227,6 +227,7 @@
 	{
 		$postid = $_POST["deletePost"];
 		sql_delete_post_byPostId($postid);
+		exit;
 	}
 	if(isset($_GET["srch-term"]) && $_GET["srch-term"] != "")
 	{

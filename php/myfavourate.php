@@ -33,6 +33,27 @@
 		    }
 	    }
 	}
+	$(document).ready(function(){
+  			$("a.deletePost").click(function(e){
+	          e.preventDefault();
+	          var thiss = $(this);
+	          var parent = $(this).parent()
+	          var whole_list = parent.parent();
+	          $.ajax({
+	            type: 'post',
+	            url: 'homepage.php',
+	            data: 'deletePost=' + thiss.attr('data-email'),
+	            beforeSend: function() {
+	              whole_list.animate({opacity:'0.5'},50);
+	            },
+	            success: function() {
+	              whole_list.slideUp(50,function() {
+	                whole_list.remove();
+	              });
+	            }
+	          });
+	      });
+  		})
 </script>
 </head>
 
@@ -75,7 +96,12 @@
 		$stmt = $conn->prepare("DELETE FROM user_fav WHERE email='".$myemail."' and postid =".$_POST["deleteFav"]." ");
 		$stmt->execute();
 	}
-
+	if(isset($_POST["deletePost"]))
+	{
+		$postid = $_POST["deletePost"];
+		sql_delete_post_byPostId($postid);
+		exit;
+	}
 
 	/*if(isset($_GET["srch-term"]))
 	{

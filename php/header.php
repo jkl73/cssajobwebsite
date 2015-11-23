@@ -26,7 +26,7 @@
 
 
     echo '<ul class="dropdown-menu">';
-    echo '<li><a href="settings.php">Preferences Setting</a></li>';
+    echo '<li><a href="profile.php">Personal profile</a></li>';
     echo '<li><a href="setpwd.php">Set Password</a></li>';
 
     echo '<li class="divider"></li>';

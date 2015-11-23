@@ -96,6 +96,7 @@
           $res = $stmt->execute();
           if(!$res)
             pdo_die($stmt);
+          exit;
         }
         if(isset($_POST['deleteUsr']))
         {
@@ -104,8 +105,9 @@
           $res = $stmt->execute();
           if(!$res)
             pdo_die($stmt);
+          exit;
         }
-        $stmt = $conn->prepare('select * from user');
+        $stmt = $conn->prepare('select * from user order by uid ASC');
         $result = $stmt->execute();
         if (!$result)
           pdo_die($stmt);
@@ -119,6 +121,7 @@
               <tr>
                 <th></th>
                 <th>User Type</th>
+                <th>User ID</th>
                 <th>Username</th>
                 <th>email</th>
                 <th>verified</th>
@@ -139,6 +142,7 @@
                 else if($row['type'] == 1)echo 'Employer';
                 else if($row['type'] == 2)echo 'Student';
                 echo '</td>';
+                echo '<td>'.$row['uid'].'</td>';
                 echo '<td>'.$row["name"].'</td>';
                 echo '<td>'.$row["email"].'</td>';
                 echo '<td>';
