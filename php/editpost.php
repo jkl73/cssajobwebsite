@@ -110,9 +110,9 @@
     				$filename = (string)$post_id . "-" .$_FILES["file"]["name"];
     				$path = "../upload-file/post/". $filename;
     				//$newfile = "../upload-file/post";
-    				
+    				update_post_file($post_id, $path, $filename);
     				move_uploaded_file($_FILES["file"]["tmp_name"], $path);
-					update_post_file($post_id, $path, $filename);
+
     				
 				}
 			}
