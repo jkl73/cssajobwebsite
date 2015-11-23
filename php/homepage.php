@@ -96,7 +96,7 @@
 				<option value="7">Other</option>
 			</select>
 		</div>
-		<div class="col-xs-3 col-sm-3 col-md-3">
+		<!--div class="col-xs-3 col-sm-3 col-md-3">
 			<h5>Company:</h5>
 			<select name="company" id="" class="form-control">
 				<option value="0">Please Select</option>
@@ -141,7 +141,7 @@
 				<option value="39" >PoketGem</option>
 				<option value="200" ></option>
 			</select>
-		</div>
+		</div-->
 
 		<div style="float:right" class="col-xs-3 col-sm-3 col-md-3">
 			<h5>&nbsp</h5>
