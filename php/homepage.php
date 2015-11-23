@@ -261,7 +261,7 @@
 </form>
 </div>
 <div class="col-xs-6 col-md-4">
-<?	
+<?php
 	if(admin_byEmail($myemail))
 	{
 	  echo '<h2>Welcome Admin</h2>';
