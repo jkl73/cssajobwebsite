@@ -1,5 +1,16 @@
 <?php
 
+function delete_tutorial($tutorial_id) {
+    $conn = getconn();
+    $stmt = $conn->prepare("delete from tutorial where id=:id");
+    $stmt->bindParam(':id', $tutorial_id);
+
+    $result = $stmt->execute();
+    if (!$result)
+        pdo_die($stmt);
+    return 1;
+}
+
 function update_tutorial($tutorial_id, $fileurl, $filename){
     $conn = getconn();
     $stmt = $conn->prepare("update tutorial set file_url=:fileurl, filename=:filename where id=:tutorial_id");

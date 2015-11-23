@@ -58,58 +58,30 @@
 	$body = 'Hello ' . $name . ',<br><br>
 	Thank you for sign up CSSA job website!<br>
 	Please Click the link to verfiy your email:<br><br>
-	http://localhost/cssajobwebsite/php/verify.php?email='.$email.'&hash='.$hash.'<br><br>
+	http://54.164.107.204/cssajobwebsite/php/verify.php?email='.$email.'&hash='.$hash.'<br><br>
 	--CSSA team';
 
-	// $body = 'Hello ' . $name . ',<br><br>
-	// Thank you for sign up CSSA job website!<br>
-	// Please Click the link to verfiy your email:<br><br>
-	// http://54.164.107.204/cssajobwebsite/php/verify.php?email='.$email.'&hash='.$hash.'&type='.$type.'    <br><br>
-	// --CSSA team';
+	$email_login_info = parse_ini_file("email_login.ini");
 
-
-
-// try {
-//  // SMTP server
-//   $mail->SMTPDebug  = 1;                     // enables SMTP debug information (for testing)
-//   $mail->SMTPAuth   = true;                  // enable SMTP authentication
-//   $mail->SMTPSecure = "tls";                 // sets the prefix to the servier
-//   $mail->Host       = "smtp.gmail.com";      // sets GMAIL as the SMTP server
-//   $mail->Port       = 587;                   // set the SMTP port for the GMAIL server
-//   $mail->Username   = "superseteam@gmail.com";  // GMAIL username
-//   $mail->Password   = "M2V-kSc-FBT-eDEvvv";            // GMAIL password
-//   $mail->AddReplyTo('superseteam@gmail.com', 'First Last');
-//   $mail->AddAddress("jl3387@cornell.edu");
-//   $mail->SetFrom('superseteam@gmail.com', 'First Last');
-//   $mail->AddReplyTo('superseteam@gmail.com', 'First Last');
-//   $mail->Subject = 'PHPMailer Test Subject via mail(), advanced';
-//   $mail->AltBody = 'To view the message, please use an HTML compatible email viewer!'; // optional - MsgHTML will create an alternate automatically
-//   $mail->Send();
-//   echo "Message Sent OK22<p></p>\n";
-// } catch (phpmailerException $e) {
-//   echo $e->errorMessage(); //Pretty error messages from PHPMailer
-// } catch (Exception $e) {
-//   echo $e->getMessage(); //Boring error messages from anything else!
-// }
 	try {
 		// now its unsecure
 		$mail->SMTPSecure = 'tls';
 
-		$mail->Port       = 587;
+		$mail->Port       = $email_login_info['port'];
 		$mail->SMTPDebug  = 1;
 		$mail->SMTPAuth   = true;
-		$mail->Host       = 'smtp.gmail.com';
+		$mail->Host       = $email_login_info['host'];
 
-		$mail->Username   = 'superseteam@gmail.com';
-		$mail->Password   = '';
+		$mail->Username   = $email_login_info['login'];
+		$mail->Password   = $email_login_info['password'];
 
-		$mail->SetFrom('me.sender@gmail.com', 'no-reply');
+		$mail->SetFrom('superseteam@gmail.com', 'no-reply');
 
-		$mail->AddReplyTo('no-reply@mycomp.com','no-reply');
-		$mail->Subject    = 'Verifiy your Email';
+		$mail->AddReplyTo('superseteam@gmail.com','no-reply');
+		$mail->Subject    = 'Verifiy your Email - CSSA Career';
 
 		$mail->MsgHTML($body);
-		// $mail->SMTPDebug = false;
+		$mail->SMTPDebug = false;
 		$mail->AddAddress($to);
 
 		//$mail->AddAttachment($fileName);

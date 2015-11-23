@@ -64,7 +64,7 @@
 		echo "<h2>Refer Board</h2>";
 		echo '<div class = "row">';
 	} else {
-		echo "<h2>Job Borad</h2>";
+		echo "<h2>Job Board</h2>";
 		echo '<div class = "row">';
 ?>
 
@@ -160,8 +160,13 @@
 </div>
 <div class="row" >
 <div class="col-xs-12 col-sm-6 col-md-8">
-	<form action ="homepage.php" method = POST>
+	
 <?php
+	if (isset($_GET['module']) && $_GET['module'] == 'refer') {
+		echo '<form action ="homepage.php?module=refer" method = POST>';
+	} else {
+		echo '<form action ="homepage.php?module=job" method = POST>';
+	}
 
 	$conn = getconn();
 	if(isset($_POST["deleteFav"]))
