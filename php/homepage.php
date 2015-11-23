@@ -96,52 +96,7 @@
 				<option value="7">Other</option>
 			</select>
 		</div>
-		<!--div class="col-xs-3 col-sm-3 col-md-3">
-			<h5>Company:</h5>
-			<select name="company" id="" class="form-control">
-				<option value="0">Please Select</option>
-				<option value="1" >Google</option>
-				<option value="2" >Facebook</option>
-				<option value="3" >Microsoft</option>
-				<option value="4" >Apple</option>
-				<option value="5" >Amazon</option>
-				<option value="6" >Linkedin</option>
-				<option value="7" >Oracle</option>
-				<option value="8" >Nvidia</option>
-				<option value="9" >Intel</option>
-				<option value="10" >Qualcomm</option>
-				<option value="11" >Zynga</option>
-				<option value="12" >EMC</option>
-				<option value="13" >Big Four</option>
-				<option value="14" >Bloomberg</option>
-				<option value="15" >NetApp</option>
-				<option value="16" >eBay</option>
-				<option value="17" >SalesForce</option>
-				<option value="18" >Yahoo</option>
-				<option value="19" >Epic</option>
-				<option value="20" >Twitter</option>
-				<option value="21" >Snapchat</option>
-				<option value="22" >Uber</option>
-				<option value="23" >Expedia</option>
-				<option value="24" >Quora</option>
-				<option value="25" >Dropbox</option>
-				<option value="26" >Indeed</option>
-				<option value="27" >Cisco</option>
-				<option value="28" >LiveRamp</option>
-				<option value="29" >Marvell</option>
-				<option value="30" >Factset</option>
-				<option value="31" >Zillow</option>
-				<option value="32" >Palantir</option>
-				<option value="33" >Pinterest</option>
-				<option value="34" >TwoSigma</option>
-				<option value="35" >TripAdvisor</option>
-				<option value="36" >Yelp</option>
-				<option value="37" >Airbnb</option>
-				<option value="38" >Medallia</option>
-				<option value="39" >PoketGem</option>
-				<option value="200" ></option>
-			</select>
-		</div-->
+
 
 		<div style="float:right" class="col-xs-3 col-sm-3 col-md-3">
 			<h5>&nbsp</h5>
@@ -181,53 +136,7 @@
 		$stmt = $conn->prepare("INSERT into user_fav VALUES ('".$myemail."', ".$_POST["addFav"].");");
 		$stmt->execute();
 	}
-	//$server = mysql_connect("localhost","root","1qaz-pl,");
-	/*$server = mysql_connect("cssadbinstance.ccmgeu2ghiy1.us-east-1.rds.amazonaws.com", "cssaadmin", "cssaadmin123"); 
-	if (!$server) { 
-		print "Error - Could not connect to MySQL"; 
-		exit; 
-	}
-	$db = mysql_select_db("user_student"); 
-	if (!$db) { 
-		print "Error - Could not select the user_student database"; 
-		exit; 
-	}
-	if(!isset($_SESSION['email'])||!isset($_SESSION['type']))
-	{
-		header('Location: index.php');
-		exit;
-	}
-	$type = $_SESSION['type'];
-	if(isset($_GET["srch-term"]))
-	{
-		$SRCH = $_GET["srch-term"];
-		if($type == 'stu'){
-			header('Location: homepage-std.php?srch-term='.$SRCH);
-			exit;
-		}
-		else{
-			header('Location: homepage-alu.php?srch-term='.$SRCH);
-			exit;
-		}
-	}
-	else
-	{
-		if($type == 'stu'){
-			header('Location: homepage-std.php');
-			exit;
-		}
-		else{
-			header('Location: homepage-alu.php');
-			exit;
-		}
-		 <ul class="pagination">
-  <li><a href="#">1</a></li>
-  <li><a href="#">2</a></li>
-  <li><a href="#">3</a></li>
-  <li><a href="#">4</a></li>
-  <li><a href="#">5</a></li>
-</ul>
-	}*/
+
 	if(isset($_POST["deletePost"]))
 	{
 		$postid = $_POST["deletePost"];
@@ -353,65 +262,6 @@
 </div>
 <div class="col-xs-6 col-md-4">
 <?	
-	/*$conn = getconn();
-	if($_SESSION["type"]=="stu")
-		$stmt = $conn->prepare("select * from student where email = :myemail;");
-	else
-		$stmt = $conn->prepare("select * from employer where email = :myemail;");
-	$stmt->bindParam(":myemail",$myemail);
-	$result = $stmt->execute();
-	if (!$result)
-    {
-        echo "What the fuck?";
-        pdo_die($stmt);
-    }
-        
-
-    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-	$row = $result[0];
-
-	if($_SESSION["type"] == "stu")
-	{
-		echo '<li class="list-group-item">Username: '.$row["name"].'</li>';
-		echo '<li class="list-group-item">Expected Graduation Year: '.substr($row["grad_year"], 0, 7).'</li>';
-		echo '<li class="list-group-item">Major: '.$row["major"].'</li>';
-		echo '<li class="list-group-item">Looking for ';
-
-		switch ($row["job_type"]) {
-		case 1:
-			echo "Full-time job";
-			break;
-		case 2:
-			echo "Part-time job";
-			break;
-		case 3:
-			echo "Internship";
-			break;
-		}
-		echo '</li>';
-	}
-	else
-	{
-		echo '<li class="list-group-item">Username: '.$row["name"].'</li>';
-		echo '<li class="list-group-item">Graduation Year: '.substr($row["grad_year"],0,7).'</li>';
-		echo '<li class="list-group-item">Company: '.$row["company"].'</li>';
-		echo '<li class="list-group-item">Position: '.$row["position"].'</li>';
-		echo '<li class="list-group-item">Linkedin Homepage: '.$row["Linkedin"].'</li>';
-	}
-	echo "</ul>";
-
-	if($_SESSION["type"] == "stu");
-	else
-	{
-		echo '<div style=>';
-		echo '<a style="width:100%;" class="btn btn-warning" href="postjob.php">Post New Job!</a> ';
-		echo '</div>';
-	}
-
-	echo '</div>';
-	echo '</div>';
-	echo '</div>';
-	echo '</div>';*/
 	if(admin_byEmail($myemail))
 	{
 	  echo '<h2>Welcome Admin</h2>';
@@ -443,19 +293,6 @@
 </body>
 </html>
 <?php
-/*function print_posts($res_data) {
-	foreach ($res_data as $key => $row) {
-		echo "<li class=\"list-group-item\">";
-		echo "<span class=\"badge\">".$row["visit"]." view</span>";
-		echo '<a href="show-article.php?postid='. $row["postid"] .'">'.$row["tags"].'</a>';
-		echo '<div>';
-		echo '<span class="label label-info">'.$row["company"].'</span>';
-		echo '<span class="label label-info">'.$row["position"].'</span>';
-		echo '</div>';
-		echo "</li> "; 
-	}
-}*/
-
 
 function print_text_search($SRCH)
 {
