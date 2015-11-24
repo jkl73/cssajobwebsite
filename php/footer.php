@@ -1,10 +1,26 @@
 <footer class="footer">
-    <p style="text-align: center" class="text-muted">CSSA Website: <a href="http://www.cssacornell.org">www.cssacornell.org</a></p>
-    <p style="text-align: center" class="text-muted">Email: cornellcssa20142015@gmail.com</p>
-    <p style="text-align: center" class="text-muted">Mailing list: cssa-announcement-l-request@cornell.edu</p>
-    <hr>
-    <p style="text-align: center" class="text-muted">&copy; Cornell CSSA, Contact</p>
-    <p style="text-align: center" class="text-muted">Developed by Super SE Team</p>
+<div>
+    <div class="contact_info">
+    <p style="text-align: center" class="text-muted">CSSA Website: <a href="http://www.cssacornell.org">www.cssacornell.org</a> 
+        &nbsp&nbsp&nbsp&nbsp 
+        Email: cornellcssa20142015@gmail.com
+        &nbsp&nbsp&nbsp&nbsp 
+        Mailing list: cssa-announcement-l-request@cornell.edu
+    </p>
+    <p style="text-align: center" class="text-muted">
+        Facebook:
+        <a style="margin:0px; padding-top:0px" href="https://www.facebook.com/cornellcssa?fref=ts">
+        <img height="25px" width="25px" src="../pictures/FBLogo.png" alt="">
+        </a>
+        &nbsp&nbsp&nbsp&nbsp 
+        WeChat: cornell_cssa
+    </p>
+    <p style="text-align: center" class="text-muted">&copy; Cornell CSSA, Contact &nbsp&nbsp&nbsp&nbsp Developed by Super SE Team</p>
+    </div>
+    <div class="qr_code">
+        <img height="95px" width="95px" src="../pictures/QRCode.png" alt="">
+    </div>
+</div>
 </footer>
 
 <!--
