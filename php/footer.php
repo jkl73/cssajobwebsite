@@ -16,10 +16,15 @@
         WeChat: cornell_cssa
     </p>
     <p style="text-align: center" class="text-muted">&copy; Cornell CSSA, Contact &nbsp&nbsp&nbsp&nbsp Developed by Super SE Team</p>
-    </div>
+
+
+
     <div class="qr_code">
-        <img height="95px" width="95px" src="../pictures/QRCode.png" alt="">
+        <img height="80px" width="80px" src="../pictures/QRCode.png" alt="">
     </div>
+
+    </div>
+
 </div>
 </footer>
 
