@@ -20,7 +20,7 @@
 
 
     <div class="qr_code">
-        <img height="80px" width="80px" src="../pictures/QRCode.png" alt="">
+        <img height="100px" width="100px" src="../pictures/QRCode.png" alt="">
     </div>
 
     </div>
