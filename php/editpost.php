@@ -114,7 +114,7 @@
     				move_uploaded_file($_FILES["file"]["tmp_name"], $path);
 
     				
-				}
+				
 			}
 			//echo $_POST["job_content"];
 			echo "<h2 align=center>Your job has successfully modified</h2>";
@@ -125,6 +125,7 @@
 			echo "<h3 align=center><a  href='homepage.php' class='btn'>My homepage</a></h3>";
 		}
 		
+	}
 	}
 	/*if ($mode == "submit") {	
 		if (update_post($_POST["postid"],$myemail,$_POST["email"], $_POST["company_name"], $_POST["position"], $_POST["description"], $_POST["job_content"], $_POST['job_type'], $_POST['major'], $_POST['date'],$_POST["visit"]) ) {
@@ -304,7 +305,7 @@ function edit_page($postid) {
 	echo '<div class="row">';
 	echo '<div align="right" class="col-md-4 col-xs-4"></div>';
 	echo '<div class="col-md-6">';
-	echo "<a id=\"loginbutton\" class=\"btn\" href=\"homepage-alu.php\" >Cancel</a>";
+	echo "<a id=\"loginbutton\" class=\"btn\" href=\"homepage.php\" >Cancel</a>";
 	echo "<a id=\"login\" class=\"btn\" onclick = \"showPreview()\">Preview</a>";
 	echo '<input class="btn" type="submit" value="Submit">';
 	echo '</div>';

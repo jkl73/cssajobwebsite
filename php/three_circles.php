@@ -57,7 +57,7 @@
 		border-radius: 50%;
 		display: inline-block;
 		margin: 150px 30px;
-		font-size: 150%;
+		font-size: 220%;
 		position: relative;
 	}
 	.jumbo_circle span{
