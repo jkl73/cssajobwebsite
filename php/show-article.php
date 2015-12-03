@@ -90,7 +90,7 @@ function changeDisplay(id)
     echo '<h4>Company: '. $rset[0]['company'] .'</h4>';
     echo '<h4>Job position: '. $rset[0]['position'] .'</h4>';
     echo '<h4>Email: '. $rset[0]['email'] .'</h4>';
-    echo '<h4>Time:'.$rset[0]['time'].'</h4>';
+    echo '<h4>Time: '.$rset[0]['time'].'</h4>';
     if($rset[0]['filename'] != NULL){
         echo '<h5><a target=something href="../upload-file/post/'.rawurlencode($rset[0]['filename']).'">File:'.$rset[0]['filename'].'</a></h5>';
     }
@@ -168,17 +168,17 @@ function changeDisplay(id)
             $replyUid = sql_get_uid_byEmail($replyArr[$i]['email']);
             echo '<a href="profile.php?uid='.$replyUid.'">'.sql_get_username_byEmail($replyArr[$i]['email']).'</a>:'.$replyArr[$i]['content'];
             echo '<div>';
-            echo '<small>Time:'.$replyArr[$i]['time'].'</small>';
+            echo '<small>Time: '.$replyArr[$i]['time'].'</small>';
             echo '<a href="#subreply'.$i.'" id="show'.$i.'" class="btn btn-info pull-right" data-toggle="collapse" style="display: inline; width:120px;" onclick="changeDisplay('.$i.')">Replies&nbsp('.count($subreplyMat[$replyArr[$i]['id']]).')</a>';
             echo '<a href="#subreply'.$i.'" id="packup'.$i.'" class="btn btn-info pull-right" data-toggle="collapse" style="display: none; width:120px;" onclick="changeDisplay('.$i.')">Packup Replies</a>';
             echo '</div>';
 
-            echo '<div id="subreply'.$i.'" class="collapse">';
+            echo '<div id="subreply'.$i.'" class="subreply collapse">';
             foreach ($subreplyMat[$replyArr[$i]['id']] as $subrow) {
                 $reppllyUid = sql_get_uid_byEmail($subrow['email']);
                 echo '<a href="profile.php?uid='.$reppllyUid.'">'.sql_get_username_byEmail($subrow['email']).'</a>:'.$subrow['content'];
                 echo '<div>';
-                echo '<small>Time:'.$subrow['time'].'</small>';
+                echo '<small>Time: '.$subrow['time'].'</small>';
                 echo '</div>';
             }
 
@@ -188,7 +188,7 @@ function changeDisplay(id)
             echo '<input type=hidden name="title" value='.$postTitle.'>';
             echo '<div align="right" class="col-md-2 col-xs-2">Reply:</div>';
             echo '<div class="col-md-8 col-xs-10"><textarea class="form-control" name=reply_content style="margin: 0px; width: 100%; height: 140px;" required></textarea>';
-            echo '<input id="loginbutton" class="btn btn-primary" type=submit name=submit value=reply>';
+            echo '<input id="replybutton" class="btn btn-primary" type=submit name=submit value=reply>';
             echo '</div>';
             echo '</form>';
 
@@ -212,11 +212,11 @@ function changeDisplay(id)
     echo '<input type="hidden" name="parentid" value=0>';
     echo '<input type=hidden name="replyedemail" value='.$postEmail.'>';
     echo '<input type=hidden name="title" value='.$postTitle.'>';
-    echo '<div class="row">';
+    echo '<div class="postreplybox row">';
     echo '<div align="right" class="col-md-2 col-xs-2">Reply:</div>';
-    echo '<div class="col-md-8 col-xs-10"><textarea class="form-control" name=reply_content style="margin: 0px; width: 100%; height: 140px;" required></textarea>';
+    echo '<div class="col-md-8 col-xs-8"><textarea class="form-control" name=reply_content style="margin: 0px; width: 100%; height: 140px;" required></textarea>';
     
-    echo '<input id="loginbutton" class="btn btn-primary btn-lg" type=submit name=submit value=reply></div>';
+    echo '<input id="replybutton" class="btn btn-primary" type=submit name=submit value=reply></div>';
     echo '</div>';
     echo '</form>';
     echo '</div>';

@@ -607,7 +607,7 @@ function Print_Fav_Post($post_row,$email,$page,$fav_row)
         echo '<a href="show-article.php?postid='.$row["postid"].'">'.$row["title"].'</a>';
         //echo $row["postid"];
         if($email == $row["user_email"] || admin_byEmail($email))
-            echo '<a href="#" class="deletePost pull-right" style="color: red; font-size: 160%; position: relative; margin-left:10px;top: -10px;" data-email ='.$row["postid"].'>&times;</a>';
+            echo '<a href="#" class="deletePost pull-right" data-email ='.$row["postid"].'>&times;</a>';
         else
             echo '<div class = "pull-right" style="color: white;margin-left:10px; font-size: 160%;"">&times;</div>';
         if(in_array($row["postid"], $favs)) 
@@ -616,11 +616,11 @@ function Print_Fav_Post($post_row,$email,$page,$fav_row)
             //echo '<br>';
             //print_r($favs);
             //print_r($row2);
-            echo '<button class = "glyphicon glyphicon-star pull-right" style="border: 0px;margin-left:10px; background-color: white; color:#FFCC00; right:5px padding:5px" id="myImage'. $index .'" type=submit name="deleteFav" value ='.$row["postid"].' alt="STAR" width="34" height="26">';
+            echo '<button class = "star glyphicon glyphicon-star pull-right" id="myImage'. $index .'" type=submit name="deleteFav" value ='.$row["postid"].' alt="STAR" width="34" height="26">';
         }
         else
         {
-            echo '<button class = "glyphicon glyphicon-star-empty pull-right" style="border: 0px;margin-left:10px; background-color:white; color:#FFCC00; right:5px padding:5px" id="myImage'. $index .'" type=submit name="addFav" value ='.$row["postid"].' alt="STAR" width="34" height="26">';
+            echo '<button class = "star glyphicon glyphicon-star-empty pull-right" id="myImage'. $index .'" type=submit name="addFav" value ='.$row["postid"].' alt="STAR" width="34" height="26">';
         }
         echo '</button>';
         //echo '<img id="myImage'. $index .'" type=submit name="deleteFav" value ='.$row["postid"].' onclick="changeImage(\'myImage'. $index .'\');document.forms[1].submit()" src="../pictures/jiaStaron.png" alt="STAR" width="34" height="26">';

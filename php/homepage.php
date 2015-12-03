@@ -98,7 +98,7 @@
 		</div>
 
 
-		<div style="float:right" class="col-xs-3 col-sm-3 col-md-3">
+		<div style="float:right; padding: 0px" class="col-xs-3 col-sm-3 col-md-3">
 			<h5>&nbsp</h5>
 			<button style="width:100%" type="submit" class="btn btn-info" >Search!</button>
 		</div>
@@ -178,7 +178,7 @@
 	else if (isset($_GET["mode"]))
 	{
 		if ($_GET['mode'] == 'search') {
-			$result =  searchPost(array($_GET['major'], $_GET['company'], $_GET['job_type']));
+			$result =  searchPost(array($_GET['major'], $_GET['job_type']));
 			$targetstring = "(";
 			foreach ($result as $key => $value) {
 				$targetstring = $targetstring.$value["postid"].',';
@@ -360,13 +360,11 @@ function print_text_search($SRCH)
 
 function searchPost($tag_array) {
 	$conn = getconn();
-
 	
 	$majorClass = $tag_array[0];
-	$companyName = $tag_array[1];
-	$jobType = $tag_array[2];
+	$jobType = $tag_array[1];
 
-	$query = "select postid from post_tags where (".$majorClass." = 0 or major_class = ".$majorClass.") and (".$companyName." = 0 or company = ".$companyName.") and (".$jobType." = 0 or job_type = ".$jobType.")";
+	$query = "select postid from post_tags where (".$majorClass." = 0 or major_class = ".$majorClass.") and (".$jobType." = 0 or job_type = ".$jobType.")";
 	$stmt = $conn->prepare($query);
 	$result = $stmt->execute();
 	if (!$result)
