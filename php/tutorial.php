@@ -17,6 +17,35 @@
 		overflow:hidden;
 	}
 	</style>
+
+	<script>
+
+	
+
+	function changeHeight(id) {
+		
+		if ($('#' + id).css('height') == '29px') {
+			$('#'+id).animate({height: '100%'});
+		} else {
+			$('#'+id).animate({height: '29px'});
+		}
+
+
+
+
+// $height = $('div').height();
+
+
+
+
+
+
+	}
+
+	</script>
+
+
+
 </head>
 
 <body>
@@ -37,9 +66,6 @@
 	// 	echo "<h3>Please verify your email</h3>";
 	// 	return;
 	// }
-
-
-
 
 	if (admin_byEmail($_SESSION["email"]) == true && isset($_POST["submit"])) {
 
@@ -70,8 +96,9 @@
 
 	<ul>
 	<li style='list-style-type: none;'>
-		<h1  style='width: 70%; margin: auto; list-style-type: none;'>Tutorials</h1>
-	</li>	
+		<h1 style='width: 70%; margin: auto; list-style-type: none;'>Tutorials</h1>
+		<h5 style='width: 70%; margin: auto; list-style-type: none;'>(Click the Description box to show more)</h5>
+	</li>
 <?php
 	$alltutorial = sql_get_all_tutorial();
 
@@ -80,11 +107,9 @@
 		echo "<div style='width: 70%; margin: auto; margin-bottom: 8px; border-top: 1px black solid'>";
 		echo '<h3>'.$entry['name'].'</h3>';
 
-
-
 		echo "<h6>Upload time: ".$entry['time']."</h6>";
 		// echo '<p id='.$entry['id'].' onclick=changeDisplay('. $entry['id'] .') class="tutorial_p" style="background-color: rgba(255, 208, 208, 0.47); border-radius: 5px; padding: 5px 8px 5px 8px">'.'<b>Description:</b><br>'.$entry['descriptions'];
-		echo '<p id='.$entry['id'].' class="tutorial_p" style="background-color: rgba(255, 208, 208, 0.47); border-radius: 5px; padding: 5px 8px 5px 8px">'.'<b>Description:</b><br>'.$entry['descriptions'];
+		echo '<p onclick="changeHeight('.$entry['id'].')" id='.$entry['id'].' class="tutorial_p" style="height: 29px; background-color: rgba(255, 208, 208, 0.47); border-radius: 5px; padding: 5px 8px 5px 8px">'.'<b>Description:</b>&nbsp;'.$entry['descriptions'];
 		echo '</p>';
 
 		if ($entry['filename'] != NULL) {
@@ -93,14 +118,12 @@
 
 		echo "&nbsp";
 
-
 		if (admin_byEmail($_SESSION["email"]) == true) {
 			echo '<form action="tutorial.php" method="post">';
 			echo '<input type=hidden name=id value='.$entry['id'].'>';
 			echo '<input type=submit name=submit value=delete>';
 			echo '</form>';
 		}
-
 
 		echo "</div>";
 		echo "</li>";
