@@ -326,8 +326,9 @@ function print_text_search($SRCH)
 		   		$token = strtok(" \t\n");
 		   		continue;
 		   	}
-		   	$query = "select * from post_info 
-		   	where company like '%".$token."%' or position like '%".$token."%' or title like '%".$token."%' order by time DESC;";
+		   	$query = "select * from post_info p, user u
+		   	where p.company like '%".$token."%' or p.position like '%".$token."%' or p.title like '%".$token."%' or 
+		   	(p.user_email=u.email and u.name='".$token."') order by time DESC;";
 			$stmt = $conn->prepare($query);
 			$result = $stmt->execute();
 			if (!$result)
