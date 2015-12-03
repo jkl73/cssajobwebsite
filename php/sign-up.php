@@ -55,13 +55,14 @@
      function checkSubmit() {
        var t = document.getElementById("text-alert");
        var p = document.getElementById("email");
+       var type = document.getElementById("sel1");
        if(p.value == "" || p.value == null) 
        {
         t.innerHTML = "Please input email!";
         return false;
        }
        var patt=/[a-z]+[0-9]+@cornell.edu$/;
-	       if (!patt.test(p.value)){
+	       if (!patt.test(p.value) && type.value != "emp"){
 	       	t.innerHTML = "Please input a Cornell Email (exp. netID@cornell.edu)";
 	       	return false;
 	       }
