@@ -58,7 +58,7 @@
 	$body = 'Hello ' . $name . ',<br><br>
 	Thank you for sign up CSSA job website!<br>
 	Please Click the link to verfiy your email:<br><br>
-	http://54.164.107.204/cssajobwebsite/php/verify.php?email='.$email.'&hash='.$hash.'<br><br>
+	http://54.164.107.204/php/verify.php?email='.$email.'&hash='.$hash.'<br><br>
 	--CSSA team';
 
 	$email_login_info = parse_ini_file("email_login.ini");
