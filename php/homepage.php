@@ -343,13 +343,13 @@ function print_text_search($SRCH)
 					//reset($row);
 					continue;
 				} 
-				$info = $row["title"]." ".$row["company"]." ".$row["position"];
+				/*$info = $row["title"]." ".$row["company"]." ".$row["position"]." ".$row["name"];
 				$info = strtolower($info);
 				$info_token = explode(" ", $info);
 				if (!in_array($token, $info_token) && eregi("[^\x80-\xff]", $token)) {
 					//reset($row);
 					continue;
-				}
+				}*/
 				array_push($res_id, $row["postid"]);
 			} 
 			$token = strtok(" \t\n");

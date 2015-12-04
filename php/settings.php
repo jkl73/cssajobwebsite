@@ -82,6 +82,8 @@
           pdo_die($stmt);
         }
       }
+      header('Location: profile.php');
+      exit;
 	} 
 ?>
 
