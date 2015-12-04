@@ -86,7 +86,7 @@
 
   <div class="container">
     <h2>Welcome Admin!!</h2>
-    <h3><a href="admin.php">Home</a>/Manage User Page</h3>
+    <h3><a href="homepage.php">Home</a>/Manage User Page</h3>
     <?php
         $conn = getconn();
         if(isset($_POST['verifyUsr'])) {
@@ -159,3 +159,7 @@
             </tbody>
           </table>
   </div></div>
+  <?php
+  include_once("./footer.php");
+?>
+</body>
