@@ -309,7 +309,7 @@ function edit_page($postid) {
 	echo "<a id=\"loginbutton\" class=\"btn\" href=\"show-article.php?postid=".$postid."\" >Cancel</a>";
 
 	echo "<a id=\"login\" class=\"btn\" onclick = \"showPreview()\">Preview</a>";
-	echo '<input class="btn" type="submit" value="Submit">';
+	echo '<input class="btn btn-primary" type="submit" value="Submit">';
 	echo '</div>';
 	echo '</div>';
 

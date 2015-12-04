@@ -20,7 +20,6 @@
 
 	<script>
 
-	
 
 	function changeHeight(id) {
 		
@@ -29,22 +28,9 @@
 		} else {
 			$('#'+id).animate({height: '29px'});
 		}
-
-
-
-
-// $height = $('div').height();
-
-
-
-
-
-
 	}
 
 	</script>
-
-
 
 </head>
 
@@ -92,19 +78,19 @@
 
 <div class="container">
 
-<div class="row">
+<div style='width: 70%; margin: auto; list-style-type: none;'>
 
-	<ul>
+	<ul style='padding: 0px'>
 	<li style='list-style-type: none;'>
-		<h1 style='width: 70%; margin: auto; list-style-type: none;'>Tutorials</h1>
-		<h5 style='width: 70%; margin: auto; list-style-type: none;'>(Click the Description box to show more)</h5>
+		<h1>Tutorials</h1>
+		<h5>(Click the Description box to show more)</h5>
 	</li>
 <?php
 	$alltutorial = sql_get_all_tutorial();
 
 	foreach ($alltutorial as $entry) {
 		echo "<li style='list-style-type: none;'>";
-		echo "<div style='width: 70%; margin: auto; margin-bottom: 8px; border-top: 1px black solid'>";
+		echo "<div>";
 		echo '<h3>'.$entry['name'].'</h3>';
 
 		echo "<h6>Upload time: ".$entry['time']."</h6>";
@@ -135,6 +121,10 @@
 
 <?php
 	if (admin_byEmail($_SESSION["email"]) == true) {
+
+
+		echo "<div style='width: 70%; margin: auto; list-style-type: none;'>";
+
 		echo "<h3>Add New tutorial</h3>";
 		echo "<form enctype = multipart/form-data method=post action=tutorial.php>";
 
@@ -151,6 +141,7 @@
 
 		echo "<input type=submit name=submit value=submit>";
 		echo "</form>";
+		echo "</div>";
 	}	
 ?>
 </div>

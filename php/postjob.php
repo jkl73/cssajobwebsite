@@ -292,7 +292,7 @@ function write_add_new_page() {
 	echo '<div class="col-md-6">';
 	echo "<a id=\"loginbutton\" class=\"btn\" href=\"homepage.php\" >Cancel</a>";
 	echo "<a id=\"login\" class=\"btn\" onclick = \"showPreview()\">Preview</a>";
-	echo '<input class="btn" type="submit" value="Submit">';
+	echo '<input class="btn btn-primary" type="submit" value="Submit">';
 	echo '</div>';
 	echo '</div>';
 
