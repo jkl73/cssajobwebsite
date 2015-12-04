@@ -148,7 +148,7 @@
 </form>
 </div>
 <div class="col-xs-6 col-md-4">
-<?	
+<?php
 	/*$conn = getconn();
 	if($_SESSION["type"]=="stu")
 		$stmt = $conn->prepare("select * from student where email = :myemail;");
