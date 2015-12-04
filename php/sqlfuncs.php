@@ -576,7 +576,7 @@ function Print_Fav_Post($post_row,$email,$page,$fav_row)
 
     foreach ($post_row as $row)
     {
-        $cnt = $cnt + 1;
+        //$cnt = $cnt + 1;
         if(strtotime($row['time']) > strtotime('now'))continue;
         if( $flag == 0 && strtotime($row['time']) < strtotime('-7 day'))
         {

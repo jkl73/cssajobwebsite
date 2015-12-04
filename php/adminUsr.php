@@ -143,8 +143,8 @@
                 else if($row['type'] == 2)echo 'Student';
                 echo '</td>';
                 echo '<td>'.$row['uid'].'</td>';
-                echo '<td>'.$row["name"].'</td>';
-                echo '<td>'.$row["email"].'</td>';
+                echo '<td><a href=profile.php?uid='.$row['uid'].'>'.$row["name"].'</a></td>';
+                echo '<td><a href=profile.php?uid='.$row['uid'].'>'.$row["email"].'</a></td>';
                 echo '<td>';
                 echo '<div style="position:relative;" class="record" id="record-'.$row['email'].'">
                         <a href="#" class="verify">';
