@@ -599,8 +599,9 @@ function Print_Fav_Post($post_row,$email,$page,$fav_row)
         }
         $cnt = $cnt + 1;
         if($cnt<$page*30)continue;
-        if($cnt % 2 == 0) echo '<li class="list-group-item">';
-        else echo '<li class="list-group-item list-group-item-info">';
+        //if($cnt % 2 == 0) echo '<li class="list-group-item">';
+        //else echo '<li class="list-group-item list-group-item-info">';
+        echo '<li class="list-group-item">';
         echo '<div style="padding:5px">';
         //else
         //    echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
