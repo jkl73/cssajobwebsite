@@ -40,7 +40,7 @@
 	if(isset($_GET['uid']))
 	{
    	display_profile($_GET['uid']);
-    if($_GET['uid'] == $myUid)
+    if($_GET['uid'] == $myUid && !admin_byEmail($_SESSION['email']))
     {
       ?>
       <p><a href='settings.php'>Edit your profile</a>
@@ -50,9 +50,11 @@
   else
   {
     display_profile($myUid);
+    if(!admin_byEmail($_SESSION['email'])){
     ?>
       <p><a href='settings.php'>Edit your profile</a>
     <?php
+    }
   }
 
 ?>

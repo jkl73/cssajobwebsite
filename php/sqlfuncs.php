@@ -682,7 +682,7 @@ function update_post_file($postid, $fileurl, $filename){
       }
       if($result[0]['type'] == 0)
       {
-        echo '<h2><b>Admin don\'t have a profile!!!</b></h2>';
+        echo '<h2>😂😭ps</h2>';
         return;
       }
       else if($result[0]['type'] == 2)

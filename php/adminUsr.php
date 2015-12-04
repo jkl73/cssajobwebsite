@@ -86,7 +86,7 @@
 
   <div class="container">
     <h2>Welcome Admin!!</h2>
-    <h3><a href="homepage.php">Home</a>/Manage User Page</h3>
+    <h3><a href="three_circles.php">Home</a>/Manage User Page</h3>
     <?php
         $conn = getconn();
         if(isset($_POST['verifyUsr'])) {
