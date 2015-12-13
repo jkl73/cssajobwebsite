@@ -54,6 +54,7 @@ function changeDisplay(id)
     if(isset($_POST["submit"]))
     {
         sql_add_reply($_SESSION["email"],$_POST["reply_content"],$_GET['postid'],$_POST['parentid']);
+        // add a message to notification center
         if ($_POST["replyedemail"] != $_SESSION["email"]) {
             sql_insert_notification($_POST["replyedemail"], $_GET['postid'], 0, $_SESSION["email"], $_POST["title"]);
         }
@@ -149,6 +150,11 @@ function changeDisplay(id)
     $replyCnt = 0;
     $replyArr = array();
     $subreplyMat = array(); // key: parentid, value: subreply array
+    /*
+     * Separate the query result into first-level replies and sub-replies.
+     * Replies whose parentid = 0 are frist-level replies; replies whose 
+     * parentid > 0 are sub-replies.
+    */
     foreach ($rset as $row) {
         if ($row['parentid'] == 0) {
             $replyCnt = $replyCnt + 1;
@@ -159,6 +165,7 @@ function changeDisplay(id)
             array_push($subreplyMat[$row['parentid']], $row);
         }
     }
+    // display the replies if there are any
     if($replyCnt > 0) {
         echo "<h4>Reply List</h4>";
         for ($i = 1; $i <= $replyCnt; $i++) {
@@ -182,6 +189,7 @@ function changeDisplay(id)
                 echo '</div>';
             }
 
+            // form for submitting sub-replies
             echo '<form method=post action=show-article.php?postid='. $_GET["postid"].'>';
             echo '<input type=hidden name="parentid" value='.$replyArr[$i]['id'].'>';
             echo '<input type=hidden name="replyedemail" value='.$replyArr[$i]['email'].'>';
@@ -206,6 +214,7 @@ function changeDisplay(id)
         echo '<p style="fontsize = %50">Time:'.$row['time'].'</p>';
     }*/
 
+    // form for submitting replies
     echo "<div class=\"jobpostform\">";
     echo "<h3 align=\"center\">Post a reply</h2>";
     echo '<form method=post action=show-article.php?postid='. $_GET["postid"].'>';
