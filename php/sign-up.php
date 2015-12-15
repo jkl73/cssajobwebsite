@@ -53,19 +53,24 @@
 	</div>
 	<script language="javascript">
      function checkSubmit() {
+     	/*
+     	functionality: validating input
+     	t for alerting message html area,
+     	p is the current information area we are checking.
+     	*/
        var t = document.getElementById("text-alert");
        var p = document.getElementById("email");
        var type = document.getElementById("sel1");
-       if(p.value == "" || p.value == null) 
+       if(p.value == "" || p.value == null) //forbid and alert for empty input
        {
         t.innerHTML = "Please input email!";
         return false;
        }
        var patt=/[a-z]+[0-9]+@cornell.edu$/;
-	       if (!patt.test(p.value) && type.value != "emp"){
-	       	t.innerHTML = "Please input a Cornell Email (exp. netID@cornell.edu)";
-	       	return false;
-	       }
+	   if (!patt.test(p.value) && type.value != "emp"){ //forbid and alert for non cornell email for stu/alu
+	   	t.innerHTML = "Please input a Cornell Email (exp. netID@cornell.edu)";
+	   	return false;
+	   }
        p = document.getElementById("pwd");
        if(p.value == "" || p.value == null) 
        {

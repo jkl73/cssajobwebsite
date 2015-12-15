@@ -30,7 +30,7 @@
 	$stu_res = sql_get_stuInfo_byEmail($email);
 	$emp_res = sql_get_empInfo_byEmail($email);
 
-	if($stu_res || $emp_res){
+	if($stu_res || $emp_res){	//check if email already used
 		print "Email used";
 		exit;
 	}
@@ -95,6 +95,7 @@
 	/*=============================*/
 	/*=============================*/
 
+	//Insert information
 	if($type == 'emp'){
 		sql_insert_userInfo($email,$name,$pwd,1, $hash);
 		sql_insert_empInfo($email,$name,$hash,$pwd);
@@ -109,23 +110,7 @@
 	}
 	$hidden_form = '<input type="hidden" name="email" value="'.$email.'">';
 	echo $hidden_form;
-	/*
-	$query = "select * from user_info";
-	$result = mysql_query($query);
-	print "<table border = 1><caption> <h2> All User Info </h2> </caption>"; 
-	print "<tr align = 'center'>";
-
-
-	print "<tr align = 'center'><th>email</th><th>username</th><th>password</th></tr>";
-	while($row = mysql_fetch_array($result)){
-		$num_fields = sizeof($row);
-		reset($row); 
-		print "<tr align = 'center'>"; 
-		for ($field_num = 0; $field_num < $num_fields/2 ; $field_num++) 
-			print "<td>" . $row[$field_num] . "</td> "; 
-		print "</tr>"; 
-	} 
-	print "</table>";*/
+	
 	?>
 
 			</form>

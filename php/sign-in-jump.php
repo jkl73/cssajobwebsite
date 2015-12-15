@@ -29,12 +29,12 @@
 
     $user_row = sql_get_userInfo_byEmail($email);
 
-    if(count($user_row) == 0)
+    if(count($user_row) == 0) //no such email
     {
       echo "<p>Email Invalid!</p><br>";
       echo "<a href='index.php'>back to login page</a>";
     }
-    else if($user_row[0]["password"] != $pwd)
+    else if($user_row[0]["password"] != $pwd) //wrong password
     {
       echo "<p>Wrong Password!</p><br>";
       echo "<a href='index.php'>back to login page</a>";
